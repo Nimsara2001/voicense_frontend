@@ -9,7 +9,7 @@ class LecNoteView extends GetView<LecNoteController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('LecNoteView'),
+        title: Text('LecNoteView by Mihin'),
         centerTitle: true,
       ),
       body: Center(
