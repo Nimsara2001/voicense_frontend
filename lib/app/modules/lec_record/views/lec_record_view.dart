@@ -9,7 +9,7 @@ class LecRecordView extends GetView<LecRecordController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('LecRecordView'),
+        title: Text('LecRecordView By Pabasara'),
         centerTitle: true,
       ),
       body: Center(
