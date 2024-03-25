@@ -12,7 +12,7 @@ class LoginView extends GetView<LoginController> {
         title: Text('LoginView'),
         centerTitle: true,
       ),
-      body: Center(
+      body: const Center(
         child: Text(
           'LoginView is working',
           style: TextStyle(fontSize: 20),
