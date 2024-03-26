@@ -10,11 +10,16 @@ dependencies:
   get: 4.6.6
   flutter: 
     sdk: flutter
+  flutter_sound: ^8.1.9 #added by Pabasara for recorder
+  assets_audio_player: ^3.0.3+3  #added by Pabasara for recorder
+  permission_handler: ^11.3.0 #added for permissions required by recording . Note I changed Android MAnifext.xml too
+
 
 dev_dependencies: 
   flutter_lints: ^3.0.0
   flutter_test: 
     sdk: flutter
+  device_preview: ^1.1.0
 
 flutter: 
   uses-material-design: true
