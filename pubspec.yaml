@@ -10,6 +10,7 @@ dependencies:
   get: 4.6.6
   flutter: 
     sdk: flutter
+  flutter_markdown: ^0.6.22
 
 dev_dependencies: 
   flutter_lints: ^3.0.0
@@ -18,4 +19,9 @@ dev_dependencies:
 
 flutter: 
   uses-material-design: true
+
+  assets:
+    - assets/lecture_notes.md
+
+
 
