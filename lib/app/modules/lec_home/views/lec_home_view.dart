@@ -9,7 +9,7 @@ class LecHomeView extends GetView<LecHomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('LecHomeView'),
+        title: Text('LecHomeView by Sudeera'),
         centerTitle: true,
       ),
       body: Center(
