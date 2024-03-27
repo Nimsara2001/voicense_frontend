@@ -6,7 +6,7 @@ class LecRecordBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<LecRecordController>(
-          () => LecRecordController(),
+      () => LecRecordController(),
     );
   }
 }

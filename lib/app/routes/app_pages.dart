@@ -45,11 +45,6 @@ class AppPages {
       binding: LecHomeBinding(),
     ),
     GetPage(
-      name: _Paths.LEC_RECORD,
-      page: () => LecRecordView(),
-      binding: LecRecordBinding(),
-    ),
-    GetPage(
       name: _Paths.LEC_EXPLORE,
       page: () => LecExploreView(),
       binding: LecExploreBinding(),
@@ -78,6 +73,11 @@ class AppPages {
       name: _Paths.PROFILE,
       page: () => ProfileView(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.LEC_RECORD,
+      page: () => LecRecordView(),
+      binding: LecRecordBinding(),
     ),
   ];
 }
