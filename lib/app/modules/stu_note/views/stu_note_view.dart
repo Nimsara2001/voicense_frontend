@@ -9,10 +9,10 @@ class StuNoteView extends GetView<StuNoteController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('StuNoteView'),
+        title: const Text('StuNoteView'),
         centerTitle: true,
       ),
-      body: Center(
+      body: const Center(
         child: Text(
           'StuNoteView is working',
           style: TextStyle(fontSize: 20),
