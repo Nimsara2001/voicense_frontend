@@ -1,20 +1,49 @@
+
 import 'package:get/get.dart';
+import 'package:record/record.dart';
+
 
 class LecRecordController extends GetxController {
-  //TODO: Implement LecRecordController
+  final RxBool isRecording = false.obs;
+  late AudioRecorder audioRecord;
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  String audioPath = '';
+
+
+  void initState() {
+    audioRecord = AudioRecorder();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
   @override
-  void onClose() {}
-  void increment() => count.value++;
+  void dispose() {
+    audioRecord.dispose();
+    super.dispose();
+  }
+
+  Future<void> startRecording() async {
+    try {
+      if (await audioRecord.hasPermission()) {
+        await audioRecord.start(
+            const RecordConfig(encoder: AudioEncoder.pcm16bits),
+            path: 'aFullPath/myFile.m4a');
+        isRecording.value = true;
+      }
+    } catch (e) {
+      print('Error start recording');
+    }
+  }
+
+  Future<void> stopRecording() async {
+    try {
+      String? path = await audioRecord.stop();
+      isRecording.value = false;
+      audioPath = path!;
+    }
+    catch (e) {
+      print('Error Stopping Record : $e');
+    }
+  }
 }
+
+

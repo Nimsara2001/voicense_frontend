@@ -10,8 +10,8 @@ dependencies:
   get: 4.6.6
   flutter: 
     sdk: flutter
-
   flutter_markdown: ^0.6.22
+  record: ^5.0.5
 
 dev_dependencies: 
   flutter_lints: ^3.0.0
