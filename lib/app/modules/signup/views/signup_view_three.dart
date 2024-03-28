@@ -1,8 +1,6 @@
 // ignore_for_file: unused_local_variable
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:voicense_frontend/app/modules/login/views/login_view.dart';
 import 'package:voicense_frontend/app/modules/signup/controllers/signup_controller.dart';
 import 'package:voicense_frontend/app/modules/signup/views/signup_view_four.dart';
 import 'package:voicense_frontend/app/modules/signup/views/signup_view_two.dart';
