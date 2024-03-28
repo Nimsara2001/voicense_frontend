@@ -1,9 +1,7 @@
 import 'package:get/get.dart';
 
-class LecNoteController extends GetxController {
-  //TODO: Implement LecNoteController
-
-  static const x = 0;
+class SelectModuleController extends GetxController {
+  //TODO: Implement SelectModuleController
 
   final count = 0.obs;
   @override
