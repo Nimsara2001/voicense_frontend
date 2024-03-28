@@ -1,5 +1,5 @@
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-
 import '../controllers/signup_controller.dart';
 
 class SignupBinding extends Bindings {
@@ -10,3 +10,4 @@ class SignupBinding extends Bindings {
     );
   }
 }
+

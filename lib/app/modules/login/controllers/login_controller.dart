@@ -4,6 +4,10 @@ class LoginController extends GetxController {
   //TODO: Implement LoginController
 
   final count = 0.obs;
+
+   final List<Map<String, String>> dummyUserData = [
+    {'username': 'h', 'password': '12'},
+  ];
   @override
   void onInit() {
     super.onInit();

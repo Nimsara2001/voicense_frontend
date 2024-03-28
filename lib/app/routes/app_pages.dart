@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-
 import 'package:voicense_frontend/app/modules/lec_explore/bindings/lec_explore_binding.dart';
 import 'package:voicense_frontend/app/modules/lec_explore/views/lec_explore_view.dart';
 import 'package:voicense_frontend/app/modules/lec_home/bindings/lec_home_binding.dart';
@@ -26,7 +25,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.LOGIN;
+  static const INITIAL = Routes.SIGNUP;
 
   static final routes = [
     GetPage(
