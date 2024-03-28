@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import 'package:voicense_frontend/app/modules/common_he/bindings/common_he_binding.dart';
+import 'package:voicense_frontend/app/modules/common_he/views/common_he_view.dart';
 import 'package:voicense_frontend/app/modules/lec_explore/bindings/lec_explore_binding.dart';
 import 'package:voicense_frontend/app/modules/lec_explore/views/lec_explore_view.dart';
 import 'package:voicense_frontend/app/modules/lec_home/bindings/lec_home_binding.dart';
@@ -12,6 +14,8 @@ import 'package:voicense_frontend/app/modules/login/bindings/login_binding.dart'
 import 'package:voicense_frontend/app/modules/login/views/login_view.dart';
 import 'package:voicense_frontend/app/modules/profile/bindings/profile_binding.dart';
 import 'package:voicense_frontend/app/modules/profile/views/profile_view.dart';
+import 'package:voicense_frontend/app/modules/select_module/bindings/select_module_binding.dart';
+import 'package:voicense_frontend/app/modules/select_module/views/select_module_view.dart';
 import 'package:voicense_frontend/app/modules/signup/bindings/signup_binding.dart';
 import 'package:voicense_frontend/app/modules/signup/views/signup_view.dart';
 import 'package:voicense_frontend/app/modules/stu_explore/bindings/stu_explore_binding.dart';
@@ -26,7 +30,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.LOGIN;
+  static const INITIAL = Routes.COMMON_HE;
 
   static final routes = [
     GetPage(
@@ -78,6 +82,16 @@ class AppPages {
       name: _Paths.LEC_RECORD,
       page: () => LecRecordView(),
       binding: LecRecordBinding(),
+    ),
+    GetPage(
+      name: _Paths.COMMON_HE,
+      page: () => CommonHeView(),
+      binding: CommonHeBinding(),
+    ),
+    GetPage(
+      name: _Paths.SELECT_MODULE,
+      page: () => SelectModuleView(),
+      binding: SelectModuleBinding(),
     ),
   ];
 }

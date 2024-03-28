@@ -1,15 +1,37 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:voicense_frontend/app/modules/profile/views/profile_view.dart';
 
-class SearchBar extends StatefulWidget {
-  const SearchBar({super.key});
-
-  @override
-  State<SearchBar> createState() => _SearchBarState();
+class SearchBarTopController extends GetxController {
+  final TextEditingController searchTextController = TextEditingController();
 }
 
-class _SearchBarState extends State<SearchBar> {
+class SearchBarTop extends GetView<SearchBarTopController> {
+  final SearchBarTopController controller = Get.put(SearchBarTopController());
+
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Container(
+      margin: const EdgeInsets.only(top: 40, right: 10, left: 10),
+      decoration: BoxDecoration(
+        color: Color.fromARGB(255, 243, 218, 248),
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: TextField(
+        controller: controller.searchTextController, // Bind the controller
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.search),
+          // contentPadding: const EdgeInsets.only(left: 5),
+          border: InputBorder.none,
+          // ... (rest of decoration properties)
+          suffixIcon: IconButton(
+            onPressed: () {
+              Get.to(ProfileView()); // Use Get.to for navigation
+            },
+            icon: const Icon(Icons.account_circle),
+          ),
+        ),
+      ),
+    );
   }
 }
