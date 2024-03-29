@@ -31,7 +31,7 @@ class AppPages {
   AppPages._();
 
   
-  static const INITIAL = Routes.LEC_RECORD;
+  static const INITIAL = Routes.COMMON_HE;
 
 
   static final routes = [

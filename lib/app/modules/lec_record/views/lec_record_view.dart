@@ -13,20 +13,30 @@ class LecRecordView extends GetView<LecRecordController> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(LecRecordController());
+
     return Scaffold(
       appBar: AppBar(
         title: Padding(
-            padding: const EdgeInsets.only(bottom:0,top: 30.0), // Adjust padding value as needed
-            child:  Text(_formatTime(),style: TextStyle(fontSize: 27 ,fontWeight: FontWeight.bold, fontFamily:'Roboto'),
-            )
-        ),
+            padding: const EdgeInsets.only(bottom: 0, top: 30.0),
+            // Adjust padding value as needed
+            child: Text(
+              _formatTime(),
+              style: TextStyle(
+                  fontSize: 27,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Roboto'),
+            )),
         centerTitle: false,
       ),
-      body: Center( // This will center the children horizontally
+      body: Center(
+        // This will center the children horizontally
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top:50.0,left: 20.0,right: 20.0,bottom: 20.0), // Add padding around the container
+              padding: const EdgeInsets.only(
+                  top: 50.0, left: 20.0, right: 20.0, bottom: 20.0),
+              // Add padding around the container
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: 350.0, // Adjust height as needed
@@ -38,11 +48,15 @@ class LecRecordView extends GetView<LecRecordController> {
             ),
             SizedBox(height: 20.0), // Add a SizedBox for fixed space
             Padding(
-              padding:const EdgeInsets.only(top:10.0),
-              child:Text(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Text(
                 // Display formatted timer value based on recording state
                 _formatDuration(_timer.elapsed),
-                style: TextStyle(fontSize: 27 ,fontWeight: FontWeight.bold, fontFamily: 'Roboto'),),
+                style: TextStyle(
+                    fontSize: 27,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Roboto'),
+              ),
             ),
             SizedBox(height: 10.0),
           ],
@@ -56,6 +70,7 @@ class LecRecordView extends GetView<LecRecordController> {
           children: [
             // Delete button
             FloatingActionButton(
+              heroTag: 'delete',
               onPressed: () {
                 // Add your onPressed code here for delete button
               },
@@ -69,6 +84,7 @@ class LecRecordView extends GetView<LecRecordController> {
             const SizedBox(width: 75.0),
             // Stop button
             FloatingActionButton(
+              heroTag: 'stop',
               onPressed: () {
                 controller.stopRecording();
                 _timer.reset(); // Reset timer when recording stops
@@ -84,7 +100,6 @@ class LecRecordView extends GetView<LecRecordController> {
   }
 }
 
-
 // Function to format the timer duration in MM:SS format
 String _formatDuration(Duration duration) {
   String twoDigits(int n) => n.toString().padLeft(2, "0");
@@ -94,11 +109,11 @@ String _formatDuration(Duration duration) {
   return "$minutes:$seconds:$miliseconds";
 }
 
-
 String _formatTime() {
   final now = DateTime.now();
   final dayOfWeek = DateFormat('EEEE').format(now); // Get day of the week
-  final formattedTime = DateFormat('hh:mm a').format(now); // 12-hour format with AM/PM
+  final formattedTime =
+      DateFormat('hh:mm a').format(now); // 12-hour format with AM/PM
   return "$dayOfWeek, $formattedTime";
 }
 
@@ -114,9 +129,10 @@ class RecordPauseButton extends StatelessWidget {
     final LecRecordController controller = Get.find<LecRecordController>();
 
     return Obx(
-          () => Transform.scale(
+      () => Transform.scale(
         scale: 2.0,
         child: FloatingActionButton(
+          heroTag: 'record',
           onPressed: () {
             if (controller.isRecording.value) {
               controller.stopRecording();
@@ -128,7 +144,9 @@ class RecordPauseButton extends StatelessWidget {
           },
           backgroundColor: myRgbColor,
           child: Icon(
-              controller.isRecording.value ? Icons.pause : Icons.play_arrow_sharp,
+              controller.isRecording.value
+                  ? Icons.pause
+                  : Icons.play_arrow_sharp,
               color: Colors.white),
           elevation: 0.0,
         ),
@@ -136,4 +154,3 @@ class RecordPauseButton extends StatelessWidget {
     );
   }
 }
-

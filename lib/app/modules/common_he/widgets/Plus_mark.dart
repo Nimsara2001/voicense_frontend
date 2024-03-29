@@ -8,15 +8,19 @@ class PlusIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.large(
-                                      onPressed: () {
-                                        Get.to(SelectModuleView());
-                                      },
-                                      elevation: 0,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
-                                      backgroundColor:const Color.fromARGB(255, 33, 0, 93),
-                                      child: const Icon(Icons.add,size: 60,
-                                      color: Colors.white,),);
+      onPressed: () {
+        Get.to(SelectModuleView());
+      },
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(50),
+      ),
+      backgroundColor: const Color.fromARGB(255, 33, 0, 93),
+      child: const Icon(
+        Icons.add,
+        size: 60,
+        color: Colors.white,
+      ),
+    );
   }
 }

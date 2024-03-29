@@ -14,7 +14,7 @@ class SearchBarTop extends GetView<SearchBarTopController> {
     return Container(
       margin: const EdgeInsets.only(top: 40, right: 10, left: 10),
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 243, 218, 248),
+        color: Color.fromARGB(255, 234, 230, 239),
         borderRadius: BorderRadius.circular(30),
       ),
       child: TextField(
@@ -29,6 +29,7 @@ class SearchBarTop extends GetView<SearchBarTopController> {
               Get.to(ProfileView()); // Use Get.to for navigation
             },
             icon: const Icon(Icons.account_circle),
+            iconSize: 32,
           ),
         ),
       ),
