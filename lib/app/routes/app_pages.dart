@@ -30,7 +30,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.SIGNUP;
+  static const INITIAL = Routes.LEC_EXPLORE;
 
   static final routes = [
     GetPage(
