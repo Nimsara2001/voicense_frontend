@@ -15,7 +15,7 @@ class LecExploreView extends GetView<LecExploreController> {
           Padding(
             padding: const EdgeInsets.all(18),
             child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               searchBox(),
               const SizedBox(
                 height: 20,

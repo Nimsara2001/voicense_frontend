@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import 'package:voicense_frontend/app/modules/common_he/bindings/common_he_binding.dart';
 import 'package:voicense_frontend/app/modules/common_he/views/common_he_view.dart';
+import 'package:voicense_frontend/app/modules/forget_password/bindings/forget_password_binding.dart';
+import 'package:voicense_frontend/app/modules/forget_password/views/forget_password_view.dart';
 import 'package:voicense_frontend/app/modules/lec_explore/bindings/lec_explore_binding.dart';
 import 'package:voicense_frontend/app/modules/lec_explore/views/lec_explore_view.dart';
 import 'package:voicense_frontend/app/modules/lec_home/bindings/lec_home_binding.dart';
@@ -30,9 +32,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  
-  static const INITIAL = Routes.COMMON_HE;
-
+  static const INITIAL = Routes.LOGIN;
 
   static final routes = [
     GetPage(
@@ -94,6 +94,11 @@ class AppPages {
       name: _Paths.SELECT_MODULE,
       page: () => SelectModuleView(),
       binding: SelectModuleBinding(),
+    ),
+    GetPage(
+      name: _Paths.FORGET_PASSWORD,
+      page: () => ForgetPasswordView(),
+      binding: ForgetPasswordBinding(),
     ),
   ];
 }
