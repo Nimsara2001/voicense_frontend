@@ -1,42 +1,31 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:voicense_frontend/app/modules/common_he/widgets/Plus_mark.dart';
 
+import '../../../widgets/nav_bar.dart';
 import '../controllers/common_he_controller.dart';
 
 class CommonHeView extends GetView<CommonHeController> {
+  final String? userType;
+
+  const CommonHeView({
+    super.key,
+    this.userType,
+  });
+
+
   @override
   Widget build(BuildContext context) {
-
-    final CommonHeController _controller=Get.put(CommonHeController());
-
+    final CommonHeController controller = Get.put(CommonHeController(userType!));
     return Scaffold(
-      //       appBar: AppBar(
-      //   title: const Text('CommonHomeExploreView'),
-      //   centerTitle: true,
-      // ),
-      body:  Obx(() => _controller.Home_Explore[_controller.focused_value.value]),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _controller.focused_value.value,
-        onDestinationSelected: (int index) {
-          _controller.move_page(index);
-        },
-        destinations: const <Widget>[
-          NavigationDestination(
-            icon: Icon(Icons.home),
-            label: 'Home',
-
-          ),
-      
-          NavigationDestination(
-            icon: Icon(Icons.explore),
-            label: 'Explore',
-          ),
-        ],
+      body:
+          Obx(() => controller.bodyViewList[controller.focused_value.value]),
+      bottomNavigationBar: const NavBar(
+        userType: 'userType',
       ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-          floatingActionButton: Obx(() => _controller.Plus_Null[_controller.focused_value.value]),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton:
+          Obx(() => controller.Plus_Null[controller.focused_value.value]),
     );
   }
 }

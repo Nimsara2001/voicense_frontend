@@ -12,6 +12,7 @@ dependencies:
     sdk: flutter
   flutter_markdown: ^0.6.22
   record: ^5.0.5
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_lints: ^3.0.0
@@ -24,4 +25,4 @@ flutter:
 
   assets:
     - assets/lecture_notes.md
-    - assets/voicence_logo.jpg
+    - assets/voicense_logo.png
