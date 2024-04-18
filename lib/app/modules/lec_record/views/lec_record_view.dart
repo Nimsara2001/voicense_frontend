@@ -2,76 +2,136 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:core';
 import 'package:get/get.dart';
-import '../controllers/lec_record_controller.dart';
+import 'package:record/record.dart';
+import 'package:voicense_frontend/app/modules/lec_record/controllers/lec_record_controller.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:voicense_frontend/app/modules/lec_record/controllers/lec_record_file_helper.dart';
+import '../views/play_pause_button.dart';
+import 'audio_waves_view.dart';
 
 Color myRgbColor = const Color(0xff21005D);
 
-class LecRecordView extends GetView<LecRecordController> {
-  // Add a variable to store the current timer value
-  final _timer = Stopwatch();
+class AudioRecorderView extends StatelessWidget {
+  const AudioRecorderView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    return RepositoryProvider<AudioRecorderController>(
+      create: (context) => AudioRecorderController(
+        AudioRecorderFileHelper(),
+            (message) {
+          print(message);
+        },
+      ),
+      child: const _AudioRecorderViewBody(),
+    );
+  }
+}
+
+class _AudioRecorderViewBody extends StatefulWidget {
+  const _AudioRecorderViewBody({super.key});
+
+  @override
+  State<_AudioRecorderViewBody> createState() => _AudioRecorderViewBodyState();
+}
+class _AudioRecorderViewBodyState extends State<_AudioRecorderViewBody> {
+  late final AudioRecorderController audioRecorderService;
+  DateTime createdTime=DateTime.now();
+
+  @override
+  void initState() {
+    audioRecorderService = context.read<AudioRecorderController>();
+    audioRecorderService.start();
+    createdTime=DateTime.now();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    audioRecorderService.dispose();
+    super.dispose();
+  }
+
+  Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Padding(
-            padding: const EdgeInsets.only(bottom:0,top: 30.0), // Adjust padding value as needed
-            child:  Text(_formatTime(),style: TextStyle(fontSize: 27 ,fontWeight: FontWeight.bold, fontFamily:'Roboto'),
-            )
+          padding: const EdgeInsets.only(bottom: 0, top: 30.0),
+          child: Text(
+            DateFormat('EEEE hh:mm a').format(createdTime),
+            style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold, fontFamily: 'Roboto'),
+          ),
         ),
         centerTitle: false,
       ),
-      body: Center( // This will center the children horizontally
+      body: Center(
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top:50.0,left: 20.0,right: 20.0,bottom: 20.0), // Add padding around the container
+              padding: const EdgeInsets.only(top: 50.0, left: 20.0, right: 20.0, bottom: 20.0),
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                height: 350.0, // Adjust height as needed
+                height: 350.0,
                 decoration: BoxDecoration(
-                  color: Color(0xffE6E0E9), // Change color as needed
+                  color: Color(0xffE6E0E9),
                   borderRadius: BorderRadius.circular(10),
                 ),
+                child: const AudioWavesView(),
               ),
             ),
-            SizedBox(height: 20.0), // Add a SizedBox for fixed space
-            Padding(
-              padding:const EdgeInsets.only(top:10.0),
-              child:Text(
-                // Display formatted timer value based on recording state
-                _formatDuration(_timer.elapsed),
-                style: TextStyle(fontSize: 27 ,fontWeight: FontWeight.bold, fontFamily: 'Roboto'),),
-            ),
-            SizedBox(height: 10.0),
+            SizedBox(height: 10.0), // Add some space between container and duration timer
+            const _TimerText(),
           ],
         ),
       ),
+
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 120.0),
+        padding: const EdgeInsets.only(bottom: 50.0),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Delete button
             FloatingActionButton(
               onPressed: () {
-                // Add your onPressed code here for delete button
+                context.read<AudioRecorderController>().stop((voiceNoteModel){
+                  if(voiceNoteModel == null){
+                    Navigator.pop(context);
+                  }else{
+                    context.read<AudioRecorderController>().delete(voiceNoteModel.path).then((value){
+                      Navigator.pop(context);
+                    });
+                  }
+                });
               },
               backgroundColor: myRgbColor,
               child: const Icon(Icons.delete, color: Colors.white),
               elevation: 0.0,
             ),
-            const SizedBox(width: 75.0),
+            const SizedBox(width: 20.0),
             // Record/Pause button (already styled with RecordPauseButton)
-            RecordPauseButton(timer: _timer),
-            const SizedBox(width: 75.0),
-            // Stop button
+            StreamBuilder(
+              stream: audioRecorderService.recordStateStream,
+              builder: (context, snapshot) {
+                return PlayPauseButton(
+                  isPlaying: snapshot.data == RecordState.record,
+                  onTap: () {
+                    if(snapshot.data == RecordState.pause){
+                      audioRecorderService.resume();
+                    }else{
+                      audioRecorderService.pause();
+                    }
+                  },
+                );
+              },
+            ),
+            const SizedBox(width: 20.0),
             FloatingActionButton(
               onPressed: () {
-                controller.stopRecording();
-                _timer.reset(); // Reset timer when recording stops
+                context.read<AudioRecorderController>().stop((recordingModel){
+                  Navigator.pop(context,recordingModel);
+                });;
               },
               backgroundColor: myRgbColor,
               elevation: 0.0,
@@ -85,55 +145,37 @@ class LecRecordView extends GetView<LecRecordController> {
 }
 
 
-// Function to format the timer duration in MM:SS format
-String _formatDuration(Duration duration) {
-  String twoDigits(int n) => n.toString().padLeft(2, "0");
-  final minutes = twoDigits(duration.inMinutes.remainder(60));
-  final seconds = twoDigits(duration.inSeconds.remainder(60));
-  final miliseconds = twoDigits(duration.inMilliseconds.remainder(60));
-  return "$minutes:$seconds:$miliseconds";
-}
+class _TimerText extends StatelessWidget {
+  //meka ithuruwai implement krn widy blnnko
 
-
-String _formatTime() {
-  final now = DateTime.now();
-  final dayOfWeek = DateFormat('EEEE').format(now); // Get day of the week
-  final formattedTime = DateFormat('hh:mm a').format(now); // 12-hour format with AM/PM
-  return "$dayOfWeek, $formattedTime";
-}
-
-
-
-class RecordPauseButton extends StatelessWidget {
-  final Stopwatch timer;
-
-  const RecordPauseButton({required this.timer});
+  const _TimerText({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final LecRecordController controller = Get.find<LecRecordController>();
-
-    return Obx(
-          () => Transform.scale(
-        scale: 2.0,
-        child: FloatingActionButton(
-          onPressed: () {
-            if (controller.isRecording.value) {
-              controller.stopRecording();
-              timer.stop(); // Stop the timer when recording pauses
-            } else {
-              controller.startRecording();
-              timer.start(); // Start the timer when recording starts
-            }
-          },
-          backgroundColor: myRgbColor,
-          child: Icon(
-              controller.isRecording.value ? Icons.pause : Icons.play_arrow_sharp,
-              color: Colors.white),
-          elevation: 0.0,
-        ),
+    return Padding(
+      padding: const EdgeInsets.all (2),
+      child: StreamBuilder(
+        initialData: 0,
+        stream: context
+            .read<AudioRecorderController>()
+            .recordDurationOutput,
+        builder: (context, snapshot) {
+          final durationInSec = snapshot.data ?? 0;
+          final int minutes = durationInSec ~/ 60;
+          final int seconds = durationInSec % 60;
+          return Text(
+            '${minutes.toString().padLeft(2, '0')} : ${seconds.toString()
+                .padLeft(2, '0')}',
+            style: const TextStyle(
+              fontSize: 27,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Roboto',
+            ),
+          );
+        },
       ),
     );
   }
-}
 
+
+}

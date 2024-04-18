@@ -76,8 +76,8 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.LEC_RECORD,
-      page: () => LecRecordView(),
-      binding: LecRecordBinding(),
+      page: () => AudioRecorderView(),
+      binding: RecorderBinding(),
     ),
   ];
 }
