@@ -1,41 +1,41 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
+import 'package:voicense_frontend/app/modules/forget_password/views/forget_password_view.dart';
+import 'package:voicense_frontend/app/modules/login/widgets/logo.dart';
+import 'package:voicense_frontend/app/modules/login/widgets/signup_nav.dart';
 import '../controllers/login_controller.dart';
+import '../widgets/input_form.dart';
 
 class LoginView extends GetView<LoginController> {
   const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Get.put(LoginController());
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('LoginView'),
-      //   centerTitle: true,
-      // ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _logo(context),
-          const SizedBox(
-            height: 25,
-          ),
-        ],
+      resizeToAvoidBottomInset: false,
+      body: Container(
+        margin: const EdgeInsets.all(24),
+        child: Column(
+          children: [
+            const SizedBox(height: 50),
+            const Logo(),
+            const SizedBox(height: 50),
+            const InputForm(),
+            const SizedBox(height: 50),
+            forgetPassword(),
+            const SizedBox(height: 20),
+            const SignUp(),
+          ],
+        ),
       ),
     );
   }
 }
 
-_logo(context) {
-  return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Image.asset(
-          'assets/voicence_logo.jpg',
-          width: 170,
-          height: 170,
-        ),
-      ]);
-}
+@override
+Widget forgetPassword() => TextButton(
+    onPressed: () {
+      Get.to(() => ForgetPasswordView());
+    },
+    child: const Text("Forgot password?"));
