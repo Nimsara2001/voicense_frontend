@@ -68,7 +68,7 @@ class LecNoteView extends GetView<LecNoteController> {
     final filteredMarkdown = _removeSymbols(markdownData);
 
     // Speak the filtered markdown text
-    // await flutterTts.awaitSpeakCompletion();
+    //  await flutterTts.awaitSpeakCompletion();
     await flutterTts.setPitch(1.0); // Adjust pitch as desired (optional)
     await flutterTts.setSpeechRate(0.5); // Adjust speech rate as desired (optional)
     await flutterTts.speak(filteredMarkdown);
