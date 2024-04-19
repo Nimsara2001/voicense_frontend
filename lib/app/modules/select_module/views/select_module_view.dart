@@ -6,6 +6,7 @@ import 'package:voicense_frontend/app/modules/select_module/widgets/select_modul
 import '../controllers/select_module_controller.dart';
 
 class SelectModuleView extends GetView<SelectModuleController> {
+  final modulesController = Get.put(SelectModuleController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,28 +23,61 @@ class SelectModuleView extends GetView<SelectModuleController> {
           style: TextStyle(fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
-        // actions: [Container(child: IconButton(onPressed: (){}, icon: const Icon(Icons.add)),
-        // padding: const EdgeInsets.all(5),
-        // margin: const EdgeInsets.only(right: 20,bottom: 10),
-        // decoration: BoxDecoration(
-        //   color: const Color.fromARGB(255, 224, 98, 247),
-        //   borderRadius: BorderRadius.circular(30)
-        // ),)],
       ),
-      body: Container(
+      // body: Container(
+      //   margin: const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
+      //   child: ListView(
+      //     children: const [
+      //       // for(Module item in modules)
+      //       //    ModuleItem(module: item),
+      //       SelectModuleItem(text: "Object Oriented Programming"),
+      //       SelectModuleItem(text: "Software Engineering"),
+      //       SelectModuleItem(text: "Data Structure"),
+      //       SelectModuleItem(text: "Computer Network"),
+      //       SelectModuleItem(text: "Computer Graphics"),
+      //     ],
+      //   ),
+      // ),
+      body: Obx(() => Container(
         margin: const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
-        child: ListView(
-          children: const [
-            // for(Module item in modules)
-            //    ModuleItem(module: item),
-            SelectModuleItem(text: "Object Oriented Programming"),
-            SelectModuleItem(text: "Software Engineering"),
-            SelectModuleItem(text: "Data Structure"),
-            SelectModuleItem(text: "Computer Network"),
-            SelectModuleItem(text: "Computer Graphics"),
-          ],
+        child: ListView.builder(
+          itemCount: modulesController.modules.length,
+          itemBuilder: (context, index) {
+            final module = modulesController.modules[index];
+            // Access and display module data here (e.g., name, description)
+            // return ListTile(
+            //   title: Text(module),
+            //   // subtitle: Text(module['description'] ?? 'No description'),
+            // );
+            return SelectModuleItem(text: module);
+          },
         ),
-      ),
+      )),
     );
   }
 }
+
+// class SelectModuleView extends StatelessWidget {
+//   final modulesController = Get.put(SelectModuleController());
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text('Modules'),
+//       ),
+//       body: Obx(() => ListView.builder(
+//         itemCount: modulesController.modules.length,
+//         itemBuilder: (context, index) {
+//           final module = modulesController.modules[index];
+//           // Access and display module data here (e.g., name, description)
+//           return ListTile(
+//             title: Text(module),
+//             // subtitle: Text(module['description'] ?? 'No description'),
+//           );
+//         },
+//       )),
+//     );
+//   }
+// }
+
