@@ -50,4 +50,5 @@ Lecture  Transcription tool for enhanced learning
     - get: ^4.6.6
     - flutter_markdown: ^0.6.22
     - device_preview: ^1.1.0
-    - cupertino_icons: ^1.0.6
+    - cupertino_icons: ^1.0.
+    - flutter_tts: ^4.0.2
