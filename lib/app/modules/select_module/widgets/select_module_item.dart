@@ -14,7 +14,7 @@ class SelectModuleItem extends GetView {
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       child: ElevatedButton(
           onPressed: () {
-            Get.to(() => LecRecordView());
+            Get.to(() => AudioRecorderView());
           },
           style: ElevatedButton.styleFrom(
               backgroundColor: const Color.fromARGB(255, 205, 199, 220),
