@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:core';
-import 'package:get/get.dart';
 import 'package:record/record.dart';
 import 'package:voicense_frontend/app/modules/lec_record/controllers/lec_record_controller.dart';
 import 'package:intl/intl.dart';
