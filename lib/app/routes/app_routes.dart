@@ -14,6 +14,9 @@ abstract class Routes {
   static const STU_NOTE = _Paths.STU_NOTE;
   static const PROFILE = _Paths.PROFILE;
   static const LEC_RECORD = _Paths.LEC_RECORD;
+  static const COMMON_HE = _Paths.COMMON_HE;
+  static const SELECT_MODULE = _Paths.SELECT_MODULE;
+  static const FORGET_PASSWORD = _Paths.FORGET_PASSWORD;
 }
 
 abstract class _Paths {
@@ -27,4 +30,7 @@ abstract class _Paths {
   static const STU_NOTE = '/stu-note';
   static const PROFILE = '/profile';
   static const LEC_RECORD = '/lec-record';
+  static const COMMON_HE = '/common-he';
+  static const SELECT_MODULE = '/select-module';
+  static const FORGET_PASSWORD = '/forget-password';
 }

@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/stu_note_controller.dart';
+import '../controllers/forget_password_controller.dart';
 
-class StuNoteView extends GetView<StuNoteController> {
+class ForgetPasswordView extends GetView<ForgetPasswordController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('StuNoteView'),
+        title: Text('ForgetPasswordView'),
         centerTitle: true,
       ),
-      body: const Center(
+      body: Center(
         child: Text(
-          'StuNoteView is working',
+          'ForgetPasswordView is working',
           style: TextStyle(fontSize: 20),
         ),
       ),

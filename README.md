@@ -37,3 +37,19 @@ Lecture  Transcription tool for enhanced learning
   `git checkout <your branch name>`<br />
   `git fetch origin`<br />
   `git merge origin/dev`
+
+- Requirements of project <br/>
+    - Flutter SDK version 3.19.3
+    - Dart SDK version 3.3.1
+    - Android SDK version 34.0.0
+    - JDK version 17 (environment variable should be set as JAVA_HOME)
+    - Gradle version 7.6.3
+    - get_cli version 1.6.0
+
+- Dependencies <br/>
+    - get: ^4.6.6
+    - flutter_markdown: ^0.6.22
+    - device_preview: ^1.1.0
+    - cupertino_icons: ^1.0.
+    - flutter_tts: ^3.8.5
+    - http: ^1.2.1

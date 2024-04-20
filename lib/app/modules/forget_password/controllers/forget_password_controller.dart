@@ -1,11 +1,8 @@
 import 'package:get/get.dart';
 
-class LecNoteController extends GetxController {
-  //TODO: Implement LecNoteController
+class ForgetPasswordController extends GetxController {
+  //TODO: Implement ForgetPasswordController
 
-  //static const x = 0;
-  RxBool isPlaying = false.obs; 
-  // Flag to track playback state
   final count = 0.obs;
   @override
   void onInit() {
