@@ -119,7 +119,8 @@ class LecNoteView extends GetView<LecNoteController> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            _stopSpeaking();
+            _pauseSpeaking();
+           // _stopSpeaking();
             Get.back();
           },
         ),
