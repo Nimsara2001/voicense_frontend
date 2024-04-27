@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:record/record.dart';
 import 'package:voicense_frontend/app/modules/lec_record/controllers/lec_record_file_helper.dart';
@@ -88,6 +90,7 @@ class AudioRecorderController{
               path: recordPath
           )
       );
+      Get.toNamed('/rec-successful', arguments: {'recordPath': recordPath});
     }else{
       onStop(null);
       onError("Could not stop the record");

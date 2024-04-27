@@ -17,6 +17,7 @@ abstract class Routes {
   static const COMMON_HE = _Paths.COMMON_HE;
   static const SELECT_MODULE = _Paths.SELECT_MODULE;
   static const FORGET_PASSWORD = _Paths.FORGET_PASSWORD;
+  static const REC_SUCCESSFUL = _Paths.REC_SUCCESSFUL;
 }
 
 abstract class _Paths {
@@ -33,4 +34,5 @@ abstract class _Paths {
   static const COMMON_HE = '/common-he';
   static const SELECT_MODULE = '/select-module';
   static const FORGET_PASSWORD = '/forget-password';
+  static const REC_SUCCESSFUL = '/rec-successful';
 }

@@ -145,7 +145,6 @@ class _AudioRecorderViewBodyState extends State<_AudioRecorderViewBody> {
 
 
 class _TimerText extends StatelessWidget {
-  //meka ithuruwai implement krn widy blnnko
 
   const _TimerText({super.key});
 

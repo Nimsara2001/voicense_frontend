@@ -1,31 +1,33 @@
 import 'package:get/get.dart';
 
-import 'package:voicense_frontend/app/modules/common_he/bindings/common_he_binding.dart';
-import 'package:voicense_frontend/app/modules/common_he/views/common_he_view.dart';
-import 'package:voicense_frontend/app/modules/forget_password/bindings/forget_password_binding.dart';
-import 'package:voicense_frontend/app/modules/forget_password/views/forget_password_view.dart';
-import 'package:voicense_frontend/app/modules/lec_explore/bindings/lec_explore_binding.dart';
-import 'package:voicense_frontend/app/modules/lec_explore/views/lec_explore_view.dart';
-import 'package:voicense_frontend/app/modules/lec_home/bindings/lec_home_binding.dart';
-import 'package:voicense_frontend/app/modules/lec_home/views/lec_home_view.dart';
-import 'package:voicense_frontend/app/modules/lec_note/bindings/lec_note_binding.dart';
-import 'package:voicense_frontend/app/modules/lec_note/views/lec_note_view.dart';
-import 'package:voicense_frontend/app/modules/lec_record/bindings/lec_record_binding.dart';
-import 'package:voicense_frontend/app/modules/lec_record/views/lec_record_view.dart';
-import 'package:voicense_frontend/app/modules/login/bindings/login_binding.dart';
-import 'package:voicense_frontend/app/modules/login/views/login_view.dart';
-import 'package:voicense_frontend/app/modules/profile/bindings/profile_binding.dart';
-import 'package:voicense_frontend/app/modules/profile/views/profile_view.dart';
-import 'package:voicense_frontend/app/modules/select_module/bindings/select_module_binding.dart';
-import 'package:voicense_frontend/app/modules/select_module/views/select_module_view.dart';
-import 'package:voicense_frontend/app/modules/signup/bindings/signup_binding.dart';
-import 'package:voicense_frontend/app/modules/signup/views/signup_view.dart';
-import 'package:voicense_frontend/app/modules/stu_explore/bindings/stu_explore_binding.dart';
-import 'package:voicense_frontend/app/modules/stu_explore/views/stu_explore_view.dart';
-import 'package:voicense_frontend/app/modules/stu_home/bindings/stu_home_binding.dart';
-import 'package:voicense_frontend/app/modules/stu_home/views/stu_home_view.dart';
-import 'package:voicense_frontend/app/modules/stu_note/bindings/stu_note_binding.dart';
-import 'package:voicense_frontend/app/modules/stu_note/views/stu_note_view.dart';
+import '../modules/common_he/bindings/common_he_binding.dart';
+import '../modules/common_he/views/common_he_view.dart';
+import '../modules/forget_password/bindings/forget_password_binding.dart';
+import '../modules/forget_password/views/forget_password_view.dart';
+import '../modules/lec_explore/bindings/lec_explore_binding.dart';
+import '../modules/lec_explore/views/lec_explore_view.dart';
+import '../modules/lec_home/bindings/lec_home_binding.dart';
+import '../modules/lec_home/views/lec_home_view.dart';
+import '../modules/lec_note/bindings/lec_note_binding.dart';
+import '../modules/lec_note/views/lec_note_view.dart';
+import '../modules/lec_record/bindings/lec_record_binding.dart';
+import '../modules/lec_record/views/lec_record_view.dart';
+import '../modules/login/bindings/login_binding.dart';
+import '../modules/login/views/login_view.dart';
+import '../modules/profile/bindings/profile_binding.dart';
+import '../modules/profile/views/profile_view.dart';
+import '../modules/rec_successful/bindings/rec_successful_binding.dart';
+import '../modules/rec_successful/views/rec_successful_view.dart';
+import '../modules/select_module/bindings/select_module_binding.dart';
+import '../modules/select_module/views/select_module_view.dart';
+import '../modules/signup/bindings/signup_binding.dart';
+import '../modules/signup/views/signup_view.dart';
+import '../modules/stu_explore/bindings/stu_explore_binding.dart';
+import '../modules/stu_explore/views/stu_explore_view.dart';
+import '../modules/stu_home/bindings/stu_home_binding.dart';
+import '../modules/stu_home/views/stu_home_view.dart';
+import '../modules/stu_note/bindings/stu_note_binding.dart';
+import '../modules/stu_note/views/stu_note_view.dart';
 
 part 'app_routes.dart';
 
@@ -99,6 +101,11 @@ class AppPages {
       name: _Paths.FORGET_PASSWORD,
       page: () => ForgetPasswordView(),
       binding: ForgetPasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.REC_SUCCESSFUL,
+      page: () => const RecSuccessfulView(),
+      binding: RecSuccessfulBinding()
     ),
   ];
 }
