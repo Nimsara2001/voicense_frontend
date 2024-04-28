@@ -18,7 +18,7 @@ class LoginView extends GetView<LoginController> {
         margin: const EdgeInsets.all(24),
         child: Column(
           children: [
-            const SizedBox(height: 50),
+            const SizedBox(height: 90),
             const Logo(),
             const SizedBox(height: 50),
             const InputForm(),
