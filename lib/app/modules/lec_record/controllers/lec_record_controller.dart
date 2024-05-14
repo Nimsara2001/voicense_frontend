@@ -88,6 +88,7 @@ class AudioRecorderController{
               path: recordPath
           )
       );
+      print(recordPath);
     }else{
       onStop(null);
       onError("Could not stop the record");
