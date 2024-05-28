@@ -1,5 +1,9 @@
+import 'dart:convert';
 import 'package:get/get.dart';
-import 'package:voicense_frontend/app/modules/login/views/login_view.dart';
+import 'package:http/http.dart' as http;
+import 'package:voicense_frontend/app/modules/signup/views/signup_view_three.dart';
+import 'package:voicense_frontend/app/modules/signup/views/signup_view_two.dart';
+import 'package:flutter/material.dart';
 
 enum Selection { lecturer, student, none }
 
@@ -11,8 +15,65 @@ class SignupController extends GetxController {
 
   void goToSignup2() {
     if (selectedSelection.value != Selection.none) {
-      Get.to(() => LoginView());
+      Get.to(() => SignupViewTwo());
     }
+  }
+//   void goToSignup3() {
+//   final firstName = firstNameController.text;
+//   final lastName = lastNameController.text;
+
+//   if (/* your validation logic */) {
+//     Get.to(() => SignupViewThree(firstName: firstName, lastName: lastName));
+//   }
+// }
+  void goToSignup3() {
+    final firstNameValue = firstNameController.text.trim();
+    final lastNameValue = lastNameController.text.trim();
+
+    firstName.value = firstNameValue;
+    lastName.value = lastNameValue;
+
+    // Validate first name
+    if (firstName.value.isEmpty) {
+      // Show an error message or snackbar
+      Get.snackbar(
+        'Error',
+        'Please enter your first name',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return;
+    } else if (firstName.value.length < 3) {
+      // Show an error message or snackbar
+      Get.snackbar(
+        'Error',
+        'First name must be at least 3 characters long',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return;
+    }
+
+    // Validate last name
+    if (lastName.isEmpty) {
+      // Show an error message or snackbar
+      Get.snackbar(
+        'Error',
+        'Please enter your last name',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return;
+    } else if (lastName.value.length < 3) {
+      // Show an error message or snackbar
+      Get.snackbar(
+        'Error',
+        'Last name must be at least 3 characters long',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return;
+    }
+
+    // Validation passed, navigate to SignupViewThree
+    Get.to(() =>
+        SignupViewThree(firstName: firstNameValue, lastName: lastNameValue));
   }
 
   final RxString username = RxString('');
@@ -54,10 +115,11 @@ class SignupController extends GetxController {
   bool isValidForm() {
     final usernameValid = validateUsername(username.value) == null;
     final passwordValid = validatePassword(password.value) == null;
-    final confirmPasswordValid = validateConfirmPassword(confirmPassword.value) == null;
+    final confirmPasswordValid =
+        validateConfirmPassword(confirmPassword.value) == null;
     return usernameValid && passwordValid && confirmPasswordValid;
   }
-  
+
   final count = 0.obs;
   @override
   void onInit() {
@@ -70,6 +132,47 @@ class SignupController extends GetxController {
   }
 
   @override
-  void onClose() {}
+  void onClose() {
+    firstNameController.dispose();
+    lastNameController.dispose();
+    usernameController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.onClose();
+  }
+
   void increment() => count.value++;
+
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+
+  final RxString firstName = RxString('');
+  final RxString lastName = RxString('');
+
+  Future<void> signUpUser() async {
+    final url = http.get(Uri.parse('http://localhost:8000/auth/signup'));
+    final headers = {'Content-Type': 'application/json'};
+    final body = jsonEncode({
+      'username': username.value,
+      'password': password.value,
+      'first_name': firstName.value, // Assuming you have a firstName field
+      'last_name': lastName.value, // Assuming you have a lastName field
+      'user_type': selectedSelection.value.name, // Convert Selection to string
+    });
+
+    final response = await http.post(url as Uri, headers: headers, body: body);
+
+    if (response.statusCode == 200) {
+      // Signup successful
+      print('Signup successful: ${response.body}');
+      // Navigate to the next screen or show a success message
+    } else {
+      // Signup failed
+      print('Signup failed: ${response.body}');
+      // Show an error message
+    }
+  }
 }

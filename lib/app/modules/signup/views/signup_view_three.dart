@@ -6,11 +6,18 @@ import 'package:voicense_frontend/app/modules/signup/views/signup_view_four.dart
 import 'package:voicense_frontend/app/modules/signup/views/signup_view_two.dart';
 
 class SignupViewThree extends GetView<SignupController> {
-  const SignupViewThree({super.key});
+  final String firstName;
+  final String lastName;
+
+  const SignupViewThree({
+    super.key,
+    required this.firstName,
+    required this.lastName,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<SignupController>();
+    final SignupController controller = Get.find<SignupController>();
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -21,7 +28,7 @@ class SignupViewThree extends GetView<SignupController> {
               const SizedBox(height: 100),
               _inputField(context),
               const SizedBox(height: 200),
-              _backbutton(context),
+              _backbutton(context, controller),
             ],
           ),
         ),
@@ -41,6 +48,7 @@ class SignupViewThree extends GetView<SignupController> {
               border: OutlineInputBorder(),
               prefixIcon: Icon(Icons.person),
             ),
+            controller: controller.usernameController,
           ),
           const SizedBox(height: 20),
           TextFormField(
@@ -51,6 +59,7 @@ class SignupViewThree extends GetView<SignupController> {
               prefixIcon: Icon(Icons.lock),
             ),
             obscureText: true,
+            controller: controller.passwordController,
           ),
           const SizedBox(height: 20),
           TextFormField(
@@ -61,20 +70,21 @@ class SignupViewThree extends GetView<SignupController> {
               prefixIcon: Icon(Icons.lock),
             ),
             obscureText: true,
+            controller: controller.confirmPasswordController,
           ),
         ],
       ),
     );
   }
 
-  Widget _backbutton(BuildContext context) {
+  Widget _backbutton(BuildContext context, SignupController controller) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         ElevatedButton.icon(
           onPressed: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const SignupViewTwo()),
+            MaterialPageRoute(builder: (context) => SignupViewTwo()),
           ),
           style: ElevatedButton.styleFrom(
             // ... (same styling as before)
@@ -89,8 +99,17 @@ class SignupViewThree extends GetView<SignupController> {
           ),
         ),
         ElevatedButton(
-          onPressed: () =>
-              Get.to(() => const SignupViewFour()), // Always navigate
+          onPressed: () {
+            if (controller.isValidForm()) {
+              Get.to(() => const SignupViewFour());
+            } else {
+              // show validation errors
+            }
+          },
+          // =>
+          // Get.to(() => const SignupViewFour()),
+
+          // Always navigate
           style: ElevatedButton.styleFrom(
             // ... (same styling as before)
             backgroundColor: const Color(0xFF21005D),

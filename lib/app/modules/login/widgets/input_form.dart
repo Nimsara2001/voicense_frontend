@@ -26,9 +26,9 @@ class InputForm extends StatelessWidget {
               prefixIcon: Icon(Icons.person),
             ),
             controller: loginController.usernameController,
-            onSaved: (value) {
-              loginController.username = value!;
-            },
+            // onSaved: (value) {
+            //   loginController.username = value!;
+            // },
             validator: (value) {
               return loginController.validateUsername(value!);
             },
@@ -45,19 +45,20 @@ class InputForm extends StatelessWidget {
             ),
             obscureText: true,
             controller: loginController.passwordController,
-            onSaved: (value) {
-              loginController.password = value!;
-            },
+            // onSaved: (value) {
+            //   loginController.password = value!;
+            // },
             validator: (value) {
-              return loginController.validatePassword(
-                  value!, loginController.usernameController.text);
+              return loginController.validatePassword(value!);
+              // value!, loginController.usernameController.text);
             },
           ),
           const SizedBox(height: 70),
           ElevatedButton(
             onPressed: () {
-              loginController
-                  .checkLogin(loginController.usernameController.text);
+              loginController.checkLogin(
+                  loginController.usernameController.text,
+                  loginController.passwordController.text);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF21005D),
