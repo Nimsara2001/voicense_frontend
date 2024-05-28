@@ -17,14 +17,13 @@ class LoginView extends GetView<LoginController> {
       body: Container(
         margin: const EdgeInsets.all(24),
         child: Column(
-          children: [
-            const SizedBox(height: 90),
+          children: <Widget>[
+            const SizedBox(height:30),
             const Logo(),
-            const SizedBox(height: 50),
+            const SizedBox(height: 100),
             const InputForm(),
-            const SizedBox(height: 50),
+            const SizedBox(height: 30),
             forgetPassword(),
-            const SizedBox(height: 20),
             const SignUp(),
           ],
         ),

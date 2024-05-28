@@ -91,6 +91,7 @@ class AudioRecorderController{
           )
       );
       Get.toNamed('/rec-successful', arguments: {'recordPath': recordPath});
+      print(recordPath);
     }else{
       onStop(null);
       onError("Could not stop the record");

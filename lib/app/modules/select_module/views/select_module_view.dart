@@ -24,35 +24,35 @@ class SelectModuleView extends GetView<SelectModuleController> {
         ),
         centerTitle: true,
       ),
-      // body: Container(
-      //   margin: const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
-      //   child: ListView(
-      //     children: const [
-      //       // for(Module item in modules)
-      //       //    ModuleItem(module: item),
-      //       SelectModuleItem(text: "Object Oriented Programming"),
-      //       SelectModuleItem(text: "Software Engineering"),
-      //       SelectModuleItem(text: "Data Structure"),
-      //       SelectModuleItem(text: "Computer Network"),
-      //       SelectModuleItem(text: "Computer Graphics"),
-      //     ],
-      //   ),
-      // ),
-      body: Obx(() => Container(
+      body: Container(
         margin: const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
-        child: ListView.builder(
-          itemCount: modulesController.modules.length,
-          itemBuilder: (context, index) {
-            final module = modulesController.modules[index];
-            // Access and display module data here (e.g., name, description)
-            // return ListTile(
-            //   title: Text(module),
-            //   // subtitle: Text(module['description'] ?? 'No description'),
-            // );
-            return SelectModuleItem(text: module);
-          },
+        child: ListView(
+          children: const [
+            // for(Module item in modules)
+            //    ModuleItem(module: item),
+            SelectModuleItem(text: "Object Oriented Programming"),
+            SelectModuleItem(text: "Software Engineering"),
+            SelectModuleItem(text: "Data Structure"),
+            SelectModuleItem(text: "Computer Network"),
+            SelectModuleItem(text: "Computer Graphics"),
+          ],
         ),
-      )),
+      ),
+      // body: Obx(() => Container(
+      //   margin: const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
+      //   child: ListView.builder(
+      //     itemCount: modulesController.modules.length,
+      //     itemBuilder: (context, index) {
+      //       final module = modulesController.modules[index];
+      //       // Access and display module data here (e.g., name, description)
+      //       // return ListTile(
+      //       //   title: Text(module),
+      //       //   // subtitle: Text(module['description'] ?? 'No description'),
+      //       // );
+      //       return SelectModuleItem(text: module);
+      //     },
+      //   ),
+      // )),
     );
   }
 }
