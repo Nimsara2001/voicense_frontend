@@ -1,10 +1,14 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:voicense_frontend/app/modules/signup/views/signup_view_two.dart';
+import 'package:voicense_frontend/app/modules/login/views/login_view.dart';
 import '../controllers/signup_controller.dart';
 
 class SignupView extends GetView<SignupController> {
   final _selection = Selection.none.obs;
+  @override
+  final SignupController controller = Get.put(SignupController());
 
   SignupView({super.key}); // Use Rx variable
 
@@ -64,7 +68,13 @@ class SignupView extends GetView<SignupController> {
       ),
       // Removed card color
       child: InkWell(
-        onTap: onTap as VoidCallback?,
+        onTap: () {
+          if (text == "Lecturer") {
+            controller.updateSelection(Selection.lecturer);
+          } else if (text == "Student") {
+            controller.updateSelection(Selection.student);
+          }
+        },
         child: Container(
           color: isSelected
               ? Colors.blue
@@ -89,7 +99,10 @@ class SignupView extends GetView<SignupController> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         ElevatedButton.icon(
-          onPressed: () => Navigator.pop(context), // Go back to login
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => LoginView()),
+          ), // Go back to login check is this want
           style: ElevatedButton.styleFrom(
             shape: const StadiumBorder(),
             padding: const EdgeInsets.symmetric(vertical: 16),
@@ -103,12 +116,13 @@ class SignupView extends GetView<SignupController> {
         ),
         Obx(
           () => ElevatedButton.icon(
-            onPressed: _selection.value != Selection.none
-                ? () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SignupViewTwo()),
-                    )
+            onPressed: controller.selectedSelection.value != Selection.none
+                // ? () => Navigator.push(
+                //       context,
+                //       MaterialPageRoute(
+                //           builder: (context) => const SignupViewTwo()),
+                //     )
+                ? controller.goToSignup2
                 : null, // Disable "Next" if no selection is made
             style: ElevatedButton.styleFrom(
               backgroundColor: _selection.value != Selection.none

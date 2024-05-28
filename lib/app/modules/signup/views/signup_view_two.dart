@@ -1,10 +1,13 @@
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:voicense_frontend/app/modules/signup/controllers/signup_controller.dart';
 import 'package:voicense_frontend/app/modules/signup/views/signup_view.dart';
-import 'package:voicense_frontend/app/modules/signup/views/signup_view_three.dart';
 
-class SignupViewTwo extends GetView {
-  const SignupViewTwo({super.key});
+class SignupViewTwo extends GetView<SignupController> {
+  final SignupController signupController = Get.put(SignupController());
+
+  SignupViewTwo({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +32,7 @@ class SignupViewTwo extends GetView {
 }
 
 _inputField(BuildContext context) {
+  final SignupController controller = Get.put(SignupController());
   return Form(
     autovalidateMode: AutovalidateMode.onUserInteraction,
     child: Column(
@@ -44,6 +48,7 @@ _inputField(BuildContext context) {
               border: OutlineInputBorder(),
               prefixIcon: Icon(Icons.person),
             ),
+            controller: controller.firstNameController,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your first name';
@@ -60,13 +65,14 @@ _inputField(BuildContext context) {
           width: 350,
           height: 80,
           child: TextFormField(
-            keyboardType: TextInputType.visiblePassword,
+            keyboardType: TextInputType.name,
             decoration: const InputDecoration(
               hintText: "Last name",
               border: OutlineInputBorder(),
               prefixIcon: Icon(Icons.person),
             ),
-            obscureText: true,
+            // obscureText: true,
+            controller: controller.lastNameController,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your last name';
@@ -84,6 +90,7 @@ _inputField(BuildContext context) {
 }
 
 _backbutton(BuildContext context) {
+  final SignupController controller = Get.put(SignupController());
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: [
@@ -97,7 +104,7 @@ _backbutton(BuildContext context) {
         style: ElevatedButton.styleFrom(
           shape: const StadiumBorder(),
           padding: const EdgeInsets.symmetric(vertical: 16),
-          minimumSize: const Size(120, 50),
+          minimumSize: const ui.Size(120, 50),
         ),
         icon: const Icon(Icons.navigate_before),
         label: const Text(
@@ -107,16 +114,19 @@ _backbutton(BuildContext context) {
       ),
       ElevatedButton.icon(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const SignupViewThree()),
-          );
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => const SignupViewThree()),
+          controller.goToSignup3();
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF21005D),
           shape: const StadiumBorder(),
           padding: const EdgeInsets.symmetric(vertical: 16),
-          minimumSize: const Size(120, 50),
+
+          // ...
+
+          minimumSize: const ui.Size(120, 50),
         ),
         label: const Icon(Icons.navigate_next),
         icon: const Text(

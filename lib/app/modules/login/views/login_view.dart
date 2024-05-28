@@ -35,6 +35,6 @@ class LoginView extends GetView<LoginController> {
 @override
 Widget forgetPassword() => TextButton(
     onPressed: () {
-      Get.to(() => ForgetPasswordView());
+      Get.to(() => const ForgetPasswordView());
     },
     child: const Text("Forgot password?"));
