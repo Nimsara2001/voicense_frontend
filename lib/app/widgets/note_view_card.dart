@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:voicense_frontend/app/modules/lec_note/views/lec_note_view.dart';
 
@@ -15,7 +14,7 @@ class RecentNoteViewCard extends StatelessWidget {
         height: 109,
         // Adjusted height to accommodate the additional content
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 231, 222, 252),
+          color: const Color.fromARGB(255, 231, 222, 252),
           borderRadius: BorderRadius.circular(10),
         ),
         child: InkWell(

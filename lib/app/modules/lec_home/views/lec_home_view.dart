@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:voicense_frontend/app/widgets/note_view_card.dart';
-import 'package:voicense_frontend/app/widgets/search_bar.dart';
+import 'package:voicense_frontend/app/widgets/home_search_bar.dart';
 
 import '../controllers/lec_home_controller.dart';
 
