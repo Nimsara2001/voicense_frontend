@@ -1,12 +1,14 @@
 // ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:voicense_frontend/app/modules/login/views/login_view.dart';
 import '../controllers/signup_controller.dart';
 
+// enum Selection { none, student, lecturer }
+
 class SignupView extends GetView<SignupController> {
-  final _selection = Selection.none.obs;
+  // final _selection = Selection.none.obs;
+
   @override
   final SignupController controller = Get.put(SignupController());
 
@@ -16,7 +18,7 @@ class SignupView extends GetView<SignupController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SignupView'),
+        // title: const Text('SignupView'),
         centerTitle: true,
       ),
       body: Container(
@@ -34,21 +36,26 @@ class SignupView extends GetView<SignupController> {
     );
   }
 
-  Widget _selectionField(context) {
+  Widget _selectionField(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        _selectionCard(
-          text: "Lecturer",
-          onTap: () => _selection.value = Selection.lecturer,
-          isSelected: _selection.value == Selection.lecturer,
+        Obx(
+          () => _selectionCard(
+            text: "Lecturer",
+            onTap: () => controller.updateSelection(Selection.lecturer),
+            isSelected:
+                controller.selectedSelection.value == Selection.lecturer,
+          ),
         ),
         const SizedBox(height: 50),
-        _selectionCard(
-          text: "Student",
-          onTap: () => _selection.value = Selection.student,
-          isSelected: _selection.value == Selection.student,
+        Obx(
+          () => _selectionCard(
+            text: "Student",
+            onTap: () => controller.updateSelection(Selection.student),
+            isSelected: controller.selectedSelection.value == Selection.student,
+          ),
         ),
       ],
     );
@@ -56,7 +63,7 @@ class SignupView extends GetView<SignupController> {
 
   Widget _selectionCard({
     required String text,
-    required Function onTap,
+    required Function() onTap,
     required bool isSelected,
   }) {
     return Card(
@@ -68,16 +75,10 @@ class SignupView extends GetView<SignupController> {
       ),
       // Removed card color
       child: InkWell(
-        onTap: () {
-          if (text == "Lecturer") {
-            controller.updateSelection(Selection.lecturer);
-          } else if (text == "Student") {
-            controller.updateSelection(Selection.student);
-          }
-        },
+        onTap: onTap,
         child: Container(
           color: isSelected
-              ? Colors.blue
+              ? Color(0xFF21005D)
               : Colors.white, // Change entire card color
           child: SizedBox(
             width: 350,
@@ -85,7 +86,12 @@ class SignupView extends GetView<SignupController> {
             child: Center(
               child: Text(
                 text,
-                style: const TextStyle(fontSize: 20, color: Colors.black),
+                style: TextStyle(
+                  fontSize: 20,
+                  color: isSelected
+                      ? Colors.white
+                      : Color(0xFF21005D), // Change text color
+                ),
               ),
             ),
           ),
@@ -117,17 +123,13 @@ class SignupView extends GetView<SignupController> {
         Obx(
           () => ElevatedButton.icon(
             onPressed: controller.selectedSelection.value != Selection.none
-                // ? () => Navigator.push(
-                //       context,
-                //       MaterialPageRoute(
-                //           builder: (context) => const SignupViewTwo()),
-                //     )
-                ? controller.goToSignup2
+                ? () => controller.goToSignup2()
                 : null, // Disable "Next" if no selection is made
             style: ElevatedButton.styleFrom(
-              backgroundColor: _selection.value != Selection.none
-                  ? const Color(0xFF21005D)
-                  : null, // Disable button styling if not selected
+              backgroundColor:
+                  controller.selectedSelection.value != Selection.none
+                      ? const Color(0xFF21005D)
+                      : null, // Disable button styling if not selected
               shape: const StadiumBorder(),
               padding: const EdgeInsets.symmetric(vertical: 16),
               minimumSize: const Size(140, 50),

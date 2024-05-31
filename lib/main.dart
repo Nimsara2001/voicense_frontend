@@ -4,12 +4,12 @@ import 'app/routes/app_pages.dart';
 
 void main() {
   runApp(
-      GetMaterialApp(
-        // theme: CustomTheme.lightTheme,
-        debugShowCheckedModeBanner: false,
-        title: "Application",
-        initialRoute: AppPages.INITIAL,
-        getPages: AppPages.routes,
-      ),
+    GetMaterialApp(
+      // theme: CustomTheme.lightTheme,
+      debugShowCheckedModeBanner: false,
+      title: "Application",
+      initialRoute: AppPages.INITIAL,
+      getPages: AppPages.routes,
+    ),
   );
 }

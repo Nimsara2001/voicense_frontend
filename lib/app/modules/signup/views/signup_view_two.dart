@@ -2,7 +2,6 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:voicense_frontend/app/modules/signup/controllers/signup_controller.dart';
-import 'package:voicense_frontend/app/modules/signup/views/signup_view.dart';
 
 class SignupViewTwo extends GetView<SignupController> {
   final SignupController signupController = Get.put(SignupController());
@@ -19,10 +18,10 @@ class SignupViewTwo extends GetView<SignupController> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 100),
-              _inputField(
-                  context), // You can access controller data here if needed
+              _inputField(context,
+                  signupController), // You can access controller data here if needed
               const SizedBox(height: 250),
-              _backbutton(context),
+              _backbutton(context, signupController),
             ],
           ),
         ),
@@ -31,8 +30,8 @@ class SignupViewTwo extends GetView<SignupController> {
   }
 }
 
-_inputField(BuildContext context) {
-  final SignupController controller = Get.put(SignupController());
+_inputField(BuildContext context, SignupController controller) {
+  // final SignupController controller = Get.put(SignupController());
   return Form(
     autovalidateMode: AutovalidateMode.onUserInteraction,
     child: Column(
@@ -89,18 +88,18 @@ _inputField(BuildContext context) {
   );
 }
 
-_backbutton(BuildContext context) {
-  final SignupController controller = Get.put(SignupController());
+_backbutton(BuildContext context, SignupController controller) {
+  // final SignupController controller = Get.put(SignupController());
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: [
       ElevatedButton.icon(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => SignupView()),
-          );
-        },
+        // onPressed: () {
+        //   Navigator.push(
+        //     context,
+        //     MaterialPageRoute(builder: (context) => SignupView()),
+        //   );
+        onPressed: () => Get.back(),
         style: ElevatedButton.styleFrom(
           shape: const StadiumBorder(),
           padding: const EdgeInsets.symmetric(vertical: 16),
