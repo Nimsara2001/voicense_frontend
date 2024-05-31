@@ -4,14 +4,14 @@ import 'package:voicense_frontend/app/modules/login/views/login_view.dart';
 
 class SignupViewFour extends GetView {
   const SignupViewFour({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: Container(
           margin: const EdgeInsets.all(24),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 100),
+          child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -35,7 +35,7 @@ class SignupViewFour extends GetView {
 }
 
 // ignore: non_constant_identifier_names
-_check_circle_done(context) {
+Widget _check_circle_done(BuildContext context) {
   return const Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -49,7 +49,7 @@ _check_circle_done(context) {
 }
 
 // ignore: non_constant_identifier_names
-_text_success(context) {
+Widget _text_success(BuildContext context) {
   return const Column(
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,17 +66,14 @@ _text_success(context) {
   );
 }
 
-_login(BuildContext context) {
+Widget _login(BuildContext context) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       ElevatedButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => LoginView()),
-          );
+          Get.to(() => const LoginView());
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF21005D),

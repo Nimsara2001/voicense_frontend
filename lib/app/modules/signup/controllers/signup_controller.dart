@@ -9,6 +9,7 @@ enum Selection { lecturer, student, none }
 
 class SignupController extends GetxController {
   final selectedSelection = Selection.none.obs;
+
   void updateSelection(Selection selection) {
     selectedSelection.value = selection;
   }
@@ -121,15 +122,16 @@ class SignupController extends GetxController {
   }
 
   final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  // }
+
+  // @override
+  // void onReady() {
+  //   super.onReady();
+  // }
 
   @override
   void onClose() {
@@ -153,7 +155,7 @@ class SignupController extends GetxController {
   final RxString lastName = RxString('');
 
   Future<void> signUpUser() async {
-    final url = http.get(Uri.parse('http://localhost:8000/auth/signup'));
+    final url = Uri.parse('http://localhost:8000/auth/signup');
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode({
       'username': username.value,
@@ -163,7 +165,7 @@ class SignupController extends GetxController {
       'user_type': selectedSelection.value.name, // Convert Selection to string
     });
 
-    final response = await http.post(url as Uri, headers: headers, body: body);
+    final response = await http.post(url, headers: headers, body: body);
 
     if (response.statusCode == 200) {
       // Signup successful

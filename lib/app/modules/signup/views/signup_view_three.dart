@@ -1,9 +1,10 @@
 // ignore_for_file: unused_local_variable
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+// ignore: unnecessary_import
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:voicense_frontend/app/modules/signup/controllers/signup_controller.dart';
 import 'package:voicense_frontend/app/modules/signup/views/signup_view_four.dart';
-import 'package:voicense_frontend/app/modules/signup/views/signup_view_two.dart';
 
 class SignupViewThree extends GetView<SignupController> {
   final String firstName;
@@ -26,7 +27,7 @@ class SignupViewThree extends GetView<SignupController> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 100),
-              _inputField(context),
+              _inputField(context, controller),
               const SizedBox(height: 200),
               _backbutton(context, controller),
             ],
@@ -36,8 +37,9 @@ class SignupViewThree extends GetView<SignupController> {
     );
   }
 
-  Widget _inputField(BuildContext context) {
+  Widget _inputField(BuildContext context, SignupController controller) {
     return Form(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -49,6 +51,8 @@ class SignupViewThree extends GetView<SignupController> {
               prefixIcon: Icon(Icons.person),
             ),
             controller: controller.usernameController,
+            validator: (value) => controller.validateUsername(value!),
+            onChanged: (value) => controller.username.value = value,
           ),
           const SizedBox(height: 20),
           TextFormField(
@@ -60,6 +64,8 @@ class SignupViewThree extends GetView<SignupController> {
             ),
             obscureText: true,
             controller: controller.passwordController,
+            validator: (value) => controller.validatePassword(value!),
+            onChanged: (value) => controller.password.value = value,
           ),
           const SizedBox(height: 20),
           TextFormField(
@@ -71,6 +77,8 @@ class SignupViewThree extends GetView<SignupController> {
             ),
             obscureText: true,
             controller: controller.confirmPasswordController,
+            validator: (value) => controller.validateConfirmPassword(value!),
+            onChanged: (value) => controller.confirmPassword.value = value,
           ),
         ],
       ),
@@ -82,10 +90,11 @@ class SignupViewThree extends GetView<SignupController> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         ElevatedButton.icon(
-          onPressed: () => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => SignupViewTwo()),
-          ),
+          onPressed: () => Get.back(),
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => SignupViewTwo()),
+          // ),
           style: ElevatedButton.styleFrom(
             // ... (same styling as before)
             shape: const StadiumBorder(),
@@ -98,29 +107,30 @@ class SignupViewThree extends GetView<SignupController> {
             style: TextStyle(fontSize: 20, color: Color(0xFF21005D)),
           ),
         ),
-        ElevatedButton(
-          onPressed: () {
-            if (controller.isValidForm()) {
-              Get.to(() => const SignupViewFour());
-            } else {
-              // show validation errors
-            }
-          },
-          // =>
-          // Get.to(() => const SignupViewFour()),
+        Obx(
+          () => ElevatedButton(
+            onPressed: controller.isValidForm()
+                ? () {
+                    controller.signUpUser();
+                    Get.to(() => const SignupViewFour());
+                  }
+                : null,
+            // =>
+            // Get.to(() => const SignupViewFour()),
 
-          // Always navigate
-          style: ElevatedButton.styleFrom(
-            // ... (same styling as before)
-            backgroundColor: const Color(0xFF21005D),
-            shape: const StadiumBorder(),
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            minimumSize: const Size(120, 50),
-          ),
-          child: const Text(
-            "Finish",
-            style: TextStyle(
-                fontSize: 20, color: Color.fromARGB(255, 203, 230, 252)),
+            // Always navigate
+            style: ElevatedButton.styleFrom(
+              // ... (same styling as before)
+              backgroundColor: const Color(0xFF21005D),
+              shape: const StadiumBorder(),
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              minimumSize: const Size(120, 50),
+            ),
+            child: const Text(
+              "Finish",
+              style: TextStyle(
+                  fontSize: 20, color: Color.fromARGB(255, 203, 230, 252)),
+            ),
           ),
         )
       ],
