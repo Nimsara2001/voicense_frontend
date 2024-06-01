@@ -30,7 +30,7 @@ class SignupViewTwo extends GetView<SignupController> {
   }
 }
 
-_inputField(BuildContext context, SignupController controller) {
+Widget _inputField(BuildContext context, SignupController controller) {
   // final SignupController controller = Get.put(SignupController());
   return Form(
     autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -88,7 +88,7 @@ _inputField(BuildContext context, SignupController controller) {
   );
 }
 
-_backbutton(BuildContext context, SignupController controller) {
+Widget _backbutton(BuildContext context, SignupController controller) {
   // final SignupController controller = Get.put(SignupController());
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
