@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:voicense_frontend/app/modules/signup/views/signup_view_four.dart';
 import 'package:voicense_frontend/app/modules/signup/views/signup_view_three.dart';
 import 'package:voicense_frontend/app/modules/signup/views/signup_view_two.dart';
 import 'package:flutter/material.dart';
@@ -155,7 +156,7 @@ class SignupController extends GetxController {
   final RxString lastName = RxString('');
 
   Future<void> signUpUser() async {
-    final url = Uri.parse('http://localhost:8000/auth/signup');
+    final url = Uri.parse('http://192.168.8.111:8000/auth/signup');
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode({
       'username': username.value,
@@ -165,16 +166,25 @@ class SignupController extends GetxController {
       'user_type': selectedSelection.value.name, // Convert Selection to string
     });
 
-    final response = await http.post(url, headers: headers, body: body);
+    try {
+      final response = await http.post(url, headers: headers, body: body);
 
-    if (response.statusCode == 200) {
-      // Signup successful
-      print('Signup successful: ${response.body}');
-      // Navigate to the next screen or show a success message
-    } else {
-      // Signup failed
-      print('Signup failed: ${response.body}');
-      // Show an error message
+      if (response.statusCode == 200) {
+        // Signup successful
+        print('Signup successful: ${response.body}');
+        Get.to(() => const SignupViewFour());
+        // Navigate to the next screen or show a success message
+      } else {
+        // Signup failed
+        print('Signup failed: ${response.body}');
+        Get.snackbar('Error', 'Signup failed: ${response.body}',
+            snackPosition: SnackPosition.BOTTOM);
+        // Show an error message
+      }
+    } catch (e) {
+      print('Error during signup: $e');
+      Get.snackbar('Error', 'Error during signup: $e',
+          snackPosition: SnackPosition.BOTTOM);
     }
   }
 }

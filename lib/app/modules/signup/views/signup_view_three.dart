@@ -112,9 +112,10 @@ class SignupViewThree extends GetView<SignupController> {
             onPressed: controller.isValidForm()
                 ? () {
                     controller.signUpUser();
-                    Get.to(() => const SignupViewFour());
                   }
                 : null,
+            // Get.to(() => const SignupViewFour());
+
             // =>
             // Get.to(() => const SignupViewFour()),
 
