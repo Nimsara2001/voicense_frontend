@@ -1,10 +1,7 @@
 // ignore_for_file: unused_local_variable
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// ignore: unnecessary_import
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:voicense_frontend/app/modules/signup/controllers/signup_controller.dart';
-import 'package:voicense_frontend/app/modules/signup/views/signup_view_four.dart';
 
 class SignupViewThree extends GetView<SignupController> {
   final String firstName;
@@ -19,6 +16,7 @@ class SignupViewThree extends GetView<SignupController> {
   @override
   Widget build(BuildContext context) {
     final SignupController controller = Get.find<SignupController>();
+
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -53,6 +51,18 @@ class SignupViewThree extends GetView<SignupController> {
             controller: controller.usernameController,
             validator: (value) => controller.validateUsername(value!),
             onChanged: (value) => controller.username.value = value,
+          ),
+          const SizedBox(height: 20),
+          TextFormField(
+            keyboardType: TextInputType.emailAddress,
+            decoration: const InputDecoration(
+              hintText: "Email",
+              border: OutlineInputBorder(),
+              prefixIcon: Icon(Icons.email),
+            ),
+            controller: controller.emailController,
+            validator: (value) => controller.validateEmail(value!),
+            onChanged: (value) => controller.email.value = value,
           ),
           const SizedBox(height: 20),
           TextFormField(
