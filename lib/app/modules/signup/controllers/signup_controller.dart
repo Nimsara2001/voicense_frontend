@@ -11,6 +11,8 @@ enum Selection { lecturer, student, none }
 class SignupController extends GetxController {
   final selectedSelection = Selection.none.obs;
 
+  // get emailController => null;
+
   void updateSelection(Selection selection) {
     selectedSelection.value = selection;
   }
@@ -81,11 +83,13 @@ class SignupController extends GetxController {
   final RxString username = RxString('');
   final RxString password = RxString('');
   final RxString confirmPassword = RxString('');
+  final RxString email = RxString('');
 
   // Error messages (optional)
   final RxString usernameError = RxString('');
   final RxString passwordError = RxString('');
   final RxString confirmPasswordError = RxString('');
+  final RxString emailError = RxString('');
 
   // Validation methods (example)
   String? validateUsername(String value) {
@@ -113,13 +117,25 @@ class SignupController extends GetxController {
     return null;
   }
 
+  String? validateEmail(String value) {
+    String pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
+    RegExp regex = RegExp(pattern);
+    if (value.isEmpty) {
+      return 'Email cannot be empty';
+    } else if (!regex.hasMatch(value)) {
+      return 'Enter a valid email address';
+    }
+    return null;
+  }
+
   // Method to check if form is valid (example)
   bool isValidForm() {
     final usernameValid = validateUsername(username.value) == null;
+    final emailValid = validateEmail(email.value) == null;
     final passwordValid = validatePassword(password.value) == null;
     final confirmPasswordValid =
         validateConfirmPassword(confirmPassword.value) == null;
-    return usernameValid && passwordValid && confirmPasswordValid;
+    return usernameValid && emailValid && passwordValid && confirmPasswordValid;
   }
 
   final count = 0.obs;
@@ -139,6 +155,7 @@ class SignupController extends GetxController {
     firstNameController.dispose();
     lastNameController.dispose();
     usernameController.dispose();
+    emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
     super.onClose();
@@ -149,6 +166,7 @@ class SignupController extends GetxController {
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final usernameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
@@ -161,6 +179,7 @@ class SignupController extends GetxController {
     final body = jsonEncode({
       'username': username.value,
       'password': password.value,
+      'email': email.value,
       'first_name': firstName.value, // Assuming you have a firstName field
       'last_name': lastName.value, // Assuming you have a lastName field
       'user_type': selectedSelection.value.name, // Convert Selection to string
