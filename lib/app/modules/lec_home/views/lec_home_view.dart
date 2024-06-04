@@ -7,6 +7,8 @@ import 'package:voicense_frontend/app/widgets/home_search_bar.dart';
 import '../controllers/lec_home_controller.dart';
 
 class LecHomeView extends GetView<LecHomeController> {
+  const LecHomeView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

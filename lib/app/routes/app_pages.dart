@@ -103,9 +103,8 @@ class AppPages {
       binding: ForgetPasswordBinding(),
     ),
     GetPage(
-      name: _Paths.REC_SUCCESSFUL,
-      page: () => const RecSuccessfulView(),
-      binding: RecSuccessfulBinding()
-    ),
+        name: _Paths.REC_SUCCESSFUL,
+        page: () => const RecSuccessfulView(),
+        binding: RecSuccessfulBinding()),
   ];
 }
