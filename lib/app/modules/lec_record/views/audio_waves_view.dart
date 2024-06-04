@@ -17,7 +17,7 @@ class _AudioWavesViewState extends State<AudioWavesView> {
   List<double> amplitudes = [];
   late StreamSubscription<double> amplitudeSubscription;
 
-  double wavesMaxHeight = 100;
+  double wavesMaxHeight = 150;
   final double minimumAmpl = -50;
 
   @override
@@ -66,12 +66,12 @@ class _AudioWavesViewState extends State<AudioWavesView> {
             child: Center(
               child: TweenAnimationBuilder<double>(
                 tween: Tween(begin: 0, end: waveHeight),
-                duration: const Duration(milliseconds: 120),
+                duration: const Duration(milliseconds: 220),
                 curve: Curves.decelerate,
                 builder: (context, animatedWaveHeight, child) {
                   return SizedBox(
                       height: animatedWaveHeight,
-                      width: 8,
+                      width: 4,
                       child: child
                   );
                 },
