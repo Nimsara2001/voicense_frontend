@@ -2,12 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:voicense_frontend/app/data/user_account_storage.dart';
 import 'dart:convert';
-import 'package:voicense_frontend/app/modules/common_he/views/common_he_view.dart';
+import 'package:voicense_frontend/app/modules/lec_home/views/lec_home_view.dart';
+import 'package:voicense_frontend/app/modules/stu_home/views/stu_home_view.dart';
 
 class LoginController extends GetxController {
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   late TextEditingController usernameController, passwordController;
+  var isLoading = false.obs;
+  String? username;
+  String? password;
+  final UserAccountStorage _userAccountStorage = Get.put(UserAccountStorage());
 
   @override
   void onInit() {
@@ -20,79 +26,102 @@ class LoginController extends GetxController {
   void onClose() {
     usernameController.dispose();
     passwordController.dispose();
+    super.onClose();
   }
 
   String? validateUsername(String value) {
-    // Make an API call to check if the username exists
-    // Return null if the username is valid, otherwise return an error message
-    // Implement your validation logic here
+    if (value.isEmpty) {
+      return "Please enter your username";
+    }
     return null;
   }
 
   String? validatePassword(String value) {
-    // Make an API call to authenticate the user with the provided username and password
-    // Return null if the password is valid, otherwise return an error message
-    // Implement your validation logic here
+    if (value.isEmpty) {
+      return "Please enter your password";
+    }
     return null;
   }
 
-  void checkLogin(String username, String password) async {
+  void checkLogin() async {
     final isValid = loginFormKey.currentState!.validate();
     if (!isValid) {
       return;
     }
+    loginFormKey.currentState!.save();
+    isLoading.value = true;
 
     try {
-      // Make an API call to authenticate the user
-      final response = await authenticateUser(username, password);
-
+      final response = await authenticateUser(
+        usernameController.text,
+        passwordController.text,
+      );
       if (response.isSuccessful) {
-        // Authentication successful
-        final userType =
-            response.userType; // Assuming the API returns the user type
-        Get.to(CommonHeView(userType: userType));
+        if (response.userType == 'student') {
+          Get.off(() => StuHomeView());
+        } else if (response.userType == 'lecturer') {
+          Get.off(() => const LecHomeView());
+        } else {
+          Get.snackbar(
+            'error',
+            'Invalid user type',
+            snackPosition: SnackPosition.BOTTOM,
+          );
+        }
       } else {
-        // Authentication failed
         Get.snackbar(
           'Error',
-          response.errorMessage ??
-              'Authentication failed', // Assuming the API returns an error message
+          response.errorMessage ?? 'Authentication failed',
           snackPosition: SnackPosition.BOTTOM,
         );
       }
     } catch (e) {
-      // Handle any exceptions that occur during the API call
       Get.snackbar(
         'Error',
         'An error occurred during authentication',
         snackPosition: SnackPosition.BOTTOM,
       );
+    } finally {
+      isLoading.value = false;
     }
-
-    loginFormKey.currentState!.save();
   }
 
   Future<AuthenticationResponse> authenticateUser(
-      String username, String password) async {
-    final url = http.get(Uri.parse('http://localhost:8000/auth/token'));
-    final body = {
+    String username,
+    String password,
+  ) async {
+    final url = Uri.parse('http://10.10.14.195:8000/auth/login');
+    final body = jsonEncode({
       'username': username,
       'password': password,
-    };
-
-    final response = await http.post(url as Uri, body: body);
+    });
+    final headers = {'Content-Type': 'application/json'};
+    final response = await http.post(url, body: body, headers: headers);
 
     if (response.statusCode == 200) {
-      // Authentication successful
-      final userType = jsonDecode(
-          response.body)['user_type']; // Assuming the API returns the user type
-      return AuthenticationResponse(isSuccessful: true, userType: userType);
+      final data = jsonDecode(response.body);
+      if (data['message'] == 'valid') {
+        final userType = data['user_type'];
+        final userSchema = data['user'];
+        final token = data['token']['access_token'];
+
+        _userAccountStorage.userSchema = userSchema;
+        _userAccountStorage.token = token;
+
+        return AuthenticationResponse(isSuccessful: true, userType: userType);
+      } else {
+        final reason = data['reason'];
+        return AuthenticationResponse(
+          isSuccessful: false,
+          errorMessage: reason,
+        );
+      }
     } else {
-      // Authentication failed
-      final errorMessage = jsonDecode(response.body)[
-          'error_message']; // Assuming the API returns an error message
+      const errorMessage = 'Authentication failed';
       return AuthenticationResponse(
-          isSuccessful: false, errorMessage: errorMessage);
+        isSuccessful: false,
+        errorMessage: errorMessage,
+      );
     }
   }
 }
