@@ -74,7 +74,7 @@ class LoginController extends GetxController {
 
   Future<AuthenticationResponse> authenticateUser(
       String username, String password) async {
-    final url = http.get(Uri.parse('http://localhost:8000/auth/token'));
+    final url = http.get(Uri.parse('http://192.168.8.100/auth/token'));
     final body = {
       'username': username,
       'password': password,

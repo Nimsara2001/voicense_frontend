@@ -17,7 +17,7 @@ class LecExploreView extends GetView<LecExploreController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SearchBarExplore(),
+            SearchBarExplore(),
             OtherNotes(context),
             AddModule(context),
             Expanded(

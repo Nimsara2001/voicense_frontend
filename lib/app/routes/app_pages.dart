@@ -1,5 +1,8 @@
 import 'package:get/get.dart';
 
+import 'package:voicense_frontend/app/modules/note_set_of_module/bindings/note_set_of_module_binding.dart';
+import 'package:voicense_frontend/app/modules/note_set_of_module/views/note_set_of_module_view.dart';
+
 import '../modules/common_he/bindings/common_he_binding.dart';
 import '../modules/common_he/views/common_he_view.dart';
 import '../modules/forget_password/bindings/forget_password_binding.dart';
@@ -103,9 +106,13 @@ class AppPages {
       binding: ForgetPasswordBinding(),
     ),
     GetPage(
-      name: _Paths.REC_SUCCESSFUL,
-      page: () => const RecSuccessfulView(),
-      binding: RecSuccessfulBinding()
+        name: _Paths.REC_SUCCESSFUL,
+        page: () => const RecSuccessfulView(),
+        binding: RecSuccessfulBinding()),
+    GetPage(
+      name: _Paths.NOTE_SET_OF_MODULE,
+      page: () => NoteSetOfModuleView(),
+      binding: NoteSetOfModuleBinding(),
     ),
   ];
 }
