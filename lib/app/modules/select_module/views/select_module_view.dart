@@ -6,9 +6,12 @@ import 'package:voicense_frontend/app/modules/select_module/widgets/select_modul
 import '../controllers/select_module_controller.dart';
 
 class SelectModuleView extends GetView<SelectModuleController> {
-  final modulesController = Get.put(SelectModuleController());
+  final String? user_id;
+  SelectModuleView({this.user_id});
+
   @override
   Widget build(BuildContext context) {
+    final modulesController = Get.put(SelectModuleController(user_id: '6638b698f81ffd971fadfa52'));
     return Scaffold(
       appBar: AppBar(
         // backgroundColor: Colors.amberAccent,
@@ -27,15 +30,19 @@ class SelectModuleView extends GetView<SelectModuleController> {
       body: Container(
         margin: const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
         child: ListView(
-          children: const [
-            // for(Module item in modules)
-            //    ModuleItem(module: item),
-            SelectModuleItem(text: "Object Oriented Programming"),
-            SelectModuleItem(text: "Software Engineering"),
-            SelectModuleItem(text: "Data Structure"),
-            SelectModuleItem(text: "Computer Network"),
-            SelectModuleItem(text: "Computer Graphics"),
+          children: [
+            for (var module in modulesController!.modules)
+              SelectModuleItem(module_id:module['_id'],text: module['title']),
           ],
+          // children:  [
+          //   // for(Module item in modules)
+          //   //    ModuleItem(module: item),
+          //   // SelectModuleItem(text: "Object Oriented Programming"),
+          //   // SelectModuleItem(text: "Software Engineering"),
+          //   // SelectModuleItem(text: "Data Structure"),
+          //   // SelectModuleItem(text: "Computer Network"),
+          //   // SelectModuleItem(text: "Computer Graphics"),
+          // ],
         ),
       ),
       // body: Obx(() => Container(

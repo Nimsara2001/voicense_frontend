@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:voicense_frontend/app/widgets/note_view_card.dart';
 import 'package:voicense_frontend/app/widgets/home_search_bar.dart';
 
-import '../controllers/lec_home_controller.dart';
+import '../controllers/home_controller.dart';
 
-class LecHomeView extends GetView<LecHomeController> {
+class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

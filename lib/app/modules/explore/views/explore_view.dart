@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:voicense_frontend/app/modules/lec_explore/views/lec_explore_view_two.dart';
+// import 'package:voicense_frontend/app/modules/lec_explore/views/lec_explore_view_two.dart';
 import 'package:voicense_frontend/app/widgets/module_view_card.dart';
 import 'package:voicense_frontend/app/widgets/search_bar.dart';
-import '../controllers/lec_explore_controller.dart';
+import '../controllers/explore_controller.dart';
 
-class LecExploreView extends GetView<LecExploreController> {
-  const LecExploreView({super.key});
+class ExploreView extends GetView<ExploreController> {
+  final String? userType;
+  ExploreView({Key? key, this.userType});
 
   @override
   Widget build(BuildContext context) {
+    final ExploreController controller = Get.put(ExploreController(userType!));
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(color: Colors.white),
@@ -19,7 +21,7 @@ class LecExploreView extends GetView<LecExploreController> {
           children: [
             SearchBarExplore(),
             OtherNotes(context),
-            AddModule(context),
+            Obx(() => controller.add_or_null[controller.index.value]),
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2,
@@ -69,25 +71,25 @@ Widget OtherNotes(BuildContext context) {
   );
 }
 
-// ignore: non_constant_identifier_names
-Widget AddModule(BuildContext context) {
-  return Container(
-    margin: const EdgeInsets.only(top: 20, right: 10, left: 10),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        const Text(
-          "Modules",
-          style: TextStyle(fontSize: 25, fontWeight:FontWeight.bold),
-        ),
-        IconButton(
-          icon: const Icon(Icons.add),
-          onPressed: () {
-            // Handle the button press here
-          },
-        ),
-      ],
-    ),
-  );
-}
+// // ignore: non_constant_identifier_names
+// Widget AddModule(BuildContext context) {
+//   return Container(
+//     margin: const EdgeInsets.only(top: 20, right: 10, left: 10),
+//     child: Row(
+//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//       children: [
+//         const Text(
+//           "Modules",
+//           style: TextStyle(fontSize: 25, fontWeight:FontWeight.bold),
+//         ),
+//         IconButton(
+//           icon: const Icon(Icons.add),
+//           onPressed: () {
+//             // Handle the button press here
+//           },
+//         ),
+//       ],
+//     ),
+//   );
+// }
 

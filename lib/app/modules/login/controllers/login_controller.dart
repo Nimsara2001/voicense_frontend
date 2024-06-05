@@ -50,7 +50,7 @@ class LoginController extends GetxController {
         // Authentication successful
         final userType =
             response.userType; // Assuming the API returns the user type
-        Get.to(CommonHeView(userType: userType));
+        Get.to(CommonHeView(userType: "userType"));
       } else {
         // Authentication failed
         Get.snackbar(
@@ -74,7 +74,7 @@ class LoginController extends GetxController {
 
   Future<AuthenticationResponse> authenticateUser(
       String username, String password) async {
-    final url = http.get(Uri.parse('http://192.168.8.100/auth/token'));
+    final url = http.post(Uri.parse('http://192.168.8.101:8000/auth/login'));
     final body = {
       'username': username,
       'password': password,
