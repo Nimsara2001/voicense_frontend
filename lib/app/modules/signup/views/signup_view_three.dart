@@ -53,18 +53,18 @@ class SignupViewThree extends GetView<SignupController> {
             onChanged: (value) => controller.username.value = value,
           ),
           const SizedBox(height: 20),
-          TextFormField(
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(
-              hintText: "Email",
-              border: OutlineInputBorder(),
-              prefixIcon: Icon(Icons.email),
-            ),
-            controller: controller.emailController,
-            validator: (value) => controller.validateEmail(value!),
-            onChanged: (value) => controller.email.value = value,
-          ),
-          const SizedBox(height: 20),
+          // TextFormField(
+          //   keyboardType: TextInputType.emailAddress,
+          //   decoration: const InputDecoration(
+          //     hintText: "Email",
+          //     border: OutlineInputBorder(),
+          //     prefixIcon: Icon(Icons.email),
+          //   ),
+          //   controller: controller.emailController,
+          //   validator: (value) => controller.validateEmail(value!),
+          //   onChanged: (value) => controller.email.value = value,
+          // ),
+          // const SizedBox(height: 20),
           TextFormField(
             keyboardType: TextInputType.visiblePassword,
             decoration: const InputDecoration(
