@@ -90,7 +90,7 @@ class LoginController extends GetxController {
     String username,
     String password,
   ) async {
-    final url = Uri.parse('http://10.10.14.195:8000/auth/login');
+    final url = Uri.parse('http://192.168.8.111/auth/login');
     final body = jsonEncode({
       'username': username,
       'password': password,
@@ -100,7 +100,7 @@ class LoginController extends GetxController {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      if (data['message'] == 'valid') {
+      if (data['message'] == 'success') {
         final userType = data['user_type'];
         final userSchema = data['user'];
         final token = data['token']['access_token'];
