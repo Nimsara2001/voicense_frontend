@@ -91,6 +91,7 @@ class LoginController extends GetxController {
     String password,
   ) async {
     final url = Uri.parse('http://192.168.8.100:8000/auth/login');
+
     final body = jsonEncode({
       'username': username,
       'password': password,
