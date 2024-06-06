@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:voicense_frontend/app/modules/lec_explore/views/lec_explore_view_two.dart';
 import 'package:voicense_frontend/app/widgets/module_view_card.dart';
 import 'package:voicense_frontend/app/widgets/search_bar.dart';
 import '../controllers/explore_controller.dart';
 
 class ExploreView extends GetView<ExploreController> {
-  final String? userType;
+  String? userType;
   ExploreView({Key? key, this.userType});
 
   @override

@@ -22,14 +22,7 @@ class SignupController extends GetxController {
       Get.to(() => SignupViewTwo());
     }
   }
-//   void goToSignup3() {
-//   final firstName = firstNameController.text;
-//   final lastName = lastNameController.text;
 
-//   if (/* your validation logic */) {
-//     Get.to(() => SignupViewThree(firstName: firstName, lastName: lastName));
-//   }
-// }
   void goToSignup3() {
     final firstNameValue = firstNameController.text.trim();
     final lastNameValue = lastNameController.text.trim();
@@ -46,11 +39,19 @@ class SignupController extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
       );
       return;
-    } else if (firstName.value.length < 3) {
+    } else if (firstName.value.length < 4) {
       // Show an error message or snackbar
       Get.snackbar(
         'Error',
-        'First name must be at least 3 characters long',
+        'First name must be at least 4 characters long',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return;
+    } else if (!RegExp(r'^[a-zA-Z]').hasMatch(firstName.value)) {
+      // Show an error message or snackbar
+      Get.snackbar(
+        'Error',
+        'First name must start with a letter',
         snackPosition: SnackPosition.BOTTOM,
       );
       return;
@@ -65,11 +66,19 @@ class SignupController extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
       );
       return;
-    } else if (lastName.value.length < 3) {
+    } else if (lastName.value.length < 4) {
       // Show an error message or snackbar
       Get.snackbar(
         'Error',
-        'Last name must be at least 3 characters long',
+        'Last name must be at least 4 characters long',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return;
+    } else if (!RegExp(r'^[a-zA-Z]').hasMatch(lastName.value)) {
+      // Show an error message or snackbar
+      Get.snackbar(
+        'Error',
+        'First name must start with a letter',
         snackPosition: SnackPosition.BOTTOM,
       );
       return;
@@ -83,18 +92,20 @@ class SignupController extends GetxController {
   final RxString username = RxString('');
   final RxString password = RxString('');
   final RxString confirmPassword = RxString('');
-  final RxString email = RxString('');
 
   // Error messages (optional)
   final RxString usernameError = RxString('');
   final RxString passwordError = RxString('');
   final RxString confirmPasswordError = RxString('');
-  final RxString emailError = RxString('');
 
   // Validation methods (example)
   String? validateUsername(String value) {
     if (value.isEmpty) {
       return 'Username cannot be empty';
+    } else if (!RegExp(r'^[a-zA-Z]').hasMatch(value)) {
+      return 'Username must start with a letter';
+    } else if (value.split(' ').length > 1) {
+      return 'Username must be a single word';
     }
     return null; // Return null if validation passes
   }
@@ -104,6 +115,8 @@ class SignupController extends GetxController {
       return 'Password cannot be empty';
     } else if (value.length < 6) {
       return 'Password must be at least 6 characters';
+    } else if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)').hasMatch(value)) {
+      return 'Password must contain at least one uppercase letter, one lowercase letter and one number';
     }
     return null;
   }
@@ -117,45 +130,22 @@ class SignupController extends GetxController {
     return null;
   }
 
-  String? validateEmail(String value) {
-    String pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
-    RegExp regex = RegExp(pattern);
-    if (value.isEmpty) {
-      return 'Email cannot be empty';
-    } else if (!regex.hasMatch(value)) {
-      return 'Enter a valid email address';
-    }
-    return null;
-  }
-
   // Method to check if form is valid (example)
   bool isValidForm() {
     final usernameValid = validateUsername(username.value) == null;
-    final emailValid = validateEmail(email.value) == null;
     final passwordValid = validatePassword(password.value) == null;
     final confirmPasswordValid =
         validateConfirmPassword(confirmPassword.value) == null;
-    return usernameValid && emailValid && passwordValid && confirmPasswordValid;
+    return usernameValid && passwordValid && confirmPasswordValid;
   }
 
   final count = 0.obs;
-
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  // }
-
-  // @override
-  // void onReady() {
-  //   super.onReady();
-  // }
 
   @override
   void onClose() {
     firstNameController.dispose();
     lastNameController.dispose();
     usernameController.dispose();
-    emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
     super.onClose();
@@ -166,7 +156,6 @@ class SignupController extends GetxController {
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final usernameController = TextEditingController();
-  final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
@@ -174,12 +163,11 @@ class SignupController extends GetxController {
   final RxString lastName = RxString('');
 
   Future<void> signUpUser() async {
-    final url = Uri.parse('http://192.168.1.6:8000/auth/signup');
+    final url = Uri.parse('http://192.168.8.100:8000/auth/signup');
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode({
       'username': username.value,
       'password': password.value,
-      'email': email.value,
       'first_name': firstName.value, // Assuming you have a firstName field
       'last_name': lastName.value, // Assuming you have a lastName field
       'user_type': selectedSelection.value.name, // Convert Selection to string
@@ -207,3 +195,4 @@ class SignupController extends GetxController {
     }
   }
 }
+
