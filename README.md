@@ -53,3 +53,4 @@ Lecture  Transcription tool for enhanced learning
     - cupertino_icons: ^1.0.
     - flutter_tts: ^3.8.5
     - http: ^1.2.1
+    - awesome_dialog: ^3.2.1

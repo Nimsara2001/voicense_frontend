@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import 'package:voicense_frontend/app/modules/lec_record/views/lec_record_view.dart';
 
 class SelectModuleItem extends GetView {
-  const SelectModuleItem({super.key, required this.text});
+  final String? module_id;
+  const SelectModuleItem({this.module_id,super.key, required this.text});
 
   final String text; // istead text should pass module class object
 

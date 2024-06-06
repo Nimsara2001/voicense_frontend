@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-class LecExploreController extends GetxController {
-  //TODO: Implement LecExploreController
+class NoteSetOfModuleController extends GetxController {
+  //TODO: Implement NoteSetOfModuleController
 
   final count = 0.obs;
   @override

@@ -3,11 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:voicense_frontend/app/modules/common_he/widgets/plus_mark.dart';
 import 'package:voicense_frontend/app/modules/common_he/widgets/null_widget.dart';
-import 'package:voicense_frontend/app/modules/lec_explore/views/lec_explore_view.dart';
-import 'package:voicense_frontend/app/modules/stu_explore/views/stu_explore_view.dart';
-import 'package:voicense_frontend/app/modules/stu_home/views/stu_home_view.dart';
-
-import '../../lec_home/views/lec_home_view.dart';
+import 'package:voicense_frontend/app/modules/explore/views/explore_view.dart';
+import 'package:voicense_frontend/app/modules/home/views/home_view.dart';
 
 class CommonHeController extends GetxController {
   String userType;
@@ -15,23 +12,27 @@ class CommonHeController extends GetxController {
   final List<Widget> Plus_Null = [const PlusIcon(), const NullWidget()];
   final focused_value = 0.obs;
 
-  CommonHeController(this.userType);
+    CommonHeController(this.userType);
 
 
   @override
   void onInit() {
     super.onInit();
-    if (userType == 'lec') {
-      bodyViewList = [
-        LecHomeView(),
-        LecExploreView(),
-      ];
-    } else if (userType == 'stu') {
-      bodyViewList = [
-        StuHomeView(),
-        StuExploreView(),
-      ];
-    }
+    // if (userType == 'lec') {
+    //   bodyViewList = [
+    //     HomeView(),
+    //     ExploreView(),
+    //   ];
+    // } else if (userType == 'stu') {
+    //   bodyViewList = [
+    //     StuHomeView(),
+    //     StuExploreView(),
+    //   ];
+    // }
+    bodyViewList = [
+      HomeView(),
+      ExploreView(userType: userType),
+    ];
     print("userTpe"+userType);
   }
 
