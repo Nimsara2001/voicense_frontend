@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:voicense_frontend/app/data/user_account_storage.dart';
+import 'package:voicense_frontend/app/modules/home/views/home_view.dart';
 import 'dart:convert';
-import 'package:voicense_frontend/app/modules/lec_home/views/lec_home_view.dart';
 import 'package:voicense_frontend/app/modules/stu_home/views/stu_home_view.dart';
 
 class LoginController extends GetxController {
@@ -60,7 +60,7 @@ class LoginController extends GetxController {
         if (response.userType == 'student') {
           Get.off(() => StuHomeView());
         } else if (response.userType == 'lecturer') {
-          Get.off(() => const LecHomeView());
+          Get.off(() => HomeView());
         } else {
           Get.snackbar(
             'error',
@@ -90,8 +90,7 @@ class LoginController extends GetxController {
     String username,
     String password,
   ) async {
-
-    final url = Uri.parse('http://192.168.8.111/auth/login');
+    final url = Uri.parse('http://192.168.8.100:8000/auth/login');
 
     final body = jsonEncode({
       'username': username,

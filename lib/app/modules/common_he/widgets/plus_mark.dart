@@ -12,7 +12,7 @@ class PlusIcon extends StatelessWidget {
       width: 80.0, // Set the width
       child: FloatingActionButton(
         onPressed: () {
-          Get.to(SelectModuleView());
+          Get.to(SelectModuleView(user_id: '6638b698f81ffd971fadfa52',));
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50),

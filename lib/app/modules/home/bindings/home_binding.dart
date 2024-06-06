@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
 
-import '../controllers/lec_home_controller.dart';
+import '../controllers/home_controller.dart';
 
 class LecHomeBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<LecHomeController>(
-      () => LecHomeController(),
+    Get.lazyPut<HomeController>(
+      () => HomeController(),
     );
   }
 }
