@@ -50,7 +50,7 @@ class LoginController extends GetxController {
         // Authentication successful
         final userType =
             response.userType; // Assuming the API returns the user type
-        Get.to(CommonHeView(userType: "userType"));
+        Get.to(CommonHeView(userType: userType));
       } else {
         // Authentication failed
         Get.snackbar(

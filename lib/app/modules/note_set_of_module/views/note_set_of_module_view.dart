@@ -29,14 +29,7 @@ class NoteSetOfModuleView extends GetView<NoteSetOfModuleController> {
                   RecentNoteViewCard(title: "title",createdDate: "date",twoLines: "two line text",),
                   RecentNoteViewCard(title: "title",createdDate: "date",twoLines: "two line text",),
                   RecentNoteViewCard(title: "title",createdDate: "date",twoLines: "two line text",),
-                  // RecentNoteViewCard(),
-                  // RecentNoteViewCard(),
-                  // RecentNoteViewCard(),
-                  // RecentNoteViewCard(),
-                  // RecentNoteViewCard(),
-                  // RecentNoteViewCard(),
-                  // RecentNoteViewCard(),
-                  // RecentNoteViewCard(),
+         
                 ],
               ),
             )

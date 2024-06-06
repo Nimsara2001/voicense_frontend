@@ -53,7 +53,7 @@ class RecentNoteViewCard extends StatelessWidget {
                         if (choice == 'Share') {
                           // Handle share functionality
                         } else if (choice == 'Trash') {
-                          // Handle trash functionality
+                          
                         }
                       },
                       itemBuilder: (BuildContext context) =>

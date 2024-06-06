@@ -11,7 +11,7 @@ class SelectModuleView extends GetView<SelectModuleController> {
 
   @override
   Widget build(BuildContext context) {
-    final modulesController = Get.put(SelectModuleController(user_id: '6638b698f81ffd971fadfa52'));
+    final modulesController = Get.put(SelectModuleController(user_id: '66609a08f16ac1cbf31081d5'));
     return Scaffold(
       appBar: AppBar(
         // backgroundColor: Colors.amberAccent,
@@ -31,7 +31,7 @@ class SelectModuleView extends GetView<SelectModuleController> {
         margin: const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
         child: ListView(
           children: [
-            for (var module in modulesController!.modules)
+            for (var module in modulesController.modules)
               SelectModuleItem(module_id:module['_id'],text: module['title']),
           ],
           // children:  [
