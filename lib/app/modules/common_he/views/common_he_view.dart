@@ -19,8 +19,7 @@ class CommonHeView extends GetView<CommonHeController> {
     print("userType" + userType!);
     final CommonHeController controller = Get.put(CommonHeController(userType!));
     return Scaffold(
-      body:
-          Obx(() => controller.bodyViewList[controller.focused_value.value]),
+      body: Obx(() => controller.bodyViewList[controller.focused_value.value]),
       bottomNavigationBar: const NavBar(
         userType: 'userType',
       ),

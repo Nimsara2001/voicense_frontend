@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-Note noteFromJson(String str) => Note.fromJson(json.decode(str));
+List<Note> noteFromJson(String str) => List<Note>.from(json.decode(str).map((x) => Note.fromJson(x)));
 
 String noteToJson(Note data) => json.encode(data.toJson());
 

@@ -1,15 +1,22 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 const String baseUrl = 'http://192.168.8.100';
 
+Future<String?> getToken() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? token = prefs.getString('token');
+  return token;
+}
+
 class BaseClient {
   var client = http.Client();
-  var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjY2MDlhMDhmMTZhYzFjYmYzMTA4MWQ1IiwiZXhwaXJlcyI6MTcyMjk2ODA1OC4yNzcxODgzfQ.bbcGwVLWQC2RfwQ5INwcaEjjnpYlGYJ6J59zIO7Wjio';
 
   Future<dynamic> get(String api, {Map<String, String>? parameters}) async {
     try {
       var url = Uri.parse(baseUrl + api);
+      var token = await getToken();
       if (parameters != null) {
         url = Uri.http(url.authority, url.path, parameters);
       }
@@ -21,11 +28,8 @@ class BaseClient {
 
       var response = await client.get(url, headers: headers);
 
-      if (response.statusCode == 200) {
-        return jsonDecode(response.body);
-      } else {
-        return {response.statusCode, response.body};
-      }
+      return response;
+
     } catch (e) {
       print('Error: $e');
     } finally {
@@ -36,6 +40,7 @@ class BaseClient {
   Future<dynamic> post(String api, {Map<String, String>? parameters}) async {
     try {
       var url = Uri.parse(baseUrl + api);
+      var token = await getToken();
       if (parameters != null) {
         url = Uri.http(url.authority, url.path, parameters);
       }
@@ -47,17 +52,12 @@ class BaseClient {
 
       var response = await client.post(url, headers: headers);
 
-      if (response.statusCode == 200) {
-        return response.body;
-      } else {
-        return {response.statusCode, response.body};
-      }
+      return response;
+
     } catch (e) {
       print('Error: $e');
     } finally {
       client.close();
     }
   }
-
-
 }
