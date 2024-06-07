@@ -52,89 +52,38 @@ class LoginController extends GetxController {
     isLoading.value = true;
 
     try {
-      final response = await authenticateUser(
-        usernameController.text,
-        passwordController.text,
-      );
-      if (response.isSuccessful) {
-        if (response.userType == 'student') {
-          Get.off(() => StuHomeView());
-        } else if (response.userType == 'lecturer') {
-          Get.off(() => HomeView());
-        } else {
-          Get.snackbar(
-            'error',
-            'Invalid user type',
-            snackPosition: SnackPosition.BOTTOM,
-          );
-        }
-      } else {
-        Get.snackbar(
-          'Error',
-          response.errorMessage ?? 'Authentication failed',
-          snackPosition: SnackPosition.BOTTOM,
-        );
-      }
+      await login(usernameController.text, passwordController.text);
     } catch (e) {
       Get.snackbar(
         'Error',
         'An error occurred during authentication',
         snackPosition: SnackPosition.BOTTOM,
       );
+      print(e);
     } finally {
       isLoading.value = false;
     }
   }
 
-  Future<AuthenticationResponse> authenticateUser(
-    String username,
-    String password,
-  ) async {
-    final url = Uri.parse('http://10.0.2.2:8000/auth/login');
-
-    final body = jsonEncode({
-      'username': username,
-      'password': password,
-    });
-    final headers = {'Content-Type': 'application/json'};
-    final response = await http.post(url, body: body, headers: headers);
+  Future<void> login(String username, String password) async {
+    final response = await http.post(
+      Uri.parse('http://192.168.8.100/auth/login'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'username': username,
+        'password': password,
+      }),
+    );
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      if (data['message'] == 'success') {
-        final userType = data['user_type'];
-        final userSchema = data['user'];
-        final token = data['token']['access_token'];
-
-        _userAccountStorage.userSchema = userSchema;
-        _userAccountStorage.token = token;
-
-        return AuthenticationResponse(isSuccessful: true, userType: userType);
-      } else {
-        final reason = data['reason'];
-        return AuthenticationResponse(
-          isSuccessful: false,
-          errorMessage: reason,
-        );
-      }
+      // If the server returns a 200 OK response, parse the JSON.
+      Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+      print(jsonResponse);
     } else {
-      const errorMessage = 'Authentication failed';
-      return AuthenticationResponse(
-        isSuccessful: false,
-        errorMessage: errorMessage,
-      );
+      // If the server returns an error response, throw an exception.
+      throw Exception('Failed to login.');
     }
   }
-}
-
-class AuthenticationResponse {
-  final bool isSuccessful;
-  final String? userType;
-  final String? errorMessage;
-
-  AuthenticationResponse({
-    required this.isSuccessful,
-    this.userType,
-    this.errorMessage,
-  });
 }
