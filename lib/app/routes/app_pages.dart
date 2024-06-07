@@ -26,6 +26,8 @@ import '../modules/select_module/bindings/select_module_binding.dart';
 import '../modules/select_module/views/select_module_view.dart';
 import '../modules/signup/bindings/signup_binding.dart';
 import '../modules/signup/views/signup_view.dart';
+import '../modules/splash_screen/bindings/splash_screen_binding.dart';
+import '../modules/splash_screen/views/splash_screen_view.dart';
 import '../modules/stu_explore/bindings/stu_explore_binding.dart';
 import '../modules/stu_explore/views/stu_explore_view.dart';
 import '../modules/stu_home/bindings/stu_home_binding.dart';
@@ -38,7 +40,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.PROFILE;
+  static const INITIAL = Routes.SPLASH_SCREEN;
 
   static final routes = [
     GetPage(
@@ -117,8 +119,13 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.LOADING_SCREEN,
-      page: () =>  LoadingScreenView(),
+      page: () => LoadingScreenView(),
       binding: LoadingScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.SPLASH_SCREEN,
+      page: () => const SplashScreenView(),
+      binding: SplashScreenBinding(),
     ),
   ];
 }

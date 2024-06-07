@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 class LoadingScreenController extends GetxController {
   // Observable variable to manage loading state
-  var isLoading = true.obs;
+  var isLoading = false.obs;
 
   // Function to start loading
   void startLoading() {
