@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:voicense_frontend/app/data/user_account_storage.dart';
+import 'package:voicense_frontend/app/modules/common_he/views/common_he_view.dart';
 import 'package:voicense_frontend/app/modules/home/views/home_view.dart';
 import 'dart:convert';
 import 'package:voicense_frontend/app/modules/stu_home/views/stu_home_view.dart';
+
+import '../../../util/base_client.dart';
 
 class LoginController extends GetxController {
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
@@ -52,7 +55,13 @@ class LoginController extends GetxController {
     isLoading.value = true;
 
     try {
-      await login(usernameController.text, passwordController.text);
+      // await login(usernameController.text, passwordController.text);
+      var baseClient=BaseClient();
+      var response = await baseClient.get('/module/all', parameters:{"user_id":"666089db0b94ced5a04dcc5a"});
+
+      print(response);
+      //Get.to(() =>CommonHeView(userType: 'lec'));
+
     } catch (e) {
       Get.snackbar(
         'Error',
@@ -80,6 +89,7 @@ class LoginController extends GetxController {
     if (response.statusCode == 200) {
       // If the server returns a 200 OK response, parse the JSON.
       Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+      print(jsonResponse["token"]);
       print(jsonResponse);
     } else {
       // If the server returns an error response, throw an exception.
