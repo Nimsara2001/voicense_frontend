@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:voicense_frontend/app/modules/explore/widget/module_label_bar.dart.dart';
 import 'package:voicense_frontend/app/widgets/module_view_card.dart';
 import 'package:voicense_frontend/app/widgets/search_bar.dart';
 import '../controllers/explore_controller.dart';
@@ -20,7 +21,8 @@ class ExploreView extends GetView<ExploreController> {
           children: [
             SearchBarExplore(),
             OtherNotes(context),
-            Obx(() => controller.add_or_null[controller.index.value]),
+            // Obx(() => controller.add_or_null[controller.index.value]),
+            ModuleLabelBarView(),
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2,

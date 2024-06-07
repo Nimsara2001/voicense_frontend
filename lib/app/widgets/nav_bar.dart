@@ -3,11 +3,8 @@ import 'package:get/get.dart';
 import 'package:voicense_frontend/app/modules/common_he/controllers/common_he_controller.dart';
 
 class NavBar extends StatelessWidget {
-  final String? userType;
-
   const NavBar({
-    super.key,
-    this.userType,
+    super.key
   });
 
   @override

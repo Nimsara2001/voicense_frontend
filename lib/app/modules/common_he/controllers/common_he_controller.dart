@@ -9,8 +9,8 @@ import 'package:voicense_frontend/app/modules/home/views/home_view.dart';
 class CommonHeController extends GetxController {
   String userType;
   List<Widget> bodyViewList = [];
-  final List<Widget> Plus_Null = [const PlusIcon(), const NullWidget()];
-  final focused_value = 0.obs;
+  List<Widget> Plus_Null = [];
+   var focused_value = 0.obs;
 
     CommonHeController(this.userType);
 
@@ -18,17 +18,17 @@ class CommonHeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // if (userType == 'lec') {
-    //   bodyViewList = [
-    //     HomeView(),
-    //     ExploreView(),
-    //   ];
-    // } else if (userType == 'stu') {
-    //   bodyViewList = [
-    //     StuHomeView(),
-    //     StuExploreView(),
-    //   ];
-    // }
+    
+    if (userType == 'Lecturer') {
+      Plus_Null = [
+        const PlusIcon(), const NullWidget()
+      ];
+    } else if (userType == 'Student') {
+      Plus_Null = [
+       const NullWidget(),const NullWidget()
+      ];
+    }
+    
     bodyViewList = [
       HomeView(),
       ExploreView(userType: userType),
