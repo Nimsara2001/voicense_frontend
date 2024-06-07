@@ -1,9 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:voicense_frontend/app/modules/common_he/views/common_he_view.dart';
+
+import '../../../models/module_model.dart';
+import '../../../models/note_model.dart';
+import '../../../models/user_model.dart';
+import '../../../util/base_client.dart';
 
 class LoginController extends GetxController {
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
@@ -58,14 +65,9 @@ class LoginController extends GetxController {
 
     try {
       await login(usernameController.text, passwordController.text);
-    } catch (e) {
-      Get.snackbar(
-        'Error',
-        'An error occurred during authentication',
-        snackPosition: SnackPosition.BOTTOM,
-      );
 
-      print(e);
+    } catch (e) {
+      getSnack("error", "An error occurred during login");
     } finally {
       isLoading.value = false;
     }
@@ -73,7 +75,7 @@ class LoginController extends GetxController {
 
   Future<void> login(String username, String password) async {
     final response = await http.post(
-      Uri.parse('http://192.168.8.111/auth/login'),
+      Uri.parse('http://192.168.8.100/auth/login'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -83,32 +85,73 @@ class LoginController extends GetxController {
       }),
     );
 
-    final responseData = jsonDecode(response.body);
-    if (responseData['message'] == 'invalid' &&
-        responseData['reason'] == 'incorrect_username') {
-      serverUsernameError = 'Incorrect username';
+    if (response.statusCode != 200) {
+      Get.snackbar(
+        'Error',
+        'An error occurred during authentication',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return;
     }
-    if (responseData['message'] == 'invalid' &&
-        responseData['reason'] == 'incorrect_password') {
-      serverPasswordError = 'Incorrect password';
-    }
-    if (response.statusCode == 200) {
-      // If the server returns a 200 OK response, parse the JSON.
-      Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-      print(jsonResponse);
 
-      if (jsonResponse['message'] == 'success') {
-        String token = jsonResponse['token'];
-        await storeToken(token);
+    final responseData = jsonDecode(response.body);
+
+    if (responseData['message'] == 'invalid') {
+      // if (responseData['reason'] == 'invalid_username') {
+      //   serverUsernameError = 'Invalid username';
+      // }
+      // if (responseData['reason'] == 'invalid_password') {
+      //   serverPasswordError = 'Invalid password';
+      // }
+      getSnack("error", "Invalid username or password");
+    }
+
+    if (responseData['message'] == 'success') {
+      final loginRespond = User.fromJson(responseData);
+
+      print('token ${loginRespond.token.accessToken}');
+
+      storeToken(loginRespond.token.accessToken, loginRespond.user.id);
+
+      if (loginRespond.user.userType == 'Student') {
+        Get.to(() => const CommonHeView(userType: 'stu'));
       }
-    } else {
-      // If the server returns an error response, throw an exception.
-      throw Exception('Failed to login.');
+      if (loginRespond.user.userType == 'Lecturer') {
+        Get.to(() => const CommonHeView(userType: 'lec'));
+      }
+
+
+      // Example of use of the BaseClient class
+      var response = await BaseClient().get('/module/all', parameters: {'user_id': loginRespond.user.id});
+
+      var moduleList = moduleFromJson(response.body);
+      for (var module in moduleList) {
+        print(module.title);
+      }
+
+      print('-----------------');
+
+      var response2 = await BaseClient().post('/module/${moduleList[2].id}/notes',parameters: null);
+
+      var noteList = noteFromJson(response2.body);
+      for (var note in noteList) {
+        print(note.content);
+      }
+
     }
   }
 
-  Future<void> storeToken(String token) async {
+  void storeToken(String token,String userId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('token', token);
+    await prefs.setString('user_id', userId);
+  }
+
+  void getSnack(String title, String message) {
+    Get.snackbar(
+      title,
+      message,
+      snackPosition: SnackPosition.BOTTOM,
+    );
   }
 }

@@ -18,21 +18,17 @@ class CommonHeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // if (userType == 'lec') {
-    //   bodyViewList = [
-    //     HomeView(),
-    //     ExploreView(),
-    //   ];
-    // } else if (userType == 'stu') {
-    //   bodyViewList = [
-    //     StuHomeView(),
-    //     StuExploreView(),
-    //   ];
-    // }
-    bodyViewList = [
-      HomeView(),
-      ExploreView(userType: userType),
-    ];
+    if (userType == 'lec') {
+      bodyViewList = [
+        HomeView(),
+        ExploreView(userType: userType),
+      ];
+    } else if (userType == 'stu') {
+      bodyViewList = [
+        HomeView(),
+        ExploreView(userType: userType),
+      ];
+    }
     print("userTpe"+userType);
   }
 
