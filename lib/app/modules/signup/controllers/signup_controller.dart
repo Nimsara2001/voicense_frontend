@@ -11,7 +11,6 @@ enum Selection { lecturer, student, none }
 class SignupController extends GetxController {
   final selectedSelection = Selection.none.obs;
 
-  // get emailController => null;
 
   void updateSelection(Selection selection) {
     selectedSelection.value = selection;

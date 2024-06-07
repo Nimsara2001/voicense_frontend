@@ -17,26 +17,22 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              'Enter your email address to receive a password reset link',
+              'Forgot Password',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 18.0),
+              style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 24.0),
-            TextFormField(
+            const Text(
+              'Enter your email',
+              style: TextStyle(fontSize: 18.0),
+            ),
+            const SizedBox(height: 16.0),
+            TextField(
               controller: controller.emailController,
               decoration: const InputDecoration(
-                labelText: 'Email',
-                prefixIcon: Icon(Icons.email),
+                hintText: 'Email',
+                border: OutlineInputBorder(),
               ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter your email address';
-                }
-                if (!GetUtils.isEmail(value)) {
-                  return 'Please enter a valid email address';
-                }
-                return null;
-              },
             ),
             const SizedBox(height: 24.0),
             Obx(
@@ -48,7 +44,7 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
                     ? const CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                       )
-                    : const Text('Send Reset Email'),
+                    : const Text('Send'),
               ),
             ),
             const SizedBox(height: 16.0),
