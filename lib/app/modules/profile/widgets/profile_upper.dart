@@ -20,7 +20,7 @@ class ProfileUpper extends StatelessWidget {
               height: 120,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(100),
-                child: const Image(image: AssetImage("p.jpg")),
+                child: const Image(image: AssetImage('assets/profile-pic.jpg')),
               ),
             ),
           ),
