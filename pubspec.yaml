@@ -18,6 +18,7 @@ dependencies:
   intl: ^0.18.1
   flutter_tts: ^3.8.5
   awesome_dialog: ^3.2.1
+  shared_preferences: ^2.0.8
 
 
 dev_dependencies:
