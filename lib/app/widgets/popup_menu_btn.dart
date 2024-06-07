@@ -77,8 +77,9 @@ class PopupMenuBtnController extends GetxController {
             TextButton(
               child: const Text('Yes'),
               onPressed: () async {
+                 Get.back();
                 await sendRequest(title.toLowerCase());
-                Get.back();
+               
               },
             ),
             TextButton(
