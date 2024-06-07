@@ -30,7 +30,7 @@ class ExploreView extends GetView<ExploreController> {
                 mainAxisSpacing: 4.0,
                 crossAxisSpacing: 4.0,
                 children: List.generate(10, (index) {
-                  return ModuleViewCard(popup_offset: index % 2 == 0 ? -70 : -5);
+                  return ModuleViewCard(popup_offset: index % 2 == 0 ? -70 : -5, module_id: index.toString());// here we want to pass module_id 
                 }),
               ),
             ),

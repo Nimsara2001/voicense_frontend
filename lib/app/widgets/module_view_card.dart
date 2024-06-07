@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:voicense_frontend/app/modules/note_set_of_module/views/note_set_of_module_view.dart';
+import 'package:voicense_frontend/app/widgets/module_popup_btn.dart';
 
 class ModuleViewCard extends StatelessWidget {
+  final String module_id;
   final double popup_offset;
 
-  ModuleViewCard({required this.popup_offset});
+  ModuleViewCard({required this.module_id,required this.popup_offset});
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -36,47 +38,48 @@ class ModuleViewCard extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.topRight,
-                child:PopupMenuButton<String>(
-                  icon: Icon(Icons.more_vert, color: Colors.white),
-                  offset: Offset(popup_offset,45),
-                  shape: const TooltipShape(),
-                  onSelected: (String choice) {
-                    // Handle the selected choice
-                    if (choice == 'Share') {
-                      // Handle share functionality
-                    } else if (choice == 'Edit') {
-                      // Handle edit functionality
-                    } else if (choice == 'Trash') {
-                      // Handle trash functionality
-                    }
-                  },
-                  itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                    const PopupMenuItem<String>(
-                      value: 'Share',
-                      child: ListTile(
-                        contentPadding: EdgeInsets.all(0), // Minimize padding
-                        leading: Icon(Icons.share, size: 20), // Adjust icon size
-                        title: Text('Share', style: TextStyle(fontSize: 14)), // Adjust text size
-                      ),
-                    ),
-                    const PopupMenuItem<String>(
-                      value: 'Edit',
-                      child: ListTile(
-                        contentPadding: EdgeInsets.all(0), // Minimize padding
-                        leading: Icon(Icons.edit, size: 20), // Adjust icon size
-                        title: Text('Edit', style: TextStyle(fontSize: 14)), // Adjust text size
-                      ),
-                    ),
-                    const PopupMenuItem<String>(
-                      value: 'Trash',
-                      child: ListTile(
-                        contentPadding: EdgeInsets.all(0), // Minimize padding
-                        leading: Icon(Icons.delete, size: 20), // Adjust icon size
-                        title: Text('Trash', style: TextStyle(fontSize: 14)), // Adjust text size
-                      ),
-                    ),
-                  ],
-                ),
+                // child:PopupMenuButton<String>(
+                //   icon: Icon(Icons.more_vert, color: Colors.white),
+                //   offset: Offset(popup_offset,45),
+                //   shape: const TooltipShape(),
+                //   onSelected: (String choice) {
+                //     // Handle the selected choice
+                //     if (choice == 'Share') {
+                //       // Handle share functionality
+                //     } else if (choice == 'Edit') {
+                //       // Handle edit functionality
+                //     } else if (choice == 'Trash') {
+                //       // Handle trash functionality
+                //     }
+                //   },
+                //   itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                //     const PopupMenuItem<String>(
+                //       value: 'Share',
+                //       child: ListTile(
+                //         contentPadding: EdgeInsets.all(0), // Minimize padding
+                //         leading: Icon(Icons.share, size: 20), // Adjust icon size
+                //         title: Text('Share', style: TextStyle(fontSize: 14)), // Adjust text size
+                //       ),
+                //     ),
+                //     const PopupMenuItem<String>(
+                //       value: 'Edit',
+                //       child: ListTile(
+                //         contentPadding: EdgeInsets.all(0), // Minimize padding
+                //         leading: Icon(Icons.edit, size: 20), // Adjust icon size
+                //         title: Text('Edit', style: TextStyle(fontSize: 14)), // Adjust text size
+                //       ),
+                //     ),
+                //     const PopupMenuItem<String>(
+                //       value: 'Trash',
+                //       child: ListTile(
+                //         contentPadding: EdgeInsets.all(0), // Minimize padding
+                //         leading: Icon(Icons.delete, size: 20), // Adjust icon size
+                //         title: Text('Trash', style: TextStyle(fontSize: 14)), // Adjust text size
+                //       ),
+                //     ),
+                //   ],
+                // ),
+                child: ModulePopupMenuBtn(module_id),
               ),
             ],
           ),
