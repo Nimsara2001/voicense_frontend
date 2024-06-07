@@ -30,7 +30,7 @@ class RecSuccessfulView extends GetView<RecSuccessfulController> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Get.toNamed('/common-he');
+                Get.toNamed('/lec-note');
               },
               child: Text(
                 'OK',
