@@ -20,6 +20,7 @@ abstract class Routes {
   static const REC_SUCCESSFUL = _Paths.REC_SUCCESSFUL;
   static const NOTE_SET_OF_MODULE = _Paths.NOTE_SET_OF_MODULE;
   static const LOADING_SCREEN = _Paths.LOADING_SCREEN;
+  static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
 }
 
 abstract class _Paths {
@@ -39,4 +40,5 @@ abstract class _Paths {
   static const REC_SUCCESSFUL = '/rec-successful';
   static const NOTE_SET_OF_MODULE = '/note-set-of-module';
   static const LOADING_SCREEN = '/loading-screen';
+  static const SPLASH_SCREEN = '/splash-screen';
 }

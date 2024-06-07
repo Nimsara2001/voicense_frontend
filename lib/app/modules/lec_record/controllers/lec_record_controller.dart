@@ -90,7 +90,7 @@ class AudioRecorderController{
               path: recordPath
           )
       );
-      Get.toNamed('/rec-successful', arguments: {'recordPath': recordPath});
+      Get.toNamed('/loading-screen', arguments: {'recordPath': recordPath});
       print(recordPath);
     }else{
       onStop(null);
