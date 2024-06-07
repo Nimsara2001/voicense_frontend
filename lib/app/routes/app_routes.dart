@@ -18,6 +18,7 @@ abstract class Routes {
   static const SELECT_MODULE = _Paths.SELECT_MODULE;
   static const FORGET_PASSWORD = _Paths.FORGET_PASSWORD;
   static const REC_SUCCESSFUL = _Paths.REC_SUCCESSFUL;
+  static const NOTE_SET_OF_MODULE = _Paths.NOTE_SET_OF_MODULE;
 }
 
 abstract class _Paths {
@@ -35,4 +36,5 @@ abstract class _Paths {
   static const SELECT_MODULE = '/select-module';
   static const FORGET_PASSWORD = '/forget-password';
   static const REC_SUCCESSFUL = '/rec-successful';
+  static const NOTE_SET_OF_MODULE = '/note-set-of-module';
 }

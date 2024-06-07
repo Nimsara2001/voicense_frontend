@@ -1,13 +1,16 @@
 import 'package:get/get.dart';
 
+import 'package:voicense_frontend/app/modules/note_set_of_module/bindings/note_set_of_module_binding.dart';
+import 'package:voicense_frontend/app/modules/note_set_of_module/views/note_set_of_module_view.dart';
+
 import '../modules/common_he/bindings/common_he_binding.dart';
 import '../modules/common_he/views/common_he_view.dart';
 import '../modules/forget_password/bindings/forget_password_binding.dart';
 import '../modules/forget_password/views/forget_password_view.dart';
-import '../modules/lec_explore/bindings/lec_explore_binding.dart';
-import '../modules/lec_explore/views/lec_explore_view.dart';
-import '../modules/lec_home/bindings/lec_home_binding.dart';
-import '../modules/lec_home/views/lec_home_view.dart';
+import '../modules/explore/bindings/explore_binding.dart';
+import '../modules/explore/views/explore_view.dart';
+import '../modules/home/bindings/home_binding.dart';
+import '../modules/home/views/home_view.dart';
 import '../modules/lec_note/bindings/lec_note_binding.dart';
 import '../modules/lec_note/views/lec_note_view.dart';
 import '../modules/lec_record/bindings/lec_record_binding.dart';
@@ -49,12 +52,12 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.LEC_HOME,
-      page: () => LecHomeView(),
+      page: () => HomeView(),
       binding: LecHomeBinding(),
     ),
     GetPage(
       name: _Paths.LEC_EXPLORE,
-      page: () => LecExploreView(),
+      page: () => ExploreView(),
       binding: LecExploreBinding(),
     ),
     GetPage(
@@ -106,5 +109,10 @@ class AppPages {
         name: _Paths.REC_SUCCESSFUL,
         page: () => const RecSuccessfulView(),
         binding: RecSuccessfulBinding()),
+    GetPage(
+      name: _Paths.NOTE_SET_OF_MODULE,
+      page: () => NoteSetOfModuleView(),
+      binding: NoteSetOfModuleBinding(),
+    ),
   ];
 }

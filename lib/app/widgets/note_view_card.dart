@@ -3,7 +3,10 @@ import 'package:get/get.dart';
 import 'package:voicense_frontend/app/modules/lec_note/views/lec_note_view.dart';
 
 class RecentNoteViewCard extends StatelessWidget {
-  const RecentNoteViewCard({super.key});
+  final String title;
+  final String createdDate;
+  final String twoLines;
+  const RecentNoteViewCard({ required this.title,required this.createdDate,required this.twoLines,super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,17 +32,17 @@ class RecentNoteViewCard extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    const Column(
+                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Data Structure",
-                          style: TextStyle(
+                          title,
+                          style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          "2024 February 13",
-                          style: TextStyle(fontSize: 10),
+                          createdDate,
+                          style: const TextStyle(fontSize: 10),
                         )
                       ],
                     ),
@@ -50,7 +53,7 @@ class RecentNoteViewCard extends StatelessWidget {
                         if (choice == 'Share') {
                           // Handle share functionality
                         } else if (choice == 'Trash') {
-                          // Handle trash functionality
+                          
                         }
                       },
                       itemBuilder: (BuildContext context) =>
@@ -76,14 +79,14 @@ class RecentNoteViewCard extends StatelessWidget {
                 const SizedBox(
                   height: 8,
                 ),
-                const Expanded(
+                 Expanded(
                   child: SizedBox(
                     width: 300,
                     height:
                         60, // Adjusted height to accommodate the additional content
                     child: Text(
-                      "Data structures are fundamental concepts in computer science \nthat allow programmers to organize, manage, ",
-                      style: TextStyle(fontSize: 10),
+                      twoLines,
+                      style:const TextStyle(fontSize: 10),
                     ),
                   ),
                 )

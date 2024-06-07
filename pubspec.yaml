@@ -17,6 +17,7 @@ dependencies:
   flutter_bloc: ^8.1.5
   intl: ^0.18.1
   flutter_tts: ^3.8.5
+  awesome_dialog: ^3.2.1
 
 
 dev_dependencies:

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:voicense_frontend/app/modules/note_set_of_module/views/note_set_of_module_view.dart';
 
 class ModuleViewCard extends StatelessWidget {
   final double popup_offset;
@@ -8,6 +10,7 @@ class ModuleViewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        Get.to(NoteSetOfModuleView());
       },
       child: SizedBox(
         child: Container(
