@@ -11,8 +11,6 @@ enum Selection { lecturer, student, none }
 class SignupController extends GetxController {
   final selectedSelection = Selection.none.obs;
 
-  // get emailController => null;
-
   void updateSelection(Selection selection) {
     selectedSelection.value = selection;
   }
@@ -163,8 +161,7 @@ class SignupController extends GetxController {
   final RxString lastName = RxString('');
 
   Future<void> signUpUser() async {
-
-    final url = Uri.parse('http://192.168.8.100:8000/auth/signup');
+    final url = Uri.parse('http://192.168.8.111:80/auth/signup');
 
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode({
@@ -197,4 +194,3 @@ class SignupController extends GetxController {
     }
   }
 }
-
