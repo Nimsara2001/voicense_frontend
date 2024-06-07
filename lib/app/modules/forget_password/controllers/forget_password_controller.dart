@@ -1,65 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class ForgetPasswordController extends GetxController {
+  // Text controller for email input field
   final emailController = TextEditingController();
+
+  // Observables for loading state and error message
   final isLoading = false.obs;
   final errorMessage = ''.obs;
 
-  Future<void> sendPasswordResetEmail() async {
+  // Function to send password reset email
+  void sendPasswordResetEmail() async {
+    final email = emailController.text.trim();
+
+    if (email.isEmpty) {
+      errorMessage.value = 'Please enter your email address';
+      return;
+    }
+
+    if (!GetUtils.isEmail(email)) {
+      errorMessage.value = 'Please enter a valid email address';
+      return;
+    }
+
     isLoading.value = true;
     errorMessage.value = '';
 
-    final email = emailController.text.trim();
+    try {
+      // Simulate API call
+      await Future.delayed(const Duration(seconds: 2));
 
-    final response = await sendPasswordResetRequest(email);
-
-    isLoading.value = false;
-
-    if (response.isSuccessful) {
+      // Assume success response from the API
       Get.snackbar(
         'Success',
-        'Password reset email sent successfully.',
+        'Password reset email sent',
         snackPosition: SnackPosition.BOTTOM,
       );
-    } else {
-      errorMessage.value = response.errorMessage!;
+    } catch (error) {
+      // Handle error (e.g., network issue, server error)
+      errorMessage.value = 'Failed to send reset email. Please try again.';
+    } finally {
+      isLoading.value = false;
     }
   }
 
-  Future<ApiResponse> sendPasswordResetRequest(String email) async {
-    final response = await http.post(
-      Uri.parse('http://your-backend-url/forgot-password'),
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode({'email': email}),
-    );
-
-    if (response.statusCode == 200) {
-      final responseData = json.decode(response.body);
-      if (responseData['success']) {
-        return ApiResponse(isSuccessful: true);
-      } else {
-        return ApiResponse(
-          isSuccessful: false,
-          errorMessage:
-              responseData['error'] ?? 'Failed to send password reset email.',
-        );
-      }
-    } else {
-      return ApiResponse(
-        isSuccessful: false,
-        errorMessage:
-            'Failed to send password reset email. Status code: ${response.statusCode}',
-      );
-    }
+  @override
+  void onClose() {
+    emailController.dispose();
+    super.onClose();
   }
-}
-
-class ApiResponse {
-  final bool isSuccessful;
-  final String? errorMessage;
-
-  ApiResponse({required this.isSuccessful, this.errorMessage});
 }

@@ -2,13 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:voicense_frontend/app/data/user_account_storage.dart';
-import 'package:voicense_frontend/app/modules/common_he/views/common_he_view.dart';
-import 'package:voicense_frontend/app/modules/home/views/home_view.dart';
 import 'dart:convert';
-import 'package:voicense_frontend/app/modules/stu_home/views/stu_home_view.dart';
-
-import '../../../util/base_client.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends GetxController {
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
@@ -16,7 +11,8 @@ class LoginController extends GetxController {
   var isLoading = false.obs;
   String? username;
   String? password;
-  final UserAccountStorage _userAccountStorage = Get.put(UserAccountStorage());
+  String? serverUsernameError;
+  String? serverPasswordError;
 
   @override
   void onInit() {
@@ -36,12 +32,18 @@ class LoginController extends GetxController {
     if (value.isEmpty) {
       return "Please enter your username";
     }
+    if (serverUsernameError != null) {
+      return serverUsernameError;
+    }
     return null;
   }
 
   String? validatePassword(String value) {
     if (value.isEmpty) {
       return "Please enter your password";
+    }
+    if (serverPasswordError != null) {
+      return serverPasswordError;
     }
     return null;
   }
@@ -55,19 +57,14 @@ class LoginController extends GetxController {
     isLoading.value = true;
 
     try {
-      // await login(usernameController.text, passwordController.text);
-      var baseClient=BaseClient();
-      var response = await baseClient.get('/module/all', parameters:{"user_id":"666089db0b94ced5a04dcc5a"});
-
-      print(response);
-      //Get.to(() =>CommonHeView(userType: 'lec'));
-
+      await login(usernameController.text, passwordController.text);
     } catch (e) {
       Get.snackbar(
         'Error',
         'An error occurred during authentication',
         snackPosition: SnackPosition.BOTTOM,
       );
+
       print(e);
     } finally {
       isLoading.value = false;
@@ -86,14 +83,32 @@ class LoginController extends GetxController {
       }),
     );
 
+    final responseData = jsonDecode(response.body);
+    if (responseData['message'] == 'invalid' &&
+        responseData['reason'] == 'incorrect_username') {
+      serverUsernameError = 'Incorrect username';
+    }
+    if (responseData['message'] == 'invalid' &&
+        responseData['reason'] == 'incorrect_password') {
+      serverPasswordError = 'Incorrect password';
+    }
     if (response.statusCode == 200) {
       // If the server returns a 200 OK response, parse the JSON.
       Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-      print(jsonResponse["token"]);
       print(jsonResponse);
+
+      if (jsonResponse['message'] == 'success') {
+        String token = jsonResponse['token'];
+        await storeToken(token);
+      }
     } else {
       // If the server returns an error response, throw an exception.
       throw Exception('Failed to login.');
     }
+  }
+
+  Future<void> storeToken(String token) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('token', token);
   }
 }
