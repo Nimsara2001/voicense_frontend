@@ -18,6 +18,7 @@ dependencies:
   intl: ^0.18.1
   flutter_tts: ^3.8.5
   awesome_dialog: ^3.2.1
+  lottie: ^3.1.2
 
 
 dev_dependencies:
@@ -34,3 +35,4 @@ flutter:
   assets:
     - assets/lecture_notes.md
     - assets/voicense_logo.png
+    - assets/loading_animation.json

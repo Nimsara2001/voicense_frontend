@@ -1,22 +1,23 @@
 import 'package:get/get.dart';
 
-import 'package:voicense_frontend/app/modules/note_set_of_module/bindings/note_set_of_module_binding.dart';
-import 'package:voicense_frontend/app/modules/note_set_of_module/views/note_set_of_module_view.dart';
-
 import '../modules/common_he/bindings/common_he_binding.dart';
 import '../modules/common_he/views/common_he_view.dart';
-import '../modules/forget_password/bindings/forget_password_binding.dart';
-import '../modules/forget_password/views/forget_password_view.dart';
 import '../modules/explore/bindings/explore_binding.dart';
 import '../modules/explore/views/explore_view.dart';
+import '../modules/forget_password/bindings/forget_password_binding.dart';
+import '../modules/forget_password/views/forget_password_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/lec_note/bindings/lec_note_binding.dart';
 import '../modules/lec_note/views/lec_note_view.dart';
 import '../modules/lec_record/bindings/lec_record_binding.dart';
 import '../modules/lec_record/views/lec_record_view.dart';
+import '../modules/loading_screen/bindings/loading_screen_binding.dart';
+import '../modules/loading_screen/views/loading_screen_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/note_set_of_module/bindings/note_set_of_module_binding.dart';
+import '../modules/note_set_of_module/views/note_set_of_module_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
 import '../modules/rec_successful/bindings/rec_successful_binding.dart';
@@ -37,7 +38,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.LOGIN;
+  static const INITIAL = Routes.LOADING_SCREEN;
 
   static final routes = [
     GetPage(
@@ -113,6 +114,11 @@ class AppPages {
       name: _Paths.NOTE_SET_OF_MODULE,
       page: () => NoteSetOfModuleView(),
       binding: NoteSetOfModuleBinding(),
+    ),
+    GetPage(
+      name: _Paths.LOADING_SCREEN,
+      page: () =>  LoadingScreenView(),
+      binding: LoadingScreenBinding(),
     ),
   ];
 }
