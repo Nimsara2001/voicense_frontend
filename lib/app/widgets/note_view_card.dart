@@ -9,6 +9,12 @@ class RecentNoteViewCard extends StatelessWidget {
   final String twoLines;
   const RecentNoteViewCard({ required this.title,required this.createdDate,required this.twoLines,super.key});
 
+
+   String _removeSymbols(String text) {
+    final regex = RegExp(r'[^\w\s]'); // Matches characters except letters, numbers, and whitespace
+    return text.replaceAll(regex, '');
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -49,34 +55,6 @@ class RecentNoteViewCard extends StatelessWidget {
                     ),
                     const Spacer(),
                     PopupMenuBtn(title) //here we should give note_id instead title
-                    
-                    // PopupMenuButton<String>(
-                    //   onSelected: (String choice) {
-                    //     // Handle the selected choice
-                    //     if (choice == 'Share') {
-                    //       // Handle share functionality
-                    //     } else if (choice == 'Trash') {
-                          
-                    //     }
-                    //   },
-                    //   itemBuilder: (BuildContext context) =>
-                    //       <PopupMenuEntry<String>>[
-                    //     const PopupMenuItem<String>(
-                    //       value: 'Share',
-                    //       child: ListTile(
-                    //         leading: Icon(Icons.share),
-                    //         title: Text('Share'),
-                    //       ),
-                    //     ),
-                    //     const PopupMenuItem<String>(
-                    //       value: 'Trash',
-                    //       child: ListTile(
-                    //         leading: Icon(Icons.delete),
-                    //         title: Text('Trash'),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
                   ],
                 ),
                 const SizedBox(
@@ -87,8 +65,9 @@ class RecentNoteViewCard extends StatelessWidget {
                     width: 300,
                     height:
                         60, // Adjusted height to accommodate the additional content
-                    child: Text(
-                      twoLines,
+                    child: Text(_removeSymbols(twoLines),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
                       style:const TextStyle(fontSize: 10),
                     ),
                   ),
