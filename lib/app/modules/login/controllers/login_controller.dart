@@ -129,7 +129,7 @@ class LoginController extends GetxController {
         print(module.title);
       }
 
-      print('-----------------');
+      print('---------------------------------------------');
 
       var response2 = await BaseClient().post('/module/${moduleList[2].id}/notes',parameters: null);
 
