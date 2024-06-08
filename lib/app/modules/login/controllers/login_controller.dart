@@ -72,10 +72,10 @@ class LoginController extends GetxController {
       isLoading.value = false;
     }
   }
-
+ 
   Future<void> login(String username, String password) async {
     final response = await http.post(
-      Uri.parse('http://192.168.8.100/auth/login'),
+      Uri.parse('http://192.168.8.101:8000/auth/login'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -114,10 +114,10 @@ class LoginController extends GetxController {
       storeToken(loginRespond.token.accessToken, loginRespond.user.id);
 
       if (loginRespond.user.userType == 'Student') {
-        Get.to(() => const CommonHeView(userType: 'stu'));
+        Get.to(() => const CommonHeView(userType: 'Student'));
       }
       if (loginRespond.user.userType == 'Lecturer') {
-        Get.to(() => const CommonHeView(userType: 'lec'));
+        Get.to(() => const CommonHeView(userType: 'Lecturer'));
       }
 
 
@@ -129,7 +129,7 @@ class LoginController extends GetxController {
         print(module.title);
       }
 
-      print('-----------------');
+      print('---------------------------------------------');
 
       var response2 = await BaseClient().post('/module/${moduleList[2].id}/notes',parameters: null);
 

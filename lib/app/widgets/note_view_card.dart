@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:voicense_frontend/app/modules/lec_note/views/lec_note_view.dart';
+import 'package:voicense_frontend/app/widgets/popup_menu_btn.dart';
 
 class RecentNoteViewCard extends StatelessWidget {
   final String title;
@@ -47,33 +48,35 @@ class RecentNoteViewCard extends StatelessWidget {
                       ],
                     ),
                     const Spacer(),
-                    PopupMenuButton<String>(
-                      onSelected: (String choice) {
-                        // Handle the selected choice
-                        if (choice == 'Share') {
-                          // Handle share functionality
-                        } else if (choice == 'Trash') {
+                    PopupMenuBtn(title) //here we should give note_id instead title
+                    
+                    // PopupMenuButton<String>(
+                    //   onSelected: (String choice) {
+                    //     // Handle the selected choice
+                    //     if (choice == 'Share') {
+                    //       // Handle share functionality
+                    //     } else if (choice == 'Trash') {
                           
-                        }
-                      },
-                      itemBuilder: (BuildContext context) =>
-                          <PopupMenuEntry<String>>[
-                        const PopupMenuItem<String>(
-                          value: 'Share',
-                          child: ListTile(
-                            leading: Icon(Icons.share),
-                            title: Text('Share'),
-                          ),
-                        ),
-                        const PopupMenuItem<String>(
-                          value: 'Trash',
-                          child: ListTile(
-                            leading: Icon(Icons.delete),
-                            title: Text('Trash'),
-                          ),
-                        ),
-                      ],
-                    ),
+                    //     }
+                    //   },
+                    //   itemBuilder: (BuildContext context) =>
+                    //       <PopupMenuEntry<String>>[
+                    //     const PopupMenuItem<String>(
+                    //       value: 'Share',
+                    //       child: ListTile(
+                    //         leading: Icon(Icons.share),
+                    //         title: Text('Share'),
+                    //       ),
+                    //     ),
+                    //     const PopupMenuItem<String>(
+                    //       value: 'Trash',
+                    //       child: ListTile(
+                    //         leading: Icon(Icons.delete),
+                    //         title: Text('Trash'),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                   ],
                 ),
                 const SizedBox(

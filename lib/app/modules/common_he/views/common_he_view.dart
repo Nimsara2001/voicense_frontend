@@ -19,13 +19,11 @@ class CommonHeView extends GetView<CommonHeController> {
     print("userType" + userType!);
     final CommonHeController controller = Get.put(CommonHeController(userType!));
     return Scaffold(
-      body: Obx(() => controller.bodyViewList[controller.focused_value.value]),
-      bottomNavigationBar: const NavBar(
-        userType: 'userType',
-      ),
+      body:
+          Obx(() => controller.bodyViewList[controller.focused_value.value]),
+      bottomNavigationBar: const NavBar(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton:
-          Obx(() => controller.Plus_Null[controller.focused_value.value]),
+      floatingActionButton: Obx(() => controller.Plus_Null[controller.focused_value.value]),
     );
   }
 }
