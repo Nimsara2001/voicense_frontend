@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import '../controllers/loading_screen_controller.dart';
 
+Color myRgbColor = const Color(0xff21005D);
+
 class LoadingScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -30,12 +32,24 @@ class LoadingScreenView extends StatelessWidget {
                 ),
               ],
             );
-          } else {
-            return ElevatedButton(
+          } else {return ElevatedButton(
               onPressed: () {
-                controller.simulateLoading(durationInSeconds: 3);
+                Get.toNamed('/lec-note');
               },
-              child: Text('Start Loading'),
+              child: Text(
+                'View Note',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24.0, // Use double precision for better layout
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(myRgbColor),
+                minimumSize: MaterialStateProperty.all(Size(200.0, 60.0)), // Set desired size
+                padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0)), // Optional padding
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0))), // Optional rounded corners
+              ),
             );
           }
         }),
