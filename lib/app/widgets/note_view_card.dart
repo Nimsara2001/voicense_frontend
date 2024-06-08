@@ -1,23 +1,38 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:voicense_frontend/app/models/note_model.dart';
 import 'package:voicense_frontend/app/modules/lec_note/views/lec_note_view.dart';
 import 'package:voicense_frontend/app/widgets/popup_menu_btn.dart';
+class RecentNoteCardController extends GetxController{
 
-class RecentNoteViewCard extends StatelessWidget {
-  final String title;
-  final String createdDate;
-  final String twoLines;
-  const RecentNoteViewCard({ required this.title,required this.createdDate,required this.twoLines,super.key});
-
-
-   String _removeSymbols(String text) {
+  String _removeSymbols(String text) {
     final regex = RegExp(r'[^\w\s]'); // Matches characters except letters, numbers, and whitespace
     return text.replaceAll(regex, '');
   }
+  @override
+  void onInit() {
+    super.onInit();
+  }
+  @override
+  void onReady() {
+    super.onReady();
+  }
+  @override
+  void onClose() {
+    super.onClose();
+  }
+
+}
+class RecentNoteCardView extends GetView<RecentNoteCardController>{
+  Note note;
+  RecentNoteCardView({required this.note});
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+
+    RecentNoteCardController controllerNote = Get.put(RecentNoteCardController());
+     return SizedBox(
       child: Container(
         margin: const EdgeInsets.only(top: 10, bottom: 15, left: 5, right: 5),
         width: double.infinity,
@@ -43,18 +58,19 @@ class RecentNoteViewCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          title,
+                          note.title,
                           style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          createdDate,
+                          note.createdDate.toString(),
                           style: const TextStyle(fontSize: 10),
                         )
                       ],
                     ),
                     const Spacer(),
-                    PopupMenuBtn(title) //here we should give note_id instead title
+                    PopupMenuBtn(note.id) //here we should give note_id instead title
+
                   ],
                 ),
                 const SizedBox(
@@ -65,7 +81,7 @@ class RecentNoteViewCard extends StatelessWidget {
                     width: 300,
                     height:
                         60, // Adjusted height to accommodate the additional content
-                    child: Text(_removeSymbols(twoLines),
+                    child: Text(controllerNote._removeSymbols(note.content),
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       style:const TextStyle(fontSize: 10),
@@ -79,4 +95,5 @@ class RecentNoteViewCard extends StatelessWidget {
       ),
     );
   }
+
 }

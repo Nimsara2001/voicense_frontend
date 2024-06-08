@@ -22,8 +22,9 @@ class LoginController extends GetxController {
   String? serverPasswordError;
 
 
+
+
   RxList<Note> recent_notes = <Note>[].obs;
-  RxInt num = 11.obs;
 
   @override
   void onInit() {
@@ -152,18 +153,18 @@ class LoginController extends GetxController {
         // print(recent_notes);
       }
       
-      if(recent_notes.isEmpty){
-        print("emptyyyyyyyyyyyyyyyyyyyyyyyyyy");
-      }
+      // if(recent_notes.isEmpty){
+      //   print("emptyyyyyyyyyyyyyyyyyyyyyyyyyy");
+      // }
      
 
       
-      for (var note in recent_notes) {
-        print(note.id);
-        print(note.title);
-        print(note.createdDate);
-        print(note.lastAccessed);
-      }
+      // for (var note in recent_notes) {
+      //   print(note.id);
+      //   print(note.title);
+      //   print(note.createdDate);
+      //   print(note.lastAccessed);
+      // }
 
 
 

@@ -26,7 +26,8 @@ class HomeView extends GetView<HomeController> {
                 padding: const EdgeInsets.only(top: 5, left: 5, right: 5),
                 itemCount: _controllerfromLogin.recent_notes.length,
                 itemBuilder: (context,index){
-                  return RecentNoteViewCard(title: _controllerfromLogin.recent_notes[index].title,createdDate: _controllerfromLogin.recent_notes[index].createdDate.toString(),twoLines:  _controllerfromLogin.recent_notes[index].content);
+                  // return RecentNoteViewCard(title: _controllerfromLogin.recent_notes[index].title,createdDate: _controllerfromLogin.recent_notes[index].createdDate.toString(),twoLines:  _controllerfromLogin.recent_notes[index].content);
+                  return RecentNoteCardView(note: _controllerfromLogin.recent_notes[index]);
                 },
               ),),
             )
