@@ -15,6 +15,16 @@ class SignupController extends GetxController {
     selectedSelection.value = selection;
   }
 
+  String? selectionToString(Selection selection) {
+  if (selection == Selection.lecturer) {
+    return 'Lecturer';
+  } else if (selection == Selection.student) {
+    return 'Student';
+  } else {
+    return null;
+  }
+}
+
   void goToSignup2() {
     if (selectedSelection.value != Selection.none) {
       Get.to(() => SignupViewTwo());
@@ -161,7 +171,7 @@ class SignupController extends GetxController {
   final RxString lastName = RxString('');
 
   Future<void> signUpUser() async {
-    final url = Uri.parse('http://192.168.8.111:80/auth/signup');
+    final url = Uri.parse('http://192.168.8.111:8000/auth/signup');
 
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode({
@@ -169,7 +179,7 @@ class SignupController extends GetxController {
       'password': password.value,
       'first_name': firstName.value, // Assuming you have a firstName field
       'last_name': lastName.value, // Assuming you have a lastName field
-      'user_type': selectedSelection.value.name, // Convert Selection to string
+      'user_type': selectionToString(selectedSelection.value),// Convert Selection to string
     });
 
     try {
