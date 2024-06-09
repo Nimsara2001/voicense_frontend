@@ -18,7 +18,7 @@ class CommonHeView extends GetView<CommonHeController> {
 
   @override
   Widget build(BuildContext context) {
-    print("userType" + userType!);
+    print("userType " + userType!);
     print("user_id" + user_id!);
     final CommonHeController controller = Get.put(CommonHeController(userType!,user_id!));
     return Scaffold(

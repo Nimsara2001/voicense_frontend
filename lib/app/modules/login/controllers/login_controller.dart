@@ -21,6 +21,11 @@ class LoginController extends GetxController {
   String? serverUsernameError;
   String? serverPasswordError;
 
+
+
+
+  RxList<Note> recent_notes = <Note>[].obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -75,7 +80,7 @@ class LoginController extends GetxController {
  
   Future<void> login(String username, String password) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/auth/login'),
+      Uri.parse('http://192.168.8.101:8000/auth/login'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -97,19 +102,27 @@ class LoginController extends GetxController {
     final responseData = jsonDecode(response.body);
 
     if (responseData['message'] == 'invalid') {
+      // if (responseData['reason'] == 'invalid_username') {
+      //   serverUsernameError = 'Invalid username';
+      // }
+      // if (responseData['reason'] == 'invalid_password') {
+      //   serverPasswordError = 'Invalid password';
+      // }
       getSnack("error", "Invalid username or password");
     }
 
     if (responseData['message'] == 'success') {
       final loginRespond = User.fromJson(responseData);
 
+      print('token ${loginRespond.token.accessToken}');
+
       storeToken(loginRespond.token.accessToken, loginRespond.user.id);
 
       if (loginRespond.user.userType == 'Student') {
-        Get.to(() => CommonHeView(userType: 'Student', user_id: loginRespond.user.id));
+        Get.to(() => const CommonHeView(userType: 'Student'));
       }
       if (loginRespond.user.userType == 'Lecturer') {
-        Get.to(() => CommonHeView(userType: 'Lecturer', user_id:loginRespond.user.id));
+        Get.to(() => const CommonHeView(userType: 'Lecturer'));
       }
 
 
