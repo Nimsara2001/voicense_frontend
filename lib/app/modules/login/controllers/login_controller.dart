@@ -80,7 +80,7 @@ class LoginController extends GetxController {
  
   Future<void> login(String username, String password) async {
     final response = await http.post(
-      Uri.parse('http://192.168.8.101:8000/auth/login'),
+      Uri.parse('http://192.168.8.100/auth/login'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -119,10 +119,10 @@ class LoginController extends GetxController {
       storeToken(loginRespond.token.accessToken, loginRespond.user.id);
 
       if (loginRespond.user.userType == 'Student') {
-        Get.to(() => const CommonHeView(userType: 'Student'));
+        Get.to(() => CommonHeView(userType: 'Student', user_id: loginRespond.user.id));
       }
       if (loginRespond.user.userType == 'Lecturer') {
-        Get.to(() => const CommonHeView(userType: 'Lecturer'));
+        Get.to(() => CommonHeView(userType: 'Lecturer', user_id: loginRespond.user.id));
       }
 
 
@@ -141,6 +141,14 @@ class LoginController extends GetxController {
       var noteList = noteFromJson(response2.body);
       for (var note in noteList) {
         print(note.content);
+      }
+
+      var response_recentNotes = await BaseClient().get('/note/recent',parameters: {'user_id':loginRespond.user.id});
+      if(response_recentNotes.statusCode==200) {
+        var recent_noteList = noteFromJson(response_recentNotes.body);
+        for (var note in recent_noteList) {
+          recent_notes.add(note);
+        }
       }
 
     }
