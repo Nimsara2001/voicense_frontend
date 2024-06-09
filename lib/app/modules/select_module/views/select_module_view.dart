@@ -7,14 +7,16 @@ import '../controllers/select_module_controller.dart';
 
 class SelectModuleView extends GetView<SelectModuleController> {
   final String? user_id;
-  SelectModuleView({this.user_id});
+  SelectModuleView({super.key, this.user_id});
 
   @override
   Widget build(BuildContext context) {
-    final modulesController = Get.put(SelectModuleController(user_id: '66609a08f16ac1cbf31081d5'));
+    print("user_id...." + user_id!);
+
+    final modulesController = Get.put(SelectModuleController(user_id: user_id!));
+
     return Scaffold(
       appBar: AppBar(
-        // backgroundColor: Colors.amberAccent,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -29,37 +31,10 @@ class SelectModuleView extends GetView<SelectModuleController> {
       ),
       body: Container(
         margin: const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
-        child: ListView(
-          children: [
-            for (var module in modulesController.modules)
-              SelectModuleItem(module_id:module['_id'],text: module['title']),
-          ],
-          // children:  [
-          //   // for(Module item in modules)
-          //   //    ModuleItem(module: item),
-          //   // SelectModuleItem(text: "Object Oriented Programming"),
-          //   // SelectModuleItem(text: "Software Engineering"),
-          //   // SelectModuleItem(text: "Data Structure"),
-          //   // SelectModuleItem(text: "Computer Network"),
-          //   // SelectModuleItem(text: "Computer Graphics"),
-          // ],
-        ),
+        child: Obx(() => ListView(
+          children: modulesController.modules.map((module) => SelectModuleItem(module_id: module.id,text: module.title)).toList(),
+        )),
       ),
-      // body: Obx(() => Container(
-      //   margin: const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
-      //   child: ListView.builder(
-      //     itemCount: modulesController.modules.length,
-      //     itemBuilder: (context, index) {
-      //       final module = modulesController.modules[index];
-      //       // Access and display module data here (e.g., name, description)
-      //       // return ListTile(
-      //       //   title: Text(module),
-      //       //   // subtitle: Text(module['description'] ?? 'No description'),
-      //       // );
-      //       return SelectModuleItem(text: module);
-      //     },
-      //   ),
-      // )),
     );
   }
 }

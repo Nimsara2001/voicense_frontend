@@ -6,7 +6,7 @@ class CommonHeBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<CommonHeController>(
-          () => CommonHeController(Get.arguments as String),
+          () => CommonHeController(Get.arguments as String, Get.arguments as String),
     );
   }
 }

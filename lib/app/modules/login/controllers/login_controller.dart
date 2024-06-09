@@ -21,6 +21,11 @@ class LoginController extends GetxController {
   String? serverUsernameError;
   String? serverPasswordError;
 
+
+
+
+  RxList<Note> recent_notes = <Note>[].obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -75,7 +80,9 @@ class LoginController extends GetxController {
  
   Future<void> login(String username, String password) async {
     final response = await http.post(
+
       Uri.parse('http://10.0.2.2:80/auth/login'),
+
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -114,10 +121,10 @@ class LoginController extends GetxController {
       storeToken(loginRespond.token.accessToken, loginRespond.user.id);
 
       if (loginRespond.user.userType == 'Student') {
-        Get.to(() => const CommonHeView(userType: 'Student'));
+        Get.to(() => CommonHeView(userType: 'Student', user_id: loginRespond.user.id));
       }
       if (loginRespond.user.userType == 'Lecturer') {
-        Get.to(() => const CommonHeView(userType: 'Lecturer'));
+        Get.to(() => CommonHeView(userType: 'Lecturer', user_id: loginRespond.user.id));
       }
 
 
@@ -136,6 +143,14 @@ class LoginController extends GetxController {
       var noteList = noteFromJson(response2.body);
       for (var note in noteList) {
         print(note.content);
+      }
+
+      var response_recentNotes = await BaseClient().get('/note/recent',parameters: {'user_id':loginRespond.user.id});
+      if(response_recentNotes.statusCode==200) {
+        var recent_noteList = noteFromJson(response_recentNotes.body);
+        for (var note in recent_noteList) {
+          recent_notes.add(note);
+        }
       }
 
     }

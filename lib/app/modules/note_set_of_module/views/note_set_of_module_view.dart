@@ -23,12 +23,12 @@ class NoteSetOfModuleView extends GetView<NoteSetOfModuleController> {
               child: ListView(
                 padding: const EdgeInsets.only(top: 5, left: 5, right: 5),
                 children: const [
-                  RecentNoteViewCard(title: "title",createdDate: "date",twoLines: "two line text",),
-                  RecentNoteViewCard(title: "title",createdDate: "date",twoLines: "two line text",),
-                  RecentNoteViewCard(title: "title",createdDate: "date",twoLines: "two line text",),
-                  RecentNoteViewCard(title: "title",createdDate: "date",twoLines: "two line text",),
-                  RecentNoteViewCard(title: "title",createdDate: "date",twoLines: "two line text",),
-                  RecentNoteViewCard(title: "title",createdDate: "date",twoLines: "two line text",),
+                  // RecentNoteViewCard(title: "title",createdDate: "date",twoLines: "two line text",),
+                  // RecentNoteViewCard(title: "title",createdDate: "date",twoLines: "two line text",),
+                  // RecentNoteViewCard(title: "title",createdDate: "date",twoLines: "two line text",),
+                  // RecentNoteViewCard(title: "title",createdDate: "date",twoLines: "two line text",),
+                  // RecentNoteViewCard(title: "title",createdDate: "date",twoLines: "two line text",),
+                  // RecentNoteViewCard(title: "title",createdDate: "date",twoLines: "two line text",),
          
                 ],
               ),
