@@ -3,16 +3,24 @@ import 'package:get/get.dart';
 import 'package:voicense_frontend/app/modules/select_module/views/select_module_view.dart';
 
 class PlusIcon extends StatelessWidget {
-  const PlusIcon({super.key});
+  final String? user_id;
+  const PlusIcon({super.key, this.user_id});
 
   @override
   Widget build(BuildContext context) {
+    print("user"+user_id!);
     return SizedBox(
       height: 80.0, // Set the height
       width: 80.0, // Set the width
       child: FloatingActionButton(
         onPressed: () {
-          Get.to(SelectModuleView(user_id: '6638b698f81ffd971fadfa52',));
+          if (user_id != null) {
+            Get.to(SelectModuleView(user_id: user_id!));
+          } else {
+            // Handle the case where user_id is null
+            // For example, show an error message
+            print('Error: user_id is null');
+          }
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50),

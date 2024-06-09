@@ -8,32 +8,34 @@ import 'package:voicense_frontend/app/modules/home/views/home_view.dart';
 
 class CommonHeController extends GetxController {
   String userType;
+  String user_id;
+
   List<Widget> bodyViewList = [];
   List<Widget> Plus_Null = [];
-   var focused_value = 0.obs;
+  var focused_value = 0.obs;
 
-    CommonHeController(this.userType);
+  CommonHeController(this.userType, this.user_id);
 
 
   @override
   void onInit() {
     super.onInit();
-    
+    print(user_id);
     if (userType == 'Lecturer') {
       Plus_Null = [
-        const PlusIcon(), const NullWidget()
+        PlusIcon(user_id:user_id), const NullWidget()
       ];
     } else if (userType == 'Student') {
       Plus_Null = [
-       const NullWidget(),const NullWidget()
+        const NullWidget(), const NullWidget()
       ];
     }
-    
+
     bodyViewList = [
       HomeView(),
       ExploreView(userType: userType),
     ];
-    print("userTpe"+userType);
+    print("userTpe" + userType);
   }
 
   @override
