@@ -21,6 +21,11 @@ class LoginController extends GetxController {
   String? serverUsernameError;
   String? serverPasswordError;
 
+
+
+
+  RxList<Note> recent_notes = <Note>[].obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -75,7 +80,7 @@ class LoginController extends GetxController {
  
   Future<void> login(String username, String password) async {
     final response = await http.post(
-      Uri.parse('http://192.168.8.111:8000/auth/login'),
+      Uri.parse('http://192.168.8.101:8000/auth/login'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -108,7 +113,7 @@ class LoginController extends GetxController {
 
     if (responseData['message'] == 'success') {
       final loginRespond = User.fromJson(responseData);
-
+      // print(loginRespond);
       print('token ${loginRespond.token.accessToken}');
 
       storeToken(loginRespond.token.accessToken, loginRespond.user.id);
@@ -126,17 +131,42 @@ class LoginController extends GetxController {
 
       var moduleList = moduleFromJson(response.body);
       for (var module in moduleList) {
-        print(module.title);
+        print(module.id);
       }
 
       print('---------------------------------------------');
 
-      var response2 = await BaseClient().post('/module/${moduleList[2].id}/notes',parameters: null);
+      // var response2 = await BaseClient().post('/module/${moduleList[2].id}/notes',parameters: null);
 
-      var noteList = noteFromJson(response2.body);
-      for (var note in noteList) {
-        print(note.content);
+      // var noteList = noteFromJson(response2.body);
+      // for (var note in noteList) {
+      //   print(note);
+      // }
+
+      var response_recentNotes = await BaseClient().get('/note/recent',parameters: {'user_id':loginRespond.user.id});
+      if(response_recentNotes.statusCode==200){
+        var recent_noteList = noteFromJson(response_recentNotes.body);
+        for (var note in recent_noteList){
+          recent_notes.add(note);
+        }
+        
+        // print(recent_notes);
       }
+      
+      // if(recent_notes.isEmpty){
+      //   print("emptyyyyyyyyyyyyyyyyyyyyyyyyyy");
+      // }
+     
+
+      
+      // for (var note in recent_notes) {
+      //   print(note.id);
+      //   print(note.title);
+      //   print(note.createdDate);
+      //   print(note.lastAccessed);
+      // }
+
+
 
     }
   }
