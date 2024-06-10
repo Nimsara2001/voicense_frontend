@@ -10,7 +10,7 @@ class PopupMenuBtnController extends GetxController {
    try{
     // Depending on the action, you can modify the request
     if (action == 'share') {
-      final String url = 'http://192.168.8.100:8000/note/share/$note_id';
+      final String url = 'http://192.168.8.101:8000/note/share/$note_id';
       // Send a request to share the item
       final response = await http.post(
         Uri.parse(url),
@@ -28,17 +28,17 @@ class PopupMenuBtnController extends GetxController {
       }
     } else if (action == 'trash') {
       // Send a request to delete the item
-      final String url = 'http://192.168.8.100:8000/note/trash/$note_id';
+      final String url = 'http://192.168.8.101:8000/note/trash/$note_id';
       final response = await http.put(
         Uri.parse(url),
         body: {'is_deleted': 'true'},
       );
 
       if (response.statusCode == 200) {
-        print('Item deleted successfully');
+        print('Item trashed successfully');
         //put snack messege 
       } else {
-        print('Failed to delete item');
+        print('Failed to trash item');
         //put snack messege 
          Get.snackbar('Error', 'Error during trash: ${response.body}',
           snackPosition: SnackPosition.BOTTOM);
@@ -56,7 +56,7 @@ class PopupMenuBtnController extends GetxController {
     if (choice == 'Share') {
       _showAlertDialog(context, 'Share', 'Do you want to share this note?');
     } else if (choice == 'Trash') {
-      _showAlertDialog(context, 'Trash', 'Do you want to delete this note?');
+      _showAlertDialog(context, 'Trash', 'Do you want to trash this note?');
     }
   }
 
