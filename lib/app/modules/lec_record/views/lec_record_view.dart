@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'dart:core';
 import 'package:record/record.dart';
 import 'package:voicense_frontend/app/modules/lec_record/controllers/lec_record_controller.dart';
@@ -35,13 +36,13 @@ class _AudioRecorderViewBody extends StatefulWidget {
 }
 class _AudioRecorderViewBodyState extends State<_AudioRecorderViewBody> {
   late final AudioRecorderController audioRecorderService;
-  DateTime createdTime=DateTime.now();
+  DateTime createdTime = DateTime.now();
 
   @override
   void initState() {
     audioRecorderService = context.read<AudioRecorderController>();
     audioRecorderService.start();
-    createdTime=DateTime.now();
+    createdTime = DateTime.now();
     super.initState();
   }
 
@@ -51,8 +52,30 @@ class _AudioRecorderViewBodyState extends State<_AudioRecorderViewBody> {
     super.dispose();
   }
 
-  Widget build(BuildContext context) {
+  Future<bool> _showConfirmationDialog(BuildContext context, String message) async {
+    return await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirmation'),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('Confirm'),
+            ),
+          ],
+        );
+      },
+    ) ?? false; // if null (dialog dismissed), return false
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Padding(
@@ -84,7 +107,6 @@ class _AudioRecorderViewBodyState extends State<_AudioRecorderViewBody> {
           ],
         ),
       ),
-
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 50.0),
@@ -92,32 +114,36 @@ class _AudioRecorderViewBodyState extends State<_AudioRecorderViewBody> {
           mainAxisSize: MainAxisSize.min,
           children: [
             FloatingActionButton(
-              onPressed: () {
-                context.read<AudioRecorderController>().stop((voiceNoteModel){
-                  if(voiceNoteModel == null){
-                    Navigator.pop(context);
-                  }else{
-                    context.read<AudioRecorderController>().delete(voiceNoteModel.path).then((value){
+              onPressed: () async {
+                bool confirmed = await _showConfirmationDialog(context, 'Are you sure you want to delete this recording?');
+                if (confirmed) {
+                  context.read<AudioRecorderController>().stop((voiceNoteModel) {
+                    if (voiceNoteModel == null) {
                       Navigator.pop(context);
-                    });
-                  }
-                });
+                    } else {
+                      context.read<AudioRecorderController>().delete(voiceNoteModel.path).then((value) {
+                        Navigator.pop(context);  // Remove the current page from the stack
+                        Get.toNamed('/lec_home'); // Navigate to the 'common-he' page
+                      });
+                    }
+                  });
+                }
               },
               backgroundColor: myRgbColor,
               child: const Icon(Icons.delete, color: Colors.white),
               elevation: 0.0,
             ),
+
             const SizedBox(width: 20.0),
-            // Record/Pause button (already styled with RecordPauseButton)
             StreamBuilder(
               stream: audioRecorderService.recordStateStream,
               builder: (context, snapshot) {
                 return PlayPauseButton(
                   isPlaying: snapshot.data == RecordState.record,
                   onTap: () {
-                    if(snapshot.data == RecordState.pause){
+                    if (snapshot.data == RecordState.pause) {
                       audioRecorderService.resume();
-                    }else{
+                    } else {
                       audioRecorderService.pause();
                     }
                   },
@@ -126,10 +152,13 @@ class _AudioRecorderViewBodyState extends State<_AudioRecorderViewBody> {
             ),
             const SizedBox(width: 20.0),
             FloatingActionButton(
-              onPressed: () {
-                context.read<AudioRecorderController>().stop((recordingModel){
-                  Navigator.pop(context,recordingModel);
-                });;
+              onPressed: () async {
+                bool confirmed = await _showConfirmationDialog(context, 'Are you sure you want to stop the recording?');
+                if (confirmed) {
+                  context.read<AudioRecorderController>().stop((recordingModel) {
+                    Navigator.pop(context, recordingModel);
+                  });
+                }
               },
               backgroundColor: myRgbColor,
               elevation: 0.0,
@@ -141,6 +170,7 @@ class _AudioRecorderViewBodyState extends State<_AudioRecorderViewBody> {
     );
   }
 }
+
 
 
 class _TimerText extends StatelessWidget {
