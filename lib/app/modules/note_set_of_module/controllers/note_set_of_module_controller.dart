@@ -17,6 +17,7 @@ class NoteSetOfModuleController extends GetxController {
         if(response_moduleNotes.statusCode==200){
           var noteList = noteFromJson(response_moduleNotes.body);
           for (var note in noteList){
+            print(note.title);
             notes_of_module.add(note);
           }
         }
@@ -29,6 +30,7 @@ class NoteSetOfModuleController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    getNotes_request();
   }
 
   @override
