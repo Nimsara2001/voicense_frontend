@@ -25,6 +25,7 @@ class LoginController extends GetxController {
 
 
   RxList<Note> recent_notes = <Note>[].obs;
+  RxList<Module> module_list = <Module>[].obs;
 
   @override
   void onInit() {
@@ -133,17 +134,18 @@ class LoginController extends GetxController {
 
       var moduleList = moduleFromJson(response.body);
       for (var module in moduleList) {
-        print(module.title);
+        // print(module.title);
+        module_list.add(module);
       }
 
       print('---------------------------------------------');
 
-      var response2 = await BaseClient().post('/module/${moduleList[2].id}/notes',parameters: null);
+      // var response2 = await BaseClient().post('/module/${moduleList[2].id}/notes',parameters: null);
 
-      var noteList = noteFromJson(response2.body);
-      for (var note in noteList) {
-        print(note.content);
-      }
+      // var noteList = noteFromJson(response2.body);
+      // for (var note in noteList) {
+      //   print(note.content);
+      // }
 
       var response_recentNotes = await BaseClient().get('/note/recent',parameters: {'user_id':loginRespond.user.id});
       if(response_recentNotes.statusCode==200) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:voicense_frontend/app/models/module_model.dart';
 import 'package:voicense_frontend/app/modules/note_set_of_module/widgets/topic.dart';
 import 'package:voicense_frontend/app/widgets/note_view_card.dart';
 import 'package:voicense_frontend/app/widgets/search_bar.dart';
@@ -8,8 +9,13 @@ import 'package:voicense_frontend/app/widgets/search_bar.dart';
 import '../controllers/note_set_of_module_controller.dart';
 
 class NoteSetOfModuleView extends GetView<NoteSetOfModuleController> {
+  Module? module;
+  NoteSetOfModuleView({this.module});
+
   @override
   Widget build(BuildContext context) {
+    // NoteSetOfModuleController _controller = Get.put()
+    NoteSetOfModuleController _controller = Get.put(NoteSetOfModuleController(module!));
     return Scaffold(
       body:Container(
         decoration: const BoxDecoration(color: Colors.white),
@@ -17,21 +23,16 @@ class NoteSetOfModuleView extends GetView<NoteSetOfModuleController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SearchBarExplore(),
-           const Topic(title: "Module name"),
-            Expanded(
-              child: ListView(
+          SearchBarExplore(),
+          Topic(title: module!.title),
+           Expanded(
+              child: Obx(() => ListView.builder(
                 padding: const EdgeInsets.only(top: 5, left: 5, right: 5),
-                children: const [
-                  // RecentNoteViewCard(title: "title",createdDate: "date",twoLines: "two line text",),
-                  // RecentNoteViewCard(title: "title",createdDate: "date",twoLines: "two line text",),
-                  // RecentNoteViewCard(title: "title",createdDate: "date",twoLines: "two line text",),
-                  // RecentNoteViewCard(title: "title",createdDate: "date",twoLines: "two line text",),
-                  // RecentNoteViewCard(title: "title",createdDate: "date",twoLines: "two line text",),
-                  // RecentNoteViewCard(title: "title",createdDate: "date",twoLines: "two line text",),
-         
-                ],
-              ),
+                itemCount: _controller.notes_of_module.length,
+                itemBuilder: (context,index){
+                  return RecentNoteCardView(note: _controller.notes_of_module[index]);
+                },
+              ),),
             )
           ],
         ),
