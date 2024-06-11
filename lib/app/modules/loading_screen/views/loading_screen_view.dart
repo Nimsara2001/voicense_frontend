@@ -10,7 +10,6 @@ class LoadingScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final LoadingScreenController controller = Get.find();
-
     return Scaffold(
       appBar: AppBar(),
       body: Center(

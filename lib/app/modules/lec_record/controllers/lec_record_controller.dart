@@ -92,6 +92,7 @@ class AudioRecorderController{
       );
       Get.toNamed('/loading-screen', arguments: {'recordPath': recordPath});
       print(recordPath);
+
     }else{
       onStop(null);
       onError("Could not stop the record");
