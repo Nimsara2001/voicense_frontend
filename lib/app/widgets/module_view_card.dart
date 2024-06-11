@@ -28,13 +28,13 @@ class ModuleViewCard extends StatelessWidget {
           ),
           child: Stack(
             children: [
-              const Align(
-                alignment: Alignment.centerLeft,
+               Align(
+                alignment: Alignment.center,
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text(
-                    "Data\nStructures",
-                    style: TextStyle(fontSize: 20,color: Colors.white),
+                    module.title,
+                    style: const TextStyle(fontSize: 20,color: Colors.white),
                   ),
                 ),
               ),
