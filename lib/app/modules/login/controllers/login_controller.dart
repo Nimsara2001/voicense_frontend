@@ -65,14 +65,14 @@ class LoginController extends GetxController {
 
     try {
       await login(usernameController.text, passwordController.text);
-
+      
     } catch (e) {
       getSnack("error", "An error occurred during login");
     } finally {
       isLoading.value = false;
     }
   }
- 
+
   Future<void> login(String username, String password) async {
     final response = await http.post(
       Uri.parse('http://192.168.8.111:8000/auth/login'),
