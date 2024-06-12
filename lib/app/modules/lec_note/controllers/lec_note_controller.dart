@@ -1,4 +1,7 @@
+
 import 'package:get/get.dart';
+
+import '../../../models/note_model.dart';
 
 class LecNoteController extends GetxController {
   //TODO: Implement LecNoteController
