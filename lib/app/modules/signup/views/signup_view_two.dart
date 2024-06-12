@@ -12,17 +12,20 @@ class SignupViewTwo extends GetView<SignupController> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         body: Container(
           margin: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(height: 100),
-              _inputField(context,
-                  signupController), // You can access controller data here if needed
-              const SizedBox(height: 250),
-              _backbutton(context, signupController),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 100),
+                _inputField(context,
+                    signupController), // You can access controller data here if needed
+                const SizedBox(height: 250),
+                _backbutton(context, signupController),
+              ],
+            ),
           ),
         ),
       ),

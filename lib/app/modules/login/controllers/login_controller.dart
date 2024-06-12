@@ -71,14 +71,14 @@ class LoginController extends GetxController {
 
     try {
       await login(usernameController.text, passwordController.text);
-
+      
     } catch (e) {
       getSnack("error", "An error occurred during login");
     } finally {
       isLoading.value = false;
     }
   }
- 
+
   Future<void> login(String username, String password) async {
     final response = await http.post(
 
