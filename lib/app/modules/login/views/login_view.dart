@@ -12,20 +12,24 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     Get.put(LoginController());
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Container(
-        margin: const EdgeInsets.all(24),
-        child: Column(
-          children: <Widget>[
-            const SizedBox(height: 30),
-            const Logo(),
-            const SizedBox(height: 100),
-            const InputForm(),
-            const SizedBox(height: 30),
-            forgetPassword(),
-            const SignUp(),
-          ],
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        body: Container(
+          margin: const EdgeInsets.all(24),
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                const SizedBox(height: 30),
+                const Logo(),
+                const SizedBox(height: 100),
+                const InputForm(),
+                const SizedBox(height: 30),
+                forgetPassword(),
+                const SignUp(),
+              ],
+            ),
+          ),
         ),
       ),
     );

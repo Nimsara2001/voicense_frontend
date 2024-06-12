@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -6,6 +8,8 @@ import 'package:record/record.dart';
 import 'package:voicense_frontend/app/modules/lec_record/controllers/lec_record_file_helper.dart';
 import 'package:path/path.dart' as path;
 import 'package:voicense_frontend/app/modules/lec_record/models/recording_model.dart';
+
+import '../../../util/base_client.dart';
 
 // recorder_error_handler.dart
 abstract class RecorderErrorHandler {
@@ -90,14 +94,21 @@ class AudioRecorderController{
               path: recordPath
           )
       );
-      Get.toNamed('/loading-screen', arguments: {'recordPath': recordPath});
+
+      var userId = '66609a08f16ac1cbf31081d5';
+      var moduleId = '66609a08f16ac1cbf31081d4';
+
+      Get.toNamed('/loading-screen', arguments: {'recordPath': recordPath, 'userId': userId, 'moduleId': moduleId});
       print(recordPath);
+
     }else{
       onStop(null);
       onError("Could not stop the record");
     }
 
   }
+
+
 
   Future<void> delete(String filePath) async{
     await pause();
@@ -131,4 +142,6 @@ class AudioRecorderController{
       }
     }
   }
+
+
 }

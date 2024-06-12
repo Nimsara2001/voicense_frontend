@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -74,7 +76,7 @@ class LoginController extends GetxController {
 
     try {
       await login(usernameController.text, passwordController.text);
-
+      
     } catch (e) {
       getSnack("error", "An error occurred during login");
     } finally {
@@ -87,7 +89,7 @@ bool checkModule(String str) {
   return regExp.hasMatch(str);
 }
 
- 
+
   Future<void> login(String username, String password) async {
     final response = await http.post(
       Uri.parse('http://192.168.8.102:8000/auth/login'),
