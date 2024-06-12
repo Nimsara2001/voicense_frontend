@@ -16,19 +16,21 @@ class SignupViewThree extends GetView<SignupController> {
   @override
   Widget build(BuildContext context) {
     final SignupController controller = Get.find<SignupController>();
-
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         body: Container(
           margin: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(height: 100),
-              _inputField(context, controller),
-              const SizedBox(height: 200),
-              _backbutton(context, controller),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 100),
+                _inputField(context, controller),
+                const SizedBox(height: 200),
+                _backbutton(context, controller),
+              ],
+            ),
           ),
         ),
       ),
