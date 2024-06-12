@@ -8,7 +8,6 @@ import 'package:record/record.dart';
 import 'package:voicense_frontend/app/modules/lec_record/controllers/lec_record_file_helper.dart';
 import 'package:path/path.dart' as path;
 import 'package:voicense_frontend/app/modules/lec_record/models/recording_model.dart';
-import 'package:http/http.dart' as http;
 
 import '../../../util/base_client.dart';
 
@@ -95,21 +94,12 @@ class AudioRecorderController{
               path: recordPath
           )
       );
-      Get.toNamed('/loading-screen', arguments: {'recordPath': recordPath});
-      print(recordPath);
 
       var userId = '66609a08f16ac1cbf31081d5';
       var moduleId = '66609a08f16ac1cbf31081d4';
 
-      File file = File(recordPath);
-      var fileExists = await file.exists();
-      if (fileExists) {
-        print('File is correctly created and exists at the path: $recordPath');
-      } else {
-        print('File does not exist at the path: $recordPath');
-      }
-
-      await uploadRecord(userId, moduleId, file);
+      Get.toNamed('/loading-screen', arguments: {'recordPath': recordPath, 'userId': userId, 'moduleId': moduleId});
+      print(recordPath);
 
     }else{
       onStop(null);
@@ -117,6 +107,8 @@ class AudioRecorderController{
     }
 
   }
+
+
 
   Future<void> delete(String filePath) async{
     await pause();
@@ -151,29 +143,5 @@ class AudioRecorderController{
     }
   }
 
-  Future<void> uploadRecord(String userId, String moduleId,File file) async {
-    try {
-      var token = await getToken();
-      var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/record/upload?user_id=$userId&module_id=$moduleId'));
-      request.headers.addAll(<String, String>{
-        'Content-Type': 'multipart/form-data',
-        'Authorization': 'Bearer $token',
-      });
-      request.files.add(await http.MultipartFile.fromPath('file', file.path));
 
-      print(token);
-      var response = await request.send();
-
-      if (response.statusCode == 200) {
-        response.stream.transform(utf8.decoder).listen((value) {
-          print(value);
-        });
-      }
-    } catch (e) {
-      print('Failed to upload record: $e');
-
-    }
-
-
-  }
 }
