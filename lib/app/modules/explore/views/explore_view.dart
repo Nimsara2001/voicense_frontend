@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:voicense_frontend/app/modules/explore/widget/module_label_bar.dart.dart';
+import 'package:voicense_frontend/app/modules/login/controllers/login_controller.dart';
 import 'package:voicense_frontend/app/widgets/module_view_card.dart';
 import 'package:voicense_frontend/app/widgets/search_bar.dart';
 import '../controllers/explore_controller.dart';
@@ -11,6 +12,7 @@ class ExploreView extends GetView<ExploreController> {
 
   @override
   Widget build(BuildContext context) {
+    final LoginController _controllerfromLogin  = Get.find<LoginController>();
     final ExploreController controller = Get.put(ExploreController(userType!));
     return Scaffold(
       body: Container(
@@ -24,15 +26,16 @@ class ExploreView extends GetView<ExploreController> {
             // Obx(() => controller.add_or_null[controller.index.value]),
             ModuleLabelBarView(),
             Expanded(
-              child: GridView.count(
+              child: Obx(() =>GridView.count(
                 crossAxisCount: 2,
                 childAspectRatio: 1.0,
                 mainAxisSpacing: 4.0,
                 crossAxisSpacing: 4.0,
-                children: List.generate(10, (index) {
-                  return ModuleViewCard(popup_offset: index % 2 == 0 ? -70 : -5, module_id: index.toString());// here we want to pass module_id 
-                }),
-              ),
+                children: List.generate(_controllerfromLogin.module_list.length, (index) {
+                  return ModuleViewCard(_controllerfromLogin.module_list[index],popup_offset: index % 2 == 0 ? -70 : -5);// here we want to pass module_id 
+                }
+                ),
+              )),
             ),
           ],
         ),
@@ -72,25 +75,5 @@ Widget OtherNotes(BuildContext context) {
   );
 }
 
-// // ignore: non_constant_identifier_names
-// Widget AddModule(BuildContext context) {
-//   return Container(
-//     margin: const EdgeInsets.only(top: 20, right: 10, left: 10),
-//     child: Row(
-//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//       children: [
-//         const Text(
-//           "Modules",
-//           style: TextStyle(fontSize: 25, fontWeight:FontWeight.bold),
-//         ),
-//         IconButton(
-//           icon: const Icon(Icons.add),
-//           onPressed: () {
-//             // Handle the button press here
-//           },
-//         ),
-//       ],
-//     ),
-//   );
-// }
+
 

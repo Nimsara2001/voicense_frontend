@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -6,6 +8,9 @@ import 'package:record/record.dart';
 import 'package:voicense_frontend/app/modules/lec_record/controllers/lec_record_file_helper.dart';
 import 'package:path/path.dart' as path;
 import 'package:voicense_frontend/app/modules/lec_record/models/recording_model.dart';
+import 'package:http/http.dart' as http;
+
+import '../../../util/base_client.dart';
 
 // recorder_error_handler.dart
 abstract class RecorderErrorHandler {
@@ -92,6 +97,20 @@ class AudioRecorderController{
       );
       Get.toNamed('/loading-screen', arguments: {'recordPath': recordPath});
       print(recordPath);
+
+      var userId = '66609a08f16ac1cbf31081d5';
+      var moduleId = '66609a08f16ac1cbf31081d4';
+
+      File file = File(recordPath);
+      var fileExists = await file.exists();
+      if (fileExists) {
+        print('File is correctly created and exists at the path: $recordPath');
+      } else {
+        print('File does not exist at the path: $recordPath');
+      }
+
+      await uploadRecord(userId, moduleId, file);
+
     }else{
       onStop(null);
       onError("Could not stop the record");
@@ -130,5 +149,31 @@ class AudioRecorderController{
         return false;
       }
     }
+  }
+
+  Future<void> uploadRecord(String userId, String moduleId,File file) async {
+    try {
+      var token = await getToken();
+      var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/record/upload?user_id=$userId&module_id=$moduleId'));
+      request.headers.addAll(<String, String>{
+        'Content-Type': 'multipart/form-data',
+        'Authorization': 'Bearer $token',
+      });
+      request.files.add(await http.MultipartFile.fromPath('file', file.path));
+
+      print(token);
+      var response = await request.send();
+
+      if (response.statusCode == 200) {
+        response.stream.transform(utf8.decoder).listen((value) {
+          print(value);
+        });
+      }
+    } catch (e) {
+      print('Failed to upload record: $e');
+
+    }
+
+
   }
 }

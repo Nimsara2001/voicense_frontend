@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
+import 'package:voicense_frontend/app/modules/login/controllers/login_controller.dart';
 import 'package:voicense_frontend/app/widgets/note_view_card.dart';
 import 'package:voicense_frontend/app/widgets/home_search_bar.dart';
-
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
+
+  final LoginController _controllerfromLogin  = Get.find<LoginController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,20 +20,13 @@ class HomeView extends GetView<HomeController> {
             SearchBarTop(),
             topic(),
             Expanded(
-              child: ListView(
+              child: Obx(() => ListView.builder(
                 padding: const EdgeInsets.only(top: 5, left: 5, right: 5),
-                children: const [
-                  // RecentNoteViewCard(),
-                  // RecentNoteViewCard(),
-                  // RecentNoteViewCard(),
-                  // RecentNoteViewCard(),
-                  // RecentNoteViewCard(),
-                  // RecentNoteViewCard(),
-                  // RecentNoteViewCard(),
-                  // RecentNoteViewCard(),
-                  // RecentNoteViewCard(),
-                ],
-              ),
+                itemCount: _controllerfromLogin.recent_notes.length,
+                itemBuilder: (context,index){
+                  return RecentNoteCardView(note: _controllerfromLogin.recent_notes[index]);
+                },
+              ),),
             )
           ],
         ),

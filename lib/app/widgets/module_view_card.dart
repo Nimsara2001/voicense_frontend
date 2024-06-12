@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:voicense_frontend/app/models/module_model.dart';
 import 'package:voicense_frontend/app/modules/note_set_of_module/views/note_set_of_module_view.dart';
 import 'package:voicense_frontend/app/widgets/module_popup_btn.dart';
 
 class ModuleViewCard extends StatelessWidget {
-  final String module_id;
+  // final String module_id;
+  Module module;
   final double popup_offset;
 
-  ModuleViewCard({required this.module_id,required this.popup_offset});
+  ModuleViewCard(this.module,{required this.popup_offset});
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.to(NoteSetOfModuleView());
+        Get.to(NoteSetOfModuleView(module: module,));                           //uncomment this
       },
       child: SizedBox(
         child: Container(
@@ -26,13 +28,13 @@ class ModuleViewCard extends StatelessWidget {
           ),
           child: Stack(
             children: [
-              const Align(
-                alignment: Alignment.centerLeft,
+               Align(
+                alignment: Alignment.center,
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text(
-                    "Data\nStructures",
-                    style: TextStyle(fontSize: 20,color: Colors.white),
+                    module.title,
+                    style: const TextStyle(fontSize: 20,color: Colors.white),
                   ),
                 ),
               ),
@@ -79,7 +81,7 @@ class ModuleViewCard extends StatelessWidget {
                 //     ),
                 //   ],
                 // ),
-                child: ModulePopupMenuBtn(module_id),
+                child: ModulePopupMenuBtn(module.id),
               ),
             ],
           ),
