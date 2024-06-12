@@ -26,6 +26,9 @@ class LoginController extends GetxController {
 
   RxList<Note> recent_notes = <Note>[].obs;
   RxList<Module> module_list = <Module>[].obs;
+  // RxList<Module> other_module_list = <Module>[].obs;
+  List<Module> other_module_list = <Module>[];
+
 
   @override
   void onInit() {
@@ -78,10 +81,16 @@ class LoginController extends GetxController {
       isLoading.value = false;
     }
   }
+
+bool checkModule(String str) {
+  final regExp = RegExp(r'_other', caseSensitive: false);
+  return regExp.hasMatch(str);
+}
+
  
   Future<void> login(String username, String password) async {
     final response = await http.post(
-      Uri.parse('http://192.168.8.100:8000/auth/login'),
+      Uri.parse('http://192.168.8.102:8000/auth/login'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -132,8 +141,13 @@ class LoginController extends GetxController {
 
       var moduleList = moduleFromJson(response.body);
       for (var module in moduleList) {
-        // print(module.title);
-        module_list.add(module);
+        print(module.title);
+         if(checkModule(module.title)){
+            other_module_list.add(module);
+            print(other_module_list[0].title + '-------------------');
+         }
+         else{
+          module_list.add(module);}
       }
 
       print('---------------------------------------------');
