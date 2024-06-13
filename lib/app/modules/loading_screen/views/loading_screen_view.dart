@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import '../../lec_note/views/lec_note_view.dart';
 import '../controllers/loading_screen_controller.dart';
 
 Color myRgbColor = const Color(0xff21005D);
@@ -26,14 +27,18 @@ class LoadingScreenView extends StatelessWidget {
                 // SizedBox(height: 10),
                 Text(
                   'Your Note Is Being Generated..\n Please wait',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,),
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ],
             );
-          } else {return ElevatedButton(
-              onPressed: () {
-                Get.toNamed('/lec-note');
+          } else {
+            return ElevatedButton(
+              onPressed: () async {
+                Get.to(() => LecNoteView(), arguments: await controller.getNote());
               },
               child: Text(
                 'View Note',
@@ -45,9 +50,14 @@ class LoadingScreenView extends StatelessWidget {
               ),
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(myRgbColor),
-                minimumSize: MaterialStateProperty.all(Size(200.0, 60.0)), // Set desired size
-                padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0)), // Optional padding
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0))), // Optional rounded corners
+                minimumSize: MaterialStateProperty.all(Size(200.0, 60.0)),
+                // Set desired size
+                padding: MaterialStateProperty.all(
+                    EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0)),
+                // Optional padding
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                        10.0))), // Optional rounded corners
               ),
             );
           }

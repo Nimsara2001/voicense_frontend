@@ -6,6 +6,8 @@ import 'package:voicense_frontend/app/modules/signup/views/signup_view_three.dar
 import 'package:voicense_frontend/app/modules/signup/views/signup_view_two.dart';
 import 'package:flutter/material.dart';
 
+import '../../../util/base_client.dart';
+
 enum Selection { lecturer, student, none }
 
 class SignupController extends GetxController {
@@ -181,7 +183,7 @@ class SignupController extends GetxController {
   final RxString lastName = RxString('');
 
   Future<void> signUpUser() async {
-    final url = Uri.parse('http://192.168.8.101:8000/auth/signup');
+    final url = Uri.parse('$baseUrl/auth/signup');
 
     final headers = {'Content-Type': 'application/json'};
     // final body = jsonEncode({

@@ -89,23 +89,28 @@
 // }
 
 
+import 'dart:io';
+
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:path_provider/path_provider.dart';
 
+import '../../../models/note_model.dart';
 import '../controllers/lec_note_controller.dart';
 
 class LecNoteView extends GetView<LecNoteController> {
   final flutterTts = FlutterTts(); // Initialize FlutterTts instance
-  
+  late Note note=Get.arguments;
+
   @override
   Widget build(BuildContext context) {
     final LecNoteController controller = Get.put(LecNoteController());
     return Scaffold(
       appBar: AppBar(
-        title: Text('Data Structure'),
+        title: Text(note.title),
         actions: [
           IconButton(
             icon: Obx(() => Icon(controller.isPlaying.value ? Icons.pause : Icons.play_arrow)),
@@ -135,7 +140,7 @@ class LecNoteView extends GetView<LecNoteController> {
             } else if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             }
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           },
         ),
       ),
@@ -143,8 +148,23 @@ class LecNoteView extends GetView<LecNoteController> {
   }
 
   Future<String> _fetchMarkdownData() async {
-    final response = await rootBundle.loadString('assets/lecture_notes.md');
-    return response;
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/${note.id}.md');
+
+    if (await file.exists()) {
+      // If the file exists in the documents directory, read from it
+      return await file.readAsString();
+    } else {
+      // If the file doesn't exist, write the note content to the file and then read from it
+      await writeNoteContentAsMdFile(note.content, note.id);
+      return await file.readAsString();
+    }
+  }
+
+  Future<void> writeNoteContentAsMdFile(String noteContent,String noteId) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/$noteId.md');
+    await file.writeAsString(noteContent);
   }
 
   void _togglePlayPause() async {
