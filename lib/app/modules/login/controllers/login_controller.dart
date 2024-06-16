@@ -25,10 +25,11 @@ class LoginController extends GetxController {
 
 
 
-
+  late String user_id;
   RxList<Note> recent_notes = <Note>[].obs;
   RxList<Module> module_list = <Module>[].obs;
-  // RxList<Module> other_module_list = <Module>[].obs;
+  RxList<Module> trashed_module_list = <Module>[].obs;
+  RxList<Note> trashed_note_list = <Note>[].obs;
   List<Module> other_module_list = <Module>[];
 
 
@@ -92,7 +93,7 @@ bool checkModule(String str) {
 
   Future<void> login(String username, String password) async {
     final response = await http.post(
-      Uri.parse('http://192.168.8.102:8000/auth/login'),
+      Uri.parse('http://192.168.8.101:8000/auth/login'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -125,7 +126,7 @@ bool checkModule(String str) {
 
     if (responseData['message'] == 'success') {
       final loginRespond = User.fromJson(responseData);
-
+      user_id=loginRespond.user.id;
       print('token ${loginRespond.token.accessToken}');
 
       storeToken(loginRespond.token.accessToken, loginRespond.user.id);
@@ -146,13 +147,19 @@ bool checkModule(String str) {
         print(module.title);
          if(checkModule(module.title)){
             other_module_list.add(module);
-            print(other_module_list[0].title + '-------------------');
+            // print(other_module_list[0].title + '-------------------');
          }
          else{
           module_list.add(module);}
       }
 
-      print('---------------------------------------------');
+      // print('-------------------------------------------------------------------------');
+
+      var trashed_modules_response = await BaseClient().get('/module/trashed', parameters: {'user_id': loginRespond.user.id});
+      var trashed_modules = moduleFromJson(trashed_modules_response.body);
+      for (var module in trashed_modules) {
+         trashed_module_list.add(module);
+      }
 
       // var response2 = await BaseClient().post('/module/${moduleList[2].id}/notes',parameters: null);
 
@@ -167,6 +174,37 @@ bool checkModule(String str) {
         for (var note in recent_noteList) {
           recent_notes.add(note);
         }
+      }
+
+      // print("beforeeeeeeeeee");
+      // var trashed_notes_response = await BaseClient().get('/note/trashed', parameters: {'user_id': loginRespond.user.id});
+      // print("code isssssssssssssssssss   $trashed_notes_response.statusCode");
+      // var trashed_notes = noteFromJson(trashed_notes_response.body);
+      // print(trashed_notes);
+      // for (var note in trashed_notes) {
+      //    trashed_note_list.add(note);
+      // }
+      // print("afterrrrrrrrrrr");
+
+    //   var trashedNotesResponse = await BaseClient().get('/note/trashed', parameters: {'user_id': loginRespond.user.id});
+    //   if (trashedNotesResponse != null) {
+    //   print("HTTP Status Code: ${trashedNotesResponse.statusCode}");
+    //   var trashedNotes = noteFromJson(trashedNotesResponse.body);  // Adjust this function according to your implementation
+    //   print(trashedNotes);
+    //   for (var note in trashedNotes) {
+    //     trashed_note_list.add(note);  // Ensure `trashedNoteList` is defined and accessible
+    //   }
+    // } else {
+    //   Get.snackbar('Error', 'Failed to fetch trashed notes', snackPosition: SnackPosition.BOTTOM);
+    // }
+
+      final responseo = await BaseClient().get('/note/trashed', parameters: {'user_id': loginRespond.user.id});
+      if (responseo.statusCode == 200) {
+        var trashedNotes = noteFromJson(responseo.body);  // Adjust this function according to your implementation
+        trashed_note_list.assignAll(trashedNotes);  // Assuming `trashedNoteList` is defined as an observable list
+      } else {
+        print('Failed to fetch trashed notes: ${responseo.statusCode}');
+        Get.snackbar('Error', 'Failed to fetch trashed notes', snackPosition: SnackPosition.BOTTOM);
       }
 
     }
