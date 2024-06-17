@@ -24,6 +24,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class SearchBarController extends GetxController {
@@ -36,7 +37,6 @@ class SearchBarController extends GetxController {
   // }
 }
 class SearchBarExplore extends GetView<SearchBarController> {
-
   final SearchBarController _controllerX = Get.put(SearchBarController());
 
   @override
