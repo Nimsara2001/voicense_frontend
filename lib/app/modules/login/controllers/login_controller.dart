@@ -131,6 +131,9 @@ bool checkModule(String str) {
 
       storeToken(loginRespond.token.accessToken, loginRespond.user.id);
 
+      await getmodules(loginRespond.user.id);
+      await getRecentNotes(loginRespond.user.id);
+     
       if (loginRespond.user.userType == 'Student') {
         Get.to(() => CommonHeView(userType: 'Student', user_id: loginRespond.user.id));
       }
@@ -138,75 +141,82 @@ bool checkModule(String str) {
         Get.to(() => CommonHeView(userType: 'Lecturer', user_id: loginRespond.user.id));
       }
 
+      await getTrashedNotes(loginRespond.user.id);
+      await getTrashedModules(loginRespond.user.id);
 
-      // Example of use of the BaseClient class
-      var response = await BaseClient().get('/module/all', parameters: {'user_id': loginRespond.user.id});
+    }
+  }
 
+  Future<void> getTrashedNotes(userId) async {
+   try{
+      final response = await BaseClient().get('/note/trashed', parameters: {'user_id': userId});
+      if (response.statusCode == 200) {
+      var trashedNotes = noteFromJson(response.body);  // Adjust this function according to your implementation
+      trashed_note_list.assignAll(trashedNotes);  // Assuming `trashedNoteList` is defined as an observable list
+    } else {
+      print('Failed to fetch trashed notes: ${response.statusCode}');
+      Get.snackbar('Error', 'Failed to fetch trashed notes', snackPosition: SnackPosition.BOTTOM);
+    }
+   }
+  catch(e){
+    print('Error is: $e');
+  }
+  }
+
+  Future<void> getmodules(userId) async {
+  try{
+    final response = await BaseClient().get('/module/all', parameters: {'user_id': userId});
+    print(response.statusCode);
+    print("---------------------------------------");
+    if (response.statusCode == 200) {
       var moduleList = moduleFromJson(response.body);
       for (var module in moduleList) {
-        print(module.title);
+         print(module.title);
          if(checkModule(module.title)){
             other_module_list.add(module);
-            // print(other_module_list[0].title + '-------------------');
          }
          else{
           module_list.add(module);}
       }
+    } else {
+      print('Failed to fetch modules: ${response.statusCode}');
+      Get.snackbar('Error', 'Failed to fetch modules', snackPosition: SnackPosition.BOTTOM);
+    }
+  }
+  catch(e){
+    print('Error is: $e');
+  }
+  }
 
-      // print('-------------------------------------------------------------------------');
-
-      var trashed_modules_response = await BaseClient().get('/module/trashed', parameters: {'user_id': loginRespond.user.id});
-      var trashed_modules = moduleFromJson(trashed_modules_response.body);
-      for (var module in trashed_modules) {
-         trashed_module_list.add(module);
-      }
-
-      // var response2 = await BaseClient().post('/module/${moduleList[2].id}/notes',parameters: null);
-
-      // var noteList = noteFromJson(response2.body);
-      // for (var note in noteList) {
-      //   print(note.content);
-      // }
-
-      var response_recentNotes = await BaseClient().get('/note/recent',parameters: {'user_id':loginRespond.user.id});
-      if(response_recentNotes.statusCode==200) {
-        var recent_noteList = noteFromJson(response_recentNotes.body);
-        for (var note in recent_noteList) {
-          recent_notes.add(note);
+  Future<void> getRecentNotes(userId) async {
+    try{
+      final response = await BaseClient().get('/note/recent', parameters: {'user_id': userId});
+      if (response.statusCode == 200) {
+      var recentNotes = noteFromJson(response.body);  // Adjust this function according to your implementation
+      recent_notes.assignAll(recentNotes);  // Assuming `recentNoteList` is defined as an observable list
+    } else {
+      print('Failed to fetch recent notes: ${response.statusCode}');
+      Get.snackbar('Error', 'Failed to fetch recent notes', snackPosition: SnackPosition.BOTTOM);
+    }
         }
-      }
+    catch(e){
+      print('Error is: $e');
+    }
+  }
 
-      // print("beforeeeeeeeeee");
-      // var trashed_notes_response = await BaseClient().get('/note/trashed', parameters: {'user_id': loginRespond.user.id});
-      // print("code isssssssssssssssssss   $trashed_notes_response.statusCode");
-      // var trashed_notes = noteFromJson(trashed_notes_response.body);
-      // print(trashed_notes);
-      // for (var note in trashed_notes) {
-      //    trashed_note_list.add(note);
-      // }
-      // print("afterrrrrrrrrrr");
-
-    //   var trashedNotesResponse = await BaseClient().get('/note/trashed', parameters: {'user_id': loginRespond.user.id});
-    //   if (trashedNotesResponse != null) {
-    //   print("HTTP Status Code: ${trashedNotesResponse.statusCode}");
-    //   var trashedNotes = noteFromJson(trashedNotesResponse.body);  // Adjust this function according to your implementation
-    //   print(trashedNotes);
-    //   for (var note in trashedNotes) {
-    //     trashed_note_list.add(note);  // Ensure `trashedNoteList` is defined and accessible
-    //   }
-    // } else {
-    //   Get.snackbar('Error', 'Failed to fetch trashed notes', snackPosition: SnackPosition.BOTTOM);
-    // }
-
-      final responseo = await BaseClient().get('/note/trashed', parameters: {'user_id': loginRespond.user.id});
-      if (responseo.statusCode == 200) {
-        var trashedNotes = noteFromJson(responseo.body);  // Adjust this function according to your implementation
-        trashed_note_list.assignAll(trashedNotes);  // Assuming `trashedNoteList` is defined as an observable list
-      } else {
-        print('Failed to fetch trashed notes: ${responseo.statusCode}');
-        Get.snackbar('Error', 'Failed to fetch trashed notes', snackPosition: SnackPosition.BOTTOM);
-      }
-
+  Future<void> getTrashedModules(userId) async{
+    try{
+      final response = await BaseClient().get('/module/trashed', parameters: {'user_id': userId});
+      if (response.statusCode == 200) {
+      var trashedModules = moduleFromJson(response.body);  // Adjust this function according to your implementation
+      trashed_module_list.assignAll(trashedModules);  // Assuming `trashedModuleList` is defined as an observable list
+    } else {
+      print('Failed to fetch trashed modules: ${response.statusCode}');
+      Get.snackbar('Error', 'Failed to fetch trashed modules', snackPosition: SnackPosition.BOTTOM);
+    }
+    }
+    catch(e){
+      print('Error is: $e');
     }
   }
 

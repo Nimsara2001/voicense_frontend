@@ -11,7 +11,7 @@ import '../controllers/explore_controller.dart';
 
 class ExploreView extends GetView<ExploreController> {
   String? userType;
-  ExploreView({Key? key, this.userType});
+  ExploreView({this.userType});
 
   @override
   Widget build(BuildContext context) {
