@@ -44,7 +44,7 @@ class RecentNoteCardView extends GetView<RecentNoteCardController>{
         ),
         child: InkWell(
           onTap: () {
-            Get.to(() => LecNoteView(note: note));
+            Get.to(() => LecNoteView(), arguments: note);
           },
           child: Padding(
             padding: const EdgeInsets.all(8.0),
