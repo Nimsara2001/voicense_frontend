@@ -1,7 +1,12 @@
 
+import 'dart:io';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
-
+import 'package:html_to_pdf/html_to_pdf.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:markdown/markdown.dart' as md;
 import '../../../models/note_model.dart';
 
 class LecNoteController extends GetxController {
@@ -62,6 +67,26 @@ class LecNoteController extends GetxController {
   void stopSpeaking() async {
     await flutterTts.stop();
     isPlaying.value = false; // Reset playback state
+  }
+
+  Future<void> downloadAsPdf(BuildContext context) async {
+    var htmlContent = md.markdownToHtml(note!.content);
+    print(htmlContent);
+
+    Directory appDocDir = await getApplicationDocumentsDirectory();
+    final targetPath = appDocDir.path;
+    final targetFileName = "example-pdf";
+
+    final generatedPdfFile = await HtmlToPdf.convertFromHtmlContent(
+      htmlContent: htmlContent,
+      printPdfConfiguration: PrintPdfConfiguration(
+        targetDirectory: targetPath,
+        targetName: targetFileName,
+        printSize: PrintSize.A4,
+        printOrientation: PrintOrientation.Landscape,
+      ),
+    );
+    
   }
 
 }
