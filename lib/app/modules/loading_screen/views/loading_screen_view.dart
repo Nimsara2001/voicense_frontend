@@ -38,7 +38,7 @@ class LoadingScreenView extends StatelessWidget {
           } else {
             return ElevatedButton(
               onPressed: () async {
-                Get.to(() => LecNoteView(), arguments: await controller.getNote());
+                // Get.to(() => LecNoteView());
               },
               child: Text(
                 'View Note',
