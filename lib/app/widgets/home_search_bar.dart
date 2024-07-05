@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:voicense_frontend/app/modules/profile/views/profile_view.dart';
+import 'package:voicense_frontend/app/util/theme.dart';
 
 class SearchBarTopController extends GetxController {
   final TextEditingController searchTextController = TextEditingController();
@@ -14,7 +15,7 @@ class SearchBarTop extends GetView<SearchBarTopController> {
     return Container(
       margin: const EdgeInsets.only(top: 40, right: 10, left: 10),
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 234, 230, 239),
+        color: myTrietaryColor,
         borderRadius: BorderRadius.circular(30),
       ),
       child: TextField(

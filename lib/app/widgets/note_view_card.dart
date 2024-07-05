@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:voicense_frontend/app/models/note_model.dart';
 import 'package:voicense_frontend/app/modules/lec_note/views/lec_note_view.dart';
 import 'package:voicense_frontend/app/widgets/popup_menu_btn.dart';
+import 'package:voicense_frontend/app/util/theme.dart';
 class RecentNoteCardController extends GetxController{
 
   String _removeSymbols(String text) {
@@ -39,7 +40,7 @@ class RecentNoteCardView extends GetView<RecentNoteCardController>{
         height: 109,
         // Adjusted height to accommodate the additional content
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 231, 222, 252),
+          color: myNoteCardColor,
           borderRadius: BorderRadius.circular(10),
         ),
         child: InkWell(

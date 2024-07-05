@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:voicense_frontend/app/util/theme.dart';
 
 class ListTileItem extends StatelessWidget {
   final String? text;
@@ -11,7 +12,7 @@ class ListTileItem extends StatelessWidget {
     return FractionallySizedBox(
       widthFactor: 0.9,
       child: ListTile(
-        tileColor: const Color.fromARGB(169, 251, 194, 251),
+        tileColor: mySecondaryColor,
         title: Text("$text"),
         leading: Icon(icon),
         shape: const StadiumBorder(),

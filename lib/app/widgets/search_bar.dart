@@ -25,6 +25,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:voicense_frontend/app/util/theme.dart';
 
 class SearchBarController extends GetxController {
 
@@ -44,7 +45,7 @@ class SearchBarExplore extends GetView<SearchBarController> {
     return Container(
       margin: const EdgeInsets.only(top: 40, right: 10, left: 10),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 234, 230, 239),
+        color: mySearchBoxColor,
         borderRadius: BorderRadius.circular(30),
       ),
       child: TextField(

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:voicense_frontend/app/modules/signup/controllers/signup_controller.dart';
+import 'package:voicense_frontend/app/util/theme.dart';
 
 class SignupViewThree extends GetView<SignupController> {
   final String firstName;
@@ -116,7 +117,7 @@ class SignupViewThree extends GetView<SignupController> {
           icon: const Icon(Icons.navigate_before),
           label: const Text(
             "Back",
-            style: TextStyle(fontSize: 20, color: Color(0xFF21005D)),
+            style: TextStyle(fontSize: 20, color: myPrimaryColor),
           ),
         ),
         Obx(
@@ -134,7 +135,7 @@ class SignupViewThree extends GetView<SignupController> {
             // Always navigate
             style: ElevatedButton.styleFrom(
               // ... (same styling as before)
-              backgroundColor: const Color(0xFF21005D),
+              backgroundColor:myPrimaryColor,
               shape: const StadiumBorder(),
               padding: const EdgeInsets.symmetric(vertical: 16),
               minimumSize: const Size(120, 50),
@@ -142,7 +143,7 @@ class SignupViewThree extends GetView<SignupController> {
             child: const Text(
               "Finish",
               style: TextStyle(
-                  fontSize: 20, color: Color.fromARGB(255, 203, 230, 252)),
+                  fontSize: 20, color: myFinishColor),
             ),
           ),
         )

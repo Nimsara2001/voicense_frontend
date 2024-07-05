@@ -6,6 +6,7 @@ import 'package:voicense_frontend/app/modules/login/widgets/signup_nav.dart';
 import '../controllers/login_controller.dart';
 import '../widgets/input_form.dart';
 
+
 class LoginView extends GetView<LoginController> {
   const LoginView({super.key});
 

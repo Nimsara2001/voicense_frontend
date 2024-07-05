@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:core';
+import 'package:voicense_frontend/app/util/theme.dart';
 
 
 class PlayPauseButton extends StatelessWidget {
@@ -12,7 +13,7 @@ class PlayPauseButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       shape: const CircleBorder(),
-      color: Color(0xff21005D),
+      color: myPrimaryColor,
       clipBehavior: Clip.hardEdge,
       child: InkWell(
         onTap: onTap,

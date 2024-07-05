@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:voicense_frontend/app/modules/login/views/login_view.dart';
 import '../controllers/signup_controller.dart';
+import 'package:voicense_frontend/app/util/theme.dart';
 
 // enum Selection { none, student, lecturer }
 
@@ -78,7 +79,7 @@ class SignupView extends GetView<SignupController> {
         onTap: onTap,
         child: Container(
           color: isSelected
-              ? Color(0xFF21005D)
+              ? myPrimaryColor
               : Colors.white, // Change entire card color
           child: SizedBox(
             width: 350,
@@ -90,7 +91,7 @@ class SignupView extends GetView<SignupController> {
                   fontSize: 20,
                   color: isSelected
                       ? Colors.white
-                      : Color(0xFF21005D), // Change text color
+                      : myPrimaryColor, // Change text color
                 ),
               ),
             ),
@@ -117,7 +118,7 @@ class SignupView extends GetView<SignupController> {
           icon: const Icon(Icons.navigate_before),
           label: const Text(
             "Back",
-            style: TextStyle(fontSize: 20, color: Color(0xFF21005D)),
+            style: TextStyle(fontSize: 20, color: myPrimaryColor),
           ),
         ),
         Obx(
@@ -128,7 +129,7 @@ class SignupView extends GetView<SignupController> {
             style: ElevatedButton.styleFrom(
               backgroundColor:
                   controller.selectedSelection.value != Selection.none
-                      ? const Color(0xFF21005D)
+                      ? myPrimaryColor
                       : null, // Disable button styling if not selected
               shape: const StadiumBorder(),
               padding: const EdgeInsets.symmetric(vertical: 16),

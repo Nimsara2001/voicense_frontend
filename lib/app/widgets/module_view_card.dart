@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:voicense_frontend/app/models/module_model.dart';
 import 'package:voicense_frontend/app/modules/note_set_of_module/views/note_set_of_module_view.dart';
+import 'package:voicense_frontend/app/util/theme.dart';
 import 'package:voicense_frontend/app/widgets/module_popup_btn.dart';
 
 class ModuleViewCard extends StatelessWidget {
@@ -23,7 +24,7 @@ class ModuleViewCard extends StatelessWidget {
           height: 109,
           // Adjusted height to accommodate the additional content
           decoration: BoxDecoration(
-            color: const Color.fromARGB(255,76, 58, 134),
+            color: myModuleCardColor,
             borderRadius: BorderRadius.circular(10),
           ),
           child: Stack(

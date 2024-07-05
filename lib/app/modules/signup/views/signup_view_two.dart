@@ -2,6 +2,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:voicense_frontend/app/modules/signup/controllers/signup_controller.dart';
+import 'package:voicense_frontend/app/util/theme.dart';
 
 class SignupViewTwo extends GetView<SignupController> {
   final SignupController signupController = Get.put(SignupController());
@@ -111,7 +112,7 @@ Widget _backbutton(BuildContext context, SignupController controller) {
         icon: const Icon(Icons.navigate_before),
         label: const Text(
           "Back",
-          style: TextStyle(fontSize: 20, color: Color(0xFF21005D)),
+          style: TextStyle(fontSize: 20, color: myPrimaryColor),
         ),
       ),
       ElevatedButton.icon(
@@ -122,7 +123,7 @@ Widget _backbutton(BuildContext context, SignupController controller) {
           controller.goToSignup3();
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF21005D),
+          backgroundColor: myPrimaryColor,
           shape: const StadiumBorder(),
           padding: const EdgeInsets.symmetric(vertical: 16),
 

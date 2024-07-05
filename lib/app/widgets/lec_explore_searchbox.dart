@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:voicense_frontend/app/util/theme.dart';
+
 
 class SearchBox extends StatefulWidget {
   const SearchBox({super.key});
@@ -14,7 +16,7 @@ class _SearchBoxState extends State<SearchBox> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(160, 238, 235, 235),
+        color:mySearchBoxColor,
         borderRadius: BorderRadius.circular(20),
       ),
       child: const TextField(
@@ -32,7 +34,7 @@ class _SearchBoxState extends State<SearchBox> {
           ),
           border: InputBorder.none,
           hintText: 'Search',
-          hintStyle: TextStyle(color: Colors.grey),
+          hintStyle: TextStyle(color: mySearchBoxTextColor),
         ),
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:voicense_frontend/app/modules/login/views/login_view.dart';
+import 'package:voicense_frontend/app/util/theme.dart';
 
 class SignupViewFour extends GetView {
   const SignupViewFour({super.key});
@@ -43,7 +44,7 @@ Widget _check_circle_done(BuildContext context) {
         Icon(
           Icons.check_circle_outline,
           size: 150,
-          color: Color.fromARGB(255, 34, 12, 134),
+          color: myPrimaryColor,
         ),
       ]);
 }
@@ -59,7 +60,7 @@ Widget _text_success(BuildContext context) {
         style: TextStyle(
           fontSize: 30,
           fontWeight: FontWeight.bold,
-          color: Color.fromARGB(255, 42, 8, 87),
+          color: myPrimaryColor,
         ),
       ),
     ],
@@ -76,7 +77,7 @@ Widget _login(BuildContext context) {
           Get.to(() => const LoginView());
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF21005D),
+          backgroundColor: myPrimaryColor,
           shape: const StadiumBorder(),
           padding: const EdgeInsets.symmetric(vertical: 16),
           minimumSize: const Size(120, 50),

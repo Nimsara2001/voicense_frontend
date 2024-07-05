@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import '../../lec_note/views/lec_note_view.dart';
 import '../controllers/loading_screen_controller.dart';
+import 'package:voicense_frontend/app/util/theme.dart';
 
-Color myRgbColor = const Color(0xff21005D);
 
 class LoadingScreenView extends StatelessWidget {
   @override
@@ -49,7 +49,7 @@ class LoadingScreenView extends StatelessWidget {
                 ),
               ),
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(myRgbColor),
+                backgroundColor: MaterialStateProperty.all(myPrimaryColor),
                 minimumSize: MaterialStateProperty.all(Size(200.0, 60.0)),
                 // Set desired size
                 padding: MaterialStateProperty.all(

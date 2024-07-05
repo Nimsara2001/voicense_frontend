@@ -8,8 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:voicense_frontend/app/modules/lec_record/controllers/lec_record_file_helper.dart';
 import '../views/play_pause_button.dart';
 import 'audio_waves_view.dart';
+import 'package:voicense_frontend/app/util/theme.dart';
 
-Color myRgbColor = const Color(0xff21005D);
+Color myRgbColor = myPrimaryColor;
 
 class AudioRecorderView extends StatelessWidget {
   const AudioRecorderView({super.key});
@@ -129,7 +130,7 @@ class _AudioRecorderViewBodyState extends State<_AudioRecorderViewBody> {
                   });
                 }
               },
-              backgroundColor: myRgbColor,
+              backgroundColor: myPrimaryColor,
               child: const Icon(Icons.delete, color: Colors.white),
               elevation: 0.0,
             ),
@@ -160,7 +161,7 @@ class _AudioRecorderViewBodyState extends State<_AudioRecorderViewBody> {
                   });
                 }
               },
-              backgroundColor: myRgbColor,
+              backgroundColor: myPrimaryColor,
               elevation: 0.0,
               child: const Icon(Icons.stop, color: Colors.white),
             ),

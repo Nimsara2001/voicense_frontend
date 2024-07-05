@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:voicense_frontend/app/modules/common_he/controllers/common_he_controller.dart';
+import 'package:voicense_frontend/app/util/theme.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({
@@ -11,8 +12,9 @@ class NavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     var controller = Get.find<CommonHeController>();
 
-
     return NavigationBar(
+      backgroundColor: mySecondaryColor,
+      indicatorColor: myTrietaryColor,
       selectedIndex: controller.focused_value.value,
       onDestinationSelected: (int index) {
         controller.move_page(index);
@@ -21,6 +23,7 @@ class NavBar extends StatelessWidget {
         NavigationDestination(
           icon: Icon(Icons.home),
           label: 'Home',
+
         ),
         NavigationDestination(
           icon: Icon(Icons.library_books),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:voicense_frontend/app/modules/select_module/views/select_module_view.dart';
+import 'package:voicense_frontend/app/util/theme.dart';
 
 class PlusIcon extends StatelessWidget {
   final String? user_id;
@@ -25,7 +26,7 @@ class PlusIcon extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50),
         ),
-        backgroundColor: const Color.fromARGB(255, 33, 0, 93),
+        backgroundColor: myPrimaryColor,
         child: const Icon(
           Icons.mic,
           size: 32,

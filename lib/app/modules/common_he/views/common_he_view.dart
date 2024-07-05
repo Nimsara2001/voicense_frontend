@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import '../../../widgets/nav_bar.dart';
 import '../controllers/common_he_controller.dart';
 

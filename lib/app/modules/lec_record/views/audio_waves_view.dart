@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:voicense_frontend/app/modules/lec_record/controllers/lec_record_controller.dart';
+import 'package:voicense_frontend/app/util/theme.dart';
 
 class AudioWavesView extends StatefulWidget {
   const AudioWavesView({super.key});
@@ -77,7 +78,7 @@ class _AudioWavesViewState extends State<AudioWavesView> {
                 },
                 child: DecoratedBox(
                     decoration: BoxDecoration(
-                        color: Color(0xff21005D),
+                        color: myPrimaryColor,
                         borderRadius: BorderRadius.circular(8)
                     )
                 ),

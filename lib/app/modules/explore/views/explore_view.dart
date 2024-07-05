@@ -5,6 +5,7 @@ import 'package:voicense_frontend/app/modules/login/controllers/login_controller
 import 'package:voicense_frontend/app/widgets/module_view_card.dart';
 import 'package:voicense_frontend/app/widgets/search_bar.dart';
 import '../controllers/explore_controller.dart';
+import 'package:voicense_frontend/app/util/theme.dart';
 
 class ExploreView extends GetView<ExploreController> {
   String? userType;
@@ -62,7 +63,7 @@ Widget OtherNotes(BuildContext context) {
             elevation: 0,
             padding: const EdgeInsets.symmetric(vertical: 16),
             minimumSize: const Size(370, 60),
-            backgroundColor: const Color.fromARGB(255,100, 82, 159),
+            backgroundColor: mySecondaryColor,
             foregroundColor: Colors.white,
           ),
           child: const Text(

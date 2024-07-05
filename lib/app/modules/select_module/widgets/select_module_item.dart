@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:voicense_frontend/app/modules/lec_record/views/lec_record_view.dart';
+import 'package:voicense_frontend/app/util/theme.dart';
 
 class SelectModuleItem extends GetView {
   final String? module_id;
@@ -24,7 +25,7 @@ class SelectModuleItem extends GetView {
             Get.to(() => AudioRecorderView());
           },
           style: ElevatedButton.styleFrom(
-              backgroundColor: const Color.fromARGB(255, 205, 199, 220),
+              backgroundColor: myTrietaryColor,
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 5),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10))),

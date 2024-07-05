@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:voicense_frontend/app/modules/login/controllers/login_controller.dart';
+import 'package:voicense_frontend/app/util/theme.dart';
 
 class InputForm extends StatelessWidget {
   const InputForm({super.key});
@@ -20,7 +21,7 @@ class InputForm extends StatelessWidget {
               hintText: "Username",
               border: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: Colors.grey,
+                  color:fieldBorderColor,
                 ),
               ),
               prefixIcon: Icon(Icons.person),
@@ -39,7 +40,7 @@ class InputForm extends StatelessWidget {
             decoration: const InputDecoration(
               hintText: "Password",
               border: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey),
+                borderSide: BorderSide(color:fieldBorderColor),
               ),
               prefixIcon: Icon(Icons.lock),
             ),
@@ -62,7 +63,7 @@ class InputForm extends StatelessWidget {
                       loginController.checkLogin();
                     },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF21005D),
+                backgroundColor: myPrimaryColor,
                 shape: const StadiumBorder(),
                 padding: const EdgeInsets.symmetric(vertical: 16),
               ),
@@ -70,7 +71,7 @@ class InputForm extends StatelessWidget {
                   ? const CircularProgressIndicator(color: Colors.white)
                   : const Text(
                       "Log In",
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: TextStyle(fontSize: 20, color: buttonTextColor),
                     ),
             );
           })
