@@ -34,14 +34,14 @@ class SignupController extends GetxController {
   }
 
   String? selectionToString(Selection selection) {
-  if (selection == Selection.lecturer) {
-    return 'Lecturer';
-  } else if (selection == Selection.student) {
-    return 'Student';
-  } else {
-    return null;
+    if (selection == Selection.lecturer) {
+      return 'Lecturer';
+    } else if (selection == Selection.student) {
+      return 'Student';
+    } else {
+      return null;
+    }
   }
-}
 
   void goToSignup3() {
     final firstNameValue = firstNameController.text.trim();
@@ -193,13 +193,13 @@ class SignupController extends GetxController {
     //   'last_name': lastName.value, // Assuming you have a lastName field
     //   'user_type': selectedSelection.value.name, // Convert Selection to string
     // });
-      final body = jsonEncode({
+    final body = jsonEncode({
       'username': username.value,
       'password': password.value,
       'first_name': firstName.value, // Assuming you have a firstName field
       'last_name': lastName.value, // Assuming you have a lastName field
-      'user_type': selectionToString(selectedSelection.value),// Convert Selection to string
-      'user_type': selectionToString(selectedSelection.value),// Convert Selection to string
+      'user_type': selectionToString(
+          selectedSelection.value), // Convert Selection to string
     });
 
     try {
