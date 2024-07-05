@@ -15,6 +15,7 @@ class Note {
   String content;
   DateTime createdDate;
   DateTime lastAccessed;
+  String? module_id;
 
   Note({
     required this.id,
@@ -22,7 +23,8 @@ class Note {
     required this.description,
     required this.content,
     required this.createdDate,
-    required this.lastAccessed,
+    required this.lastAccessed, 
+    required this.module_id,
   });
 
   factory Note.fromJson(Map<String, dynamic> json) => Note(
@@ -32,6 +34,7 @@ class Note {
     content: json["content"],
     createdDate: DateTime.parse(json["created_date"]),
     lastAccessed: DateTime.parse(json["last_accessed"]),
+    module_id: json["module_id"],
   );
 
   Map<String, dynamic> toJson() => {

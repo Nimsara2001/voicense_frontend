@@ -1,5 +1,8 @@
 import 'package:get/get.dart';
 
+import 'package:voicense_frontend/app/modules/trashed_items/bindings/trashed_items_binding.dart';
+import 'package:voicense_frontend/app/modules/trashed_items/views/trashed_items_view.dart';
+
 import '../modules/common_he/bindings/common_he_binding.dart';
 import '../modules/common_he/views/common_he_view.dart';
 import '../modules/explore/bindings/explore_binding.dart';
@@ -126,6 +129,11 @@ class AppPages {
       name: _Paths.SPLASH_SCREEN,
       page: () => const SplashScreenView(),
       binding: SplashScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.TRASHED_ITEMS,
+      page: () => TrashedItemsView(),
+      binding: TrashedItemsBinding(),
     ),
   ];
 }

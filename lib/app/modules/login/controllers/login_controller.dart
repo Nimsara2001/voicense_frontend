@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -23,9 +25,13 @@ class LoginController extends GetxController {
 
 
 
-
+  late String user_id;
   RxList<Note> recent_notes = <Note>[].obs;
   RxList<Module> module_list = <Module>[].obs;
+  RxList<Module> trashed_module_list = <Module>[].obs;
+  RxList<Note> trashed_note_list = <Note>[].obs;
+  List<Module> other_module_list = <Module>[];
+
 
   @override
   void onInit() {
@@ -79,11 +85,15 @@ class LoginController extends GetxController {
     }
   }
 
+bool checkModule(String str) {
+  final regExp = RegExp(r'_other', caseSensitive: false);
+  return regExp.hasMatch(str);
+}
+
+
   Future<void> login(String username, String password) async {
     final response = await http.post(
-
-      Uri.parse('$baseUrl/auth/login'),
-
+      Uri.parse('http://192.168.8.101:8000/auth/login'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -116,11 +126,14 @@ class LoginController extends GetxController {
 
     if (responseData['message'] == 'success') {
       final loginRespond = User.fromJson(responseData);
-
+      user_id=loginRespond.user.id;
       print('token ${loginRespond.token.accessToken}');
 
       storeToken(loginRespond.token.accessToken, loginRespond.user.id);
 
+      await getmodules(loginRespond.user.id);
+      await getRecentNotes(loginRespond.user.id);
+     
       if (loginRespond.user.userType == 'Student') {
         Get.to(() => CommonHeView(userType: 'Student', user_id: loginRespond.user.id));
       }
@@ -128,33 +141,82 @@ class LoginController extends GetxController {
         Get.to(() => CommonHeView(userType: 'Lecturer', user_id: loginRespond.user.id));
       }
 
+      await getTrashedNotes(loginRespond.user.id);
+      await getTrashedModules(loginRespond.user.id);
 
-      // Example of use of the BaseClient class
-      var response = await BaseClient().get('/module/all', parameters: {'user_id': loginRespond.user.id});
+    }
+  }
 
+  Future<void> getTrashedNotes(userId) async {
+   try{
+      final response = await BaseClient().get('/note/trashed', parameters: {'user_id': userId});
+      if (response.statusCode == 200) {
+      var trashedNotes = noteFromJson(response.body);  // Adjust this function according to your implementation
+      trashed_note_list.assignAll(trashedNotes);  // Assuming `trashedNoteList` is defined as an observable list
+    } else {
+      print('Failed to fetch trashed notes: ${response.statusCode}');
+      Get.snackbar('Error', 'Failed to fetch trashed notes', snackPosition: SnackPosition.BOTTOM);
+    }
+   }
+  catch(e){
+    print('Error is: $e');
+  }
+  }
+
+  Future<void> getmodules(userId) async {
+  try{
+    final response = await BaseClient().get('/module/all', parameters: {'user_id': userId});
+    print(response.statusCode);
+    print("---------------------------------------");
+    if (response.statusCode == 200) {
       var moduleList = moduleFromJson(response.body);
       for (var module in moduleList) {
-        // print(module.title);
-        module_list.add(module);
+         print(module.title);
+         if(checkModule(module.title)){
+            other_module_list.add(module);
+         }
+         else{
+          module_list.add(module);}
       }
+    } else {
+      print('Failed to fetch modules: ${response.statusCode}');
+      Get.snackbar('Error', 'Failed to fetch modules', snackPosition: SnackPosition.BOTTOM);
+    }
+  }
+  catch(e){
+    print('Error is: $e');
+  }
+  }
 
-      print('---------------------------------------------');
-
-      // var response2 = await BaseClient().post('/module/${moduleList[2].id}/notes',parameters: null);
-
-      // var noteList = noteFromJson(response2.body);
-      // for (var note in noteList) {
-      //   print(note.content);
-      // }
-
-      var response_recentNotes = await BaseClient().get('/note/recent',parameters: {'user_id':loginRespond.user.id});
-      if(response_recentNotes.statusCode==200) {
-        var recent_noteList = noteFromJson(response_recentNotes.body);
-        for (var note in recent_noteList) {
-          recent_notes.add(note);
+  Future<void> getRecentNotes(userId) async {
+    try{
+      final response = await BaseClient().get('/note/recent', parameters: {'user_id': userId});
+      if (response.statusCode == 200) {
+      var recentNotes = noteFromJson(response.body);  // Adjust this function according to your implementation
+      recent_notes.assignAll(recentNotes);  // Assuming `recentNoteList` is defined as an observable list
+    } else {
+      print('Failed to fetch recent notes: ${response.statusCode}');
+      Get.snackbar('Error', 'Failed to fetch recent notes', snackPosition: SnackPosition.BOTTOM);
+    }
         }
-      }
+    catch(e){
+      print('Error is: $e');
+    }
+  }
 
+  Future<void> getTrashedModules(userId) async{
+    try{
+      final response = await BaseClient().get('/module/trashed', parameters: {'user_id': userId});
+      if (response.statusCode == 200) {
+      var trashedModules = moduleFromJson(response.body);  // Adjust this function according to your implementation
+      trashed_module_list.assignAll(trashedModules);  // Assuming `trashedModuleList` is defined as an observable list
+    } else {
+      print('Failed to fetch trashed modules: ${response.statusCode}');
+      Get.snackbar('Error', 'Failed to fetch trashed modules', snackPosition: SnackPosition.BOTTOM);
+    }
+    }
+    catch(e){
+      print('Error is: $e');
     }
   }
 
