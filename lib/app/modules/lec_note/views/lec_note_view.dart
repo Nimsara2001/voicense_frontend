@@ -120,6 +120,12 @@ class LecNoteView extends GetView<LecNoteController> {
             icon: const Icon(Icons.stop),
             onPressed: () => _stopSpeaking(),
           ),
+          IconButton(
+              onPressed: () async {
+                await controller.downloadPdf(note.id);
+              },
+              icon: const Icon(Icons.download)
+          ),
         ],
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
