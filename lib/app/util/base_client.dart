@@ -60,4 +60,28 @@ class BaseClient {
       client.close();
     }
   }
+
+  Future<dynamic> put(String api, {Map<String, String>? parameters}) async {
+    try {
+      var url = Uri.parse(baseUrl + api);
+      var token = await getToken();
+      if (parameters != null) {
+        url = Uri.http(url.authority, url.path, parameters);
+      }
+
+      var headers = {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      };
+
+      var response = await client.put(url, headers: headers);
+
+      return response;
+
+    } catch (e) {
+      print('Error: $e');
+    } finally {
+      client.close();
+    }
+  }
 }
