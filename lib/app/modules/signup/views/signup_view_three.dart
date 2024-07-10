@@ -16,24 +16,53 @@ class SignupViewThree extends GetView<SignupController> {
   @override
   Widget build(BuildContext context) {
     final SignupController controller = Get.find<SignupController>();
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
+    return Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          automaticallyImplyLeading: false,
+        ),
         body: Container(
           margin: const EdgeInsets.all(24),
           child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const Text(
+                  "Sign Up",
+                  style: TextStyle(
+                    fontSize: 50,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF21005D),
+                  ),
+                ),
                 const SizedBox(height: 100),
                 _inputField(context, controller),
-                const SizedBox(height: 200),
+                const SizedBox(height: 135),
                 _backbutton(context, controller),
+                const SizedBox(height:60),
+                _buildStepIndicator(),
               ],
             ),
           ),
         ),
-      ),
+    );
+  }
+
+  Widget _buildStepIndicator() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(3, (index) {
+        return Container(
+          width: 80,
+          height: 4,
+          margin: const EdgeInsets.symmetric(horizontal: 5),
+          decoration: BoxDecoration(
+            color: index == 2 ? const Color(0xFF21005D) : const Color(0xFFD1D1D1),
+            borderRadius: BorderRadius.circular(5),
+          ),
+        );
+      }),
     );
   }
 
@@ -55,18 +84,6 @@ class SignupViewThree extends GetView<SignupController> {
             onChanged: (value) => controller.username.value = value,
           ),
           const SizedBox(height: 20),
-          // TextFormField(
-          //   keyboardType: TextInputType.emailAddress,
-          //   decoration: const InputDecoration(
-          //     hintText: "Email",
-          //     border: OutlineInputBorder(),
-          //     prefixIcon: Icon(Icons.email),
-          //   ),
-          //   controller: controller.emailController,
-          //   validator: (value) => controller.validateEmail(value!),
-          //   onChanged: (value) => controller.email.value = value,
-          // ),
-          // const SizedBox(height: 20),
           TextFormField(
             keyboardType: TextInputType.visiblePassword,
             decoration: const InputDecoration(
@@ -111,14 +128,15 @@ class SignupViewThree extends GetView<SignupController> {
             // ... (same styling as before)
             shape: const StadiumBorder(),
             padding: const EdgeInsets.symmetric(vertical: 16),
-            minimumSize: const Size(120, 50),
+            minimumSize: const Size(140, 50),
           ),
-          icon: const Icon(Icons.navigate_before),
+          icon: const Icon(Icons.navigate_before, color: Color(0xFF21005D)),
           label: const Text(
             "Back",
             style: TextStyle(fontSize: 20, color: Color(0xFF21005D)),
           ),
         ),
+        const SizedBox(width: 29),
         Obx(
           () => ElevatedButton(
             onPressed: controller.isValidForm()
@@ -137,12 +155,12 @@ class SignupViewThree extends GetView<SignupController> {
               backgroundColor: const Color(0xFF21005D),
               shape: const StadiumBorder(),
               padding: const EdgeInsets.symmetric(vertical: 16),
-              minimumSize: const Size(120, 50),
+              minimumSize: const Size(140, 50),
             ),
             child: const Text(
               "Finish",
               style: TextStyle(
-                  fontSize: 20, color: Color.fromARGB(255, 203, 230, 252)),
+                  fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
             ),
           ),
         )

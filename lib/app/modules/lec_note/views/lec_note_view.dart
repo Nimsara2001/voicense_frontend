@@ -113,18 +113,18 @@ class LecNoteView extends GetView<LecNoteController> {
         title: Text(note.title),
         actions: [
           IconButton(
-            icon: Obx(() => Icon(controller.isPlaying.value ? Icons.pause : Icons.play_arrow)),
+            icon: Obx(() => Icon(controller.isPlaying.value ? Icons.pause_circle : Icons.play_circle, size: 30)),
             onPressed: () => _togglePlayPause(),
           ),
           IconButton(
-            icon: const Icon(Icons.stop),
+            icon: const Icon(Icons.stop_circle,size: 30),
             onPressed: () => _stopSpeaking(),
           ),
           IconButton(
               onPressed: () async {
                 await controller.downloadPdf(note.id);
               },
-              icon: const Icon(Icons.download)
+              icon: const Icon(Icons.download_for_offline,size: 30)
           ),
         ],
         leading: IconButton(

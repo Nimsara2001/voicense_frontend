@@ -20,15 +20,15 @@ class ProfileView extends GetView<ProfileController> {
         body: SingleChildScrollView(
           child:  Column(
             children: [
-            ProfileUpper(name:"hansaka",email:"new1818155@gmail.com",imageText:"gggh"),
+            ProfileUpper(name:"Mihin Premarathna",email:"mihin.nimsara.2001@gmail.com",imageText:"gggh"),
             // SizedBox(height: 35,),
             // DarkMode(),// should make
-            SizedBox(height:30,),
-            ListTileItemView(text:"Change password",icon:Icons.build),
-            SizedBox(height:30,),
+            const SizedBox(height:30,),
+            const ListTileItemView(text:"Change password",icon:Icons.build),
+            const SizedBox(height:30,),
              _controllerfromLogin.userType == "Lecturer" ? ListTileItemView(text:"Trashed Bin",icon:Icons.delete) : Container(),
-             SizedBox(height:30,),
-            ListTileItemView(text:"Sign Out",icon:Icons.logout),
+             const SizedBox(height:30,),
+            const ListTileItemView(text:"Sign Out",icon:Icons.logout),
             
             ],
           ),

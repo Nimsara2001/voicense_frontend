@@ -16,6 +16,7 @@ class CommonHeView extends GetView<CommonHeController> {
   });
 
 
+
   @override
   Widget build(BuildContext context) {
     print("userType " + userType!);
@@ -29,4 +30,5 @@ class CommonHeView extends GetView<CommonHeController> {
       floatingActionButton: Obx(() => controller.Plus_Null[controller.focused_value.value]),
     );
   }
+
 }

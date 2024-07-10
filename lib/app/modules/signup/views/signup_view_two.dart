@@ -10,27 +10,56 @@ class SignupViewTwo extends GetView<SignupController> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        body: Container(
-          margin: const EdgeInsets.all(24),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(height: 100),
-                _inputField(context,
-                    signupController), // You can access controller data here if needed
-                const SizedBox(height: 250),
-                _backbutton(context, signupController),
-              ],
-            ),
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
+      ),
+      body: Container(
+        margin: const EdgeInsets.all(24),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20),
+              const Text(
+                "Sign Up",
+                style: TextStyle(
+                  fontSize: 50,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF21005D),
+                ),
+              ),
+              const SizedBox(height: 100),
+              _inputField(context, signupController),
+              const SizedBox(height: 145),
+              _backbutton(context, signupController),
+              const SizedBox(height:60),
+              _buildStepIndicator(),
+            ],
           ),
         ),
       ),
     );
   }
+}
+
+Widget _buildStepIndicator() {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: List.generate(3, (index) {
+      return Container(
+        width: 80,
+        height: 4,
+        margin: const EdgeInsets.symmetric(horizontal: 5),
+        decoration: BoxDecoration(
+          color: index == 1 ? const Color(0xFF21005D) : const Color(0xFFD1D1D1),
+          borderRadius: BorderRadius.circular(5),
+        ),
+      );
+    }),
+  );
 }
 
 Widget _inputField(BuildContext context, SignupController controller) {
@@ -62,7 +91,7 @@ Widget _inputField(BuildContext context, SignupController controller) {
             },
           ),
         ),
-        const SizedBox(height: 40),
+        const SizedBox(height: 30),
         SizedBox(
           width: 350,
           height: 80,
@@ -97,23 +126,19 @@ Widget _backbutton(BuildContext context, SignupController controller) {
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: [
       ElevatedButton.icon(
-        // onPressed: () {
-        //   Navigator.push(
-        //     context,
-        //     MaterialPageRoute(builder: (context) => SignupView()),
-        //   );
         onPressed: () => Get.back(),
         style: ElevatedButton.styleFrom(
           shape: const StadiumBorder(),
           padding: const EdgeInsets.symmetric(vertical: 16),
-          minimumSize: const ui.Size(120, 50),
+          minimumSize: const ui.Size(140, 50),
         ),
-        icon: const Icon(Icons.navigate_before),
+        icon: const Icon(Icons.navigate_before, color: Color(0xFF21005D)),
         label: const Text(
           "Back",
           style: TextStyle(fontSize: 20, color: Color(0xFF21005D)),
         ),
       ),
+      const SizedBox(width: 26),
       ElevatedButton.icon(
         onPressed: () {
           // Navigator.push(
@@ -125,12 +150,9 @@ Widget _backbutton(BuildContext context, SignupController controller) {
           backgroundColor: const Color(0xFF21005D),
           shape: const StadiumBorder(),
           padding: const EdgeInsets.symmetric(vertical: 16),
-
-          // ...
-
-          minimumSize: const ui.Size(120, 50),
+          minimumSize: const ui.Size(140, 50),
         ),
-        label: const Icon(Icons.navigate_next),
+        label: const Icon(Icons.navigate_next, color: Colors.white),
         icon: const Text(
           "Next",
           style: TextStyle(fontSize: 20, color: Colors.white),

@@ -12,6 +12,7 @@ enum Selection { lecturer, student, none }
 
 class SignupController extends GetxController {
   final selectedSelection = Selection.none.obs;
+  RxInt currentStep=1.obs;
 
   void updateSelection(Selection selection) {
     selectedSelection.value = selection;
@@ -28,9 +29,22 @@ class SignupController extends GetxController {
 // }
 
   void goToSignup2() {
-    if (selectedSelection.value != Selection.none) {
-      Get.to(() => SignupViewTwo());
-    }
+    Navigator.of(Get.context!).push(PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => SignupViewTwo(), // Replace SignupViewTwo with your target screen class
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0); // Start from the right
+        const end = Offset.zero; // End at center
+        const curve = Curves.ease; // Define an easing curve
+
+        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        var offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
+    ));
   }
 
   String? selectionToString(Selection selection) {
@@ -104,9 +118,22 @@ class SignupController extends GetxController {
       return;
     }
 
-    // Validation passed, navigate to SignupViewThree
-    Get.to(() =>
-        SignupViewThree(firstName: firstNameValue, lastName: lastNameValue));
+    Navigator.of(Get.context!).push(PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => SignupViewThree(firstName: firstNameValue, lastName: lastNameValue), // Replace SignupViewTwo with your target screen class
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0); // Start from the right
+        const end = Offset.zero; // End at center
+        const curve = Curves.ease; // Define an easing curve
+
+        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        var offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
+    ));
   }
 
   final RxString username = RxString('');
