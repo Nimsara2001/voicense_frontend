@@ -155,7 +155,7 @@ bool checkModule(String str) {
       trashed_note_list.assignAll(trashedNotes);  // Assuming `trashedNoteList` is defined as an observable list
     } else {
       print('Failed to fetch trashed notes: ${response.statusCode}');
-      Get.snackbar('Error', 'Failed to fetch trashed notes', snackPosition: SnackPosition.BOTTOM);
+      // Get.snackbar('Error', 'Failed to fetch trashed notes', snackPosition: SnackPosition.BOTTOM);
     }
    }
   catch(e){
@@ -180,7 +180,7 @@ bool checkModule(String str) {
       }
     } else {
       print('Failed to fetch modules: ${response.statusCode}');
-      Get.snackbar('Error', 'Failed to fetch modules', snackPosition: SnackPosition.BOTTOM);
+      // Get.snackbar('Error', 'Failed to fetch modules', snackPosition: SnackPosition.BOTTOM);
     }
   }
   catch(e){
@@ -196,7 +196,7 @@ bool checkModule(String str) {
       recent_notes.assignAll(recentNotes);  // Assuming `recentNoteList` is defined as an observable list
     } else {
       print('Failed to fetch recent notes: ${response.statusCode}');
-      Get.snackbar('Error', 'Failed to fetch recent notes', snackPosition: SnackPosition.BOTTOM);
+      // Get.snackbar('Error', 'Failed to fetch recent notes', snackPosition: SnackPosition.BOTTOM);
     }
         }
     catch(e){
@@ -212,7 +212,7 @@ bool checkModule(String str) {
       trashed_module_list.assignAll(trashedModules);  // Assuming `trashedModuleList` is defined as an observable list
     } else {
       print('Failed to fetch trashed modules: ${response.statusCode}');
-      Get.snackbar('Error', 'Failed to fetch trashed modules', snackPosition: SnackPosition.BOTTOM);
+      // Get.snackbar('Error', 'Failed to fetch trashed modules', snackPosition: SnackPosition.BOTTOM);
     }
     }
     catch(e){
