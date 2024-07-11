@@ -10,6 +10,7 @@ class HomeView extends GetView<HomeController> {
   final LoginController _controllerfromLogin  = Get.find<LoginController>();
   @override
   Widget build(BuildContext context) {
+    final noteCount=_controllerfromLogin.recent_notes.length;
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(color: Colors.white),
@@ -20,14 +21,9 @@ class HomeView extends GetView<HomeController> {
             SearchBarTop(),
             topic(),
             Expanded(
-              child: Obx(() => ListView.builder(
-                padding: const EdgeInsets.only(top: 5, left: 5, right: 5),
-                itemCount: _controllerfromLogin.recent_notes.length,
-                itemBuilder: (context,index){
-                  return RecentNoteCardView(note: _controllerfromLogin.recent_notes[index]);
-                },
-              ),),
-            )
+                child: Image.asset('assets/no_data.png'),// Replace 'path/to/your/image.png' with the actual path to your image
+
+            ),
           ],
         ),
       ),

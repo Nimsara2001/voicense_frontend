@@ -12,33 +12,26 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     Get.put(LoginController());
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        body: Container(
-          margin: const EdgeInsets.all(24),
-          child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                const SizedBox(height: 30),
-                const Logo(),
-                const SizedBox(height: 100),
-                const InputForm(),
-                const SizedBox(height: 30),
-                forgetPassword(),
-                const SignUp(),
-              ],
-            ),
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Container(
+        margin: const EdgeInsets.all(24),
+        child: const SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 30),
+              Logo(),
+              SizedBox(height: 90),
+              InputForm(),
+              SizedBox(height: 25),
+              Text(
+                "Forgot Password ?",
+              ),
+              SignUp(),
+            ],
           ),
         ),
       ),
     );
   }
 }
-
-@override
-Widget forgetPassword() => TextButton(
-    onPressed: () {
-      Get.to(() => const ForgetPasswordView());
-    },
-    child: const Text("Forgot password?"));

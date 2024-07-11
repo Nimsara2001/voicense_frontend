@@ -25,8 +25,8 @@ class LoadingScreenView extends StatelessWidget {
                   fit: BoxFit.fill,
                 ),
                 // SizedBox(height: 10),
-                Text(
-                  'Your Note Is Being Generated..\n Please wait',
+                const Text(
+                  'Your Note is being Generated..\n Please wait',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,

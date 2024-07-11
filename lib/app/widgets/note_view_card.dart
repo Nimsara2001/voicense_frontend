@@ -6,6 +6,7 @@ import 'package:voicense_frontend/app/modules/lec_note/views/lec_note_view.dart'
 import 'package:voicense_frontend/app/modules/login/controllers/login_controller.dart';
 import 'package:voicense_frontend/app/util/base_client.dart';
 import 'package:voicense_frontend/app/widgets/popup_menu_btn.dart';
+
 class RecentNoteCardController extends GetxController{
   Note? note;
   String? userId;
@@ -64,6 +65,14 @@ class RecentNoteCardView extends GetView<RecentNoteCardController>{
         decoration: BoxDecoration(
           color: const Color.fromARGB(255, 231, 222, 252),
           borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 2,
+              blurRadius: 2,
+              offset: const Offset(0, 1), // changes position of shadow
+            ),
+          ],
         ),
         child: InkWell(
           onTap: () async {
@@ -87,8 +96,8 @@ class RecentNoteCardView extends GetView<RecentNoteCardController>{
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          note.createdDate.toString(),
-                          style: const TextStyle(fontSize: 10),
+                          note.createdDate.toString().split('.')[0],
+                          style: const TextStyle(fontSize: 13),
                         )
                       ],
                     ),
@@ -105,10 +114,10 @@ class RecentNoteCardView extends GetView<RecentNoteCardController>{
                     width: 300,
                     height:
                         60, // Adjusted height to accommodate the additional content
-                    child: Text(controllerNote._removeSymbols(note.content),
-                      maxLines: 3,
+                    child: Text(controllerNote._removeSymbols(note.description),
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style:const TextStyle(fontSize: 10),
+                      style:const TextStyle(fontSize: 12),
                     ),
                   ),
                 )

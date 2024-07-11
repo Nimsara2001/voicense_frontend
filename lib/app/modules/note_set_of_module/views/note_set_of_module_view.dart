@@ -16,6 +16,7 @@ class NoteSetOfModuleView extends GetView<NoteSetOfModuleController> {
   Widget build(BuildContext context) {
     // NoteSetOfModuleController _controller = Get.put()
     NoteSetOfModuleController _controller = Get.put(NoteSetOfModuleController(module!));
+    String title = module?.title.endsWith("_other") ?? false ? "Other Notes" : module?.title ?? "";
     return Scaffold(
       body:Container(
         decoration: const BoxDecoration(color: Colors.white),
@@ -24,7 +25,7 @@ class NoteSetOfModuleView extends GetView<NoteSetOfModuleController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
           SearchBarExplore(),
-          Topic(title: module!.title),
+          Topic(title:title),
            Expanded(
               child: Obx(() => ListView.builder(
                 padding: const EdgeInsets.only(top: 5, left: 5, right: 5),

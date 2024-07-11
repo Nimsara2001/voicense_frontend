@@ -7,26 +7,25 @@ class SignupViewFour extends GetView {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          margin: const EdgeInsets.all(24),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _check_circle_done(context),
-                const SizedBox(
-                  height: 10,
-                ),
-                _text_success(context),
-                const SizedBox(
-                  height: 170,
-                ),
-                _login(context),
-              ],
-            ),
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Container(
+        margin: const EdgeInsets.all(24),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _check_circle_done(context),
+              const SizedBox(
+                height: 10,
+              ),
+              _text_success(context),
+              const SizedBox(
+                height: 170,
+              ),
+              _login(context),
+            ],
           ),
         ),
       ),
@@ -36,15 +35,14 @@ class SignupViewFour extends GetView {
 
 // ignore: non_constant_identifier_names
 Widget _check_circle_done(BuildContext context) {
-  return const Column(
+  return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Icon(
-          Icons.check_circle_outline,
-          size: 150,
-          color: Color.fromARGB(255, 34, 12, 134),
-        ),
+        Image.asset(
+          "assets/done.png",
+          height: 250,
+        )
       ]);
 }
 

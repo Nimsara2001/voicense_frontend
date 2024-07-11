@@ -33,7 +33,7 @@ class InputForm extends StatelessWidget {
               return loginController.validateUsername(value!);
             },
           ),
-          const SizedBox(height: 25),
+          const SizedBox(height: 35),
           TextFormField(
             keyboardType: TextInputType.visiblePassword,
             decoration: const InputDecoration(

@@ -13,19 +13,19 @@ class TrashedItemsView extends GetView<TrashedItemsController> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.purpleAccent,
+          backgroundColor: Color("#cdbefa".hashCode),
           title: Text('Trashed Bin'),
           centerTitle: true,
         ),
         body:  Column(children: [TabBar(tabs: [
            Tab(
           icon:  Icon(Icons.document_scanner,
-          color: Colors.blueAccent,),
+          color: Colors.indigoAccent),
           text: "Notes",),
 
           Tab(
             icon: Icon(Icons.folder,
-            color: Colors.blueAccent,),
+            color: Colors.indigoAccent),
             text: "Modules",)
             ]),
             Expanded(
